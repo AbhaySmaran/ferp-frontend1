@@ -32,6 +32,7 @@ $(document).ready(function(){
 				}
 				$('#user-dp').attr('src', imageUrl);
 				$('#user-name').text(response.first_name);
+				localStorage.setItem("user",response.first_name);
 			},
 			error: function() {
 				alert('Failed to load user data');

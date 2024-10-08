@@ -2,7 +2,7 @@
       <div class="mdc-drawer__header">
 		  <div class="text-center">
 			<a href="#" class="brand-logo">
-			  <img src="./assets/images/default/main-d.png" alt="logo">
+			  <img src="./assets/images/default/FORANTS-2.png" alt="logo">
 			</a>
 		  </div>
       </div>
@@ -15,62 +15,66 @@
                 Dashboard
               </a>
             </div>
-            <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
-                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
-                Configurations
-                <i class="mdc-drawer-arrow material-icons">chevron_right</i>
-              </a>
-              <div class="mdc-expansion-panel" id="ui-sub-menu">
-                <nav class="mdc-list mdc-drawer-submenu">
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="registration.php">
-                      Add User
-                    </a>
-                  </div>
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="addbulkusers.php">
-                      Add Bulk User
-                    </a>
-                  </div>
-				  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="useroperations.php">
-                      User Operations
-                    </a>
-                  </div>
-				  
-				  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="addbulkstudents.php">
-                      Add Bulk Student
-                    </a>
-                  </div>
-                </nav>
-              </div>
-            </div>
 			<div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="#">
-      
-				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">school</i>
-                Academics 
-              </a>
-            </div>
+			  <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="configurations-sub-menu">
+				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+				Configurations
+				<i class="mdc-drawer-arrow material-icons">chevron_right</i>
+			  </a>
+			  <div class="mdc-expansion-panel" id="configurations-sub-menu">
+				<nav class="mdc-list mdc-drawer-submenu">
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="registration.php">
+					  Add User
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="addbulkusers.php">
+					  Add Bulk User
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="useroperations.php">
+					  User Operations
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="addbulkstudents.php">
+					  Add Bulk Student
+					</a>
+				  </div>
+				</nav>
+			  </div>
+			</div>
+
+			<!-- Second Dropdown: Students -->
 			<div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
-				<!--<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">school</i>-->
+			  <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="students-sub-menu">
 				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">people</i>
-                Students
-                <i class="mdc-drawer-arrow material-icons">chevron_right</i>
-              </a>
-              <div class="mdc-expansion-panel" id="ui-sub-menu">
-                <nav class="mdc-list mdc-drawer-submenu">
-                  <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="#">
-                      Student operations
-                    </a>
-                  </div>
-                </nav>
-              </div>
-            </div>
+				Students
+				<i class="mdc-drawer-arrow material-icons">chevron_right</i>
+			  </a>
+			  <div class="mdc-expansion-panel" id="students-sub-menu">
+				<nav class="mdc-list mdc-drawer-submenu">
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="studentoperations.php">
+					  Student operations
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="attendance.php">
+					  Attendance
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Time Table
+					</a>
+				  </div>
+				</nav>
+			  </div>
+			</div>
+            
 			<div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-drawer-link" href="#">
 				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">person</i>

@@ -390,5 +390,5 @@
   <!-- Custom js for this page-->
   <script src="./assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-</body>\
+</body>
 </html> 

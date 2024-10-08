@@ -61,9 +61,9 @@
 					$('#data-table tbody').append(`
 						<tr id="row-${item.user_id}">
 							<td class="text-left">${item.user_id}</td>
-							<td>${item.first_name}</td>
-							<td>${item.email}</td>
-							<td>${item.role.role}</td>
+							<td class='text-left'>${item.first_name}</td>
+							<td class='text-left'>${item.email}</td>
+							<td class='text-left'>${item.role.role}</td>
 						</tr>
 					`);
 				} else {
@@ -101,17 +101,40 @@
                 formData.append('file', $('#file')[0].files[0]);
 
                 $.ajax({
-                    url: `${baseUrl}/students/upload-csv/`,
+                    url: `${baseUrl}/api/uplodCSV/`,
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response){
-                        alert(response.message);
-                    },
-                    error: function(){
-                        alert('Error uploading file');
-                    }
+                    success: function(response) {
+						// Check if there are any failed records
+						if (response.errors && response.errors.length > 0) {
+							/*let errorMessage = "Some records failed validation:\n";
+							
+							// Loop through the failed records and append the errors to the error message
+							response.failed_records.forEach(function(failedRecord) {
+								errorMessage += `Row ${failedRecord.row_number}: \n`;
+
+								Object.keys(failedRecord.errors).forEach(function(field) {
+									errorMessage += `${field}: ${failedRecord.errors[field].join(', ')}\n`;
+								});
+
+								errorMessage += "\n";
+							});
+
+							// Show the error message as an alert
+							alert(errorMessage);*/
+							alert(response.errors)
+
+						} else {
+							// Show success message if no errors
+							alert(response.success);
+						}
+					},
+					error: function() {
+						alert('Error uploading file');
+						console.log(error);
+					}
                 });
             });
         });
@@ -162,9 +185,9 @@
 						<thead class = "thead">
 							<tr>
 								<th class='text-left'>User Id</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>role</th>
+									<th class='text-left'>Name</th>
+									<th class='text-left'>Email</th>
+									<th class='text-left'>role</th>
 								</tr>
 						</thead>
 						<tbody>
@@ -185,7 +208,7 @@
       </div>
     </div>
   </div>
-	<script>
+	<!--<script>
 		
 		$(document).ready(function () {
 			$('#upload-csv').click(function () {
@@ -225,7 +248,7 @@
 		});
 		
 
-	</script>
+	</script>-->
   <!-- plugins:js -->
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -246,5 +269,5 @@
   <!-- Custom js for this page-->
   <script src="./assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-</body>\
+</body>
 </html> 

@@ -22899,13 +22899,23 @@ address p {
 /* Sidebar */
 .mdc-drawer {
   background: linear-gradient(#2a1c5a, #4b3a6e);
-  background: url(../../images/sidebar/sidebar-bg.jpg);
+  background-color: ligh;
   position: fixed;
 }
+ /* background: url(../../images/sidebar/sidebar-bg.jpg);*/
 
 .mdc-drawer--open, .mdc-drawer__drawer {
   width: 243px;
 }
+
+.mdc-drawer {
+    background: #bebbc9 !important;
+    background-color: ligh;
+    position: fixed;
+}
+
+
+
 
 .mdc-drawer .mdc-drawer__header {
   padding: 0;
@@ -22967,7 +22977,7 @@ address p {
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
-  color: #fff;
+  color: #161414 !important;
 }
 
 .mdc-drawer .mdc-drawer__content .mdc-drawer-menu .mdc-drawer-item .mdc-expansion-panel-link i,
@@ -23230,9 +23240,22 @@ footer .vertical-divider {
     white-space: nowrap;
 }
 
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    bottom: 7rem !important;
+}
+
 /*.profile-dp {
     width: 100px;
     height: 100px;
     object-fit: cover;
     border: 2px solid #ccc;
 }*/
+
+
+#checkbox_p {
+    margin-left: 10px;
+    margin-bottom: 1rem;
+}
