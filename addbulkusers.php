@@ -157,7 +157,7 @@
 							<p><b>Upload User CSV</b></p>
 							<form id="csvForm" enctype="multipart/form-data">
 								<input type="file" name="file" id="file" accept=".csv">
-								<button type="submit">Upload</button>
+								<button class="btn btn-light" type="submit">Upload</button>
 							</form>
 						</div>
 						<!--</div>

@@ -43,6 +43,16 @@
 					  Add Bulk Student
 					</a>
 				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Add Department
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="facultyonboard.php">
+					  Faculty Onboarding
+					</a>
+				  </div>
 				</nav>
 			  </div>
 			</div>
@@ -66,11 +76,7 @@
 					  Attendance
 					</a>
 				  </div>
-				  <div class="mdc-list-item mdc-drawer-item">
-					<a class="mdc-drawer-link" href="#">
-					  Time Table
-					</a>
-				  </div>
+				  
 				</nav>
 			  </div>
 			</div>
@@ -82,10 +88,54 @@
               </a>
             </div>
 			<div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="#">
+              <a class="mdc-drawer-link" href="#" data-toggle="expansionPanel" data-target="academic-sub-menu">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">school</i>
+				Academics
+				<i class="mdc-drawer-arrow material-icons">chevron_right</i>
+              </a>
+			  
+			  <div class="mdc-expansion-panel" id="academic-sub-menu">
+				<nav class="mdc-list mdc-drawer-submenu">
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Time Table
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="subjectassignment.php">
+					  Subject Assignment
+					</a>
+				  </div>
+				  
+				</nav>
+			  </div>
+			  
+            </div>
+			<div class="mdc-list-item mdc-drawer-item">
+              <a class="mdc-drawer-link" href="#" data-toggle="expansionPanel" data-target="exam-sub-menu">
 				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">assignment</i>
                 Examination
+				<i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
+			  <div class="mdc-expansion-panel" id="exam-sub-menu">
+				<nav class="mdc-list mdc-drawer-submenu">
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Exam Operation
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Exam Report
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="#">
+					  Analytics
+					</a>
+				  </div>
+				</nav>
+			  </div>
             </div>
 			<div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-drawer-link" href="#">

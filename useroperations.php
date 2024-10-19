@@ -61,9 +61,9 @@
 							<thead class = "thead">
 								<tr>
 									<th class='text-left'>User Id</th>
-										<th>Name</th>
-										<th>Email</th>
-										<th>Actions</th>
+										<th class="text-left">Name</th>
+										<th class="text-left">Email</th>
+										<th class="text-center">Actions</th>
 									</tr>
 							</thead>
 							<tbody>
@@ -116,10 +116,10 @@
 											<thead>
 												<tr>
 													<th class="text-left">User Id</th>
-													<th>Department</th>
+													<th >Department</th>
 													<th>DOB</th>
-													<th>Name</th>
 													
+													<th class="text-right">Phone</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -132,7 +132,8 @@
 											</tbody>
 											<thead>
 												<tr>
-													<th class="text-left">Phone</th>
+													
+													<th>Name</th>
 													<th>Email</th>
 													<th>Staff-Category</th>
 													<th>Age</th>
@@ -180,14 +181,14 @@
 							  <div class="dp-container">
 							  <div class="row">
 							  <div class="col-md-6">
-								<img src="" alt="Profile Picture" class="profile-dp" id="editUserDpImage">
+								<img src="" alt="Profile Picture" class="profile-dp" id="editUserDpImage" >
 							  </div>
 								<!--<button></button>-->
 								<br />
 							  <div class="col-md-6">
 								<div class="row">
 									<div class='col-md-3'><label for="editUserDp">Change DP:</label></div>
-									<div class='col-md-9'><input type="file" class="form-control" id="editUserDpInput" name="dp_image"></div>
+									<div class='col-md-9'><input type="file" class="form-control" id="editUserDpInput" name="dp_image" accept="image/*"></div>
 
 								</div>
 							  </div>	
@@ -240,7 +241,7 @@
 												class = "form-control"
 												name="dept"
 											>
-												<option value="">Select</option>
+												<option id="editUserDept"></option>
 												<option value="2">Student</option>
 												<option value="3">Faculty</option>
 												<option value="4">Management</option>
@@ -270,7 +271,7 @@
 													class= "form-control"
 													id = "editUserStCat"
 												  >
-													<option value="">Select</option>
+													<option id = "editUserStCat"></option>
 													<option value="2">Student</option>
 													<option value="3">Faculty Member</option>
 													<option value="4">Principal</option>
@@ -289,9 +290,9 @@
 													type="text"
 													name="role"
 													class= "form-control"	
-													id = "role"
+													id = "editUserRole"
 												  >
-													<option value="">Select</option>
+													<option id="editUserRole"></option>
 													<option value="2">Student</option>
 													<option value="3">Faculty</option>
 													<option value="4">Management</option>
@@ -377,9 +378,9 @@
 					$('#data-table tbody').append(`
 						<tr id="row-${item.user_id}">
 							<td class="text-left">${item.user_id}</td>
-							<td>${item.first_name}</td>
-							<td>${item.email}</td>
-							<td>
+							<td class="text-left">${item.first_name}</td>
+							<td class="text-left">${item.email}</td>
+							<td class="text-center">
 								<button class='btn btn-light btn-view-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
 									<i class="fa-solid fa-eye"></i> View
 								</button>
@@ -474,8 +475,9 @@
 					$('#editUserPhone').val(user.phone);
 					$('#editUserAge').val(user.age);
 					$('#editUserDOB').val(user.dob);
-					$('#editUserStCat').val(user.st_cat);
-					$('#editUserDept').val(user.dept);
+					$('#editUserStCat').val(user.st_cat.st_cat_name);
+					$('#editUserDept').val(user.dept.dept_name);
+					$('#editUserRole').val(user.role.role);
 
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
@@ -497,6 +499,9 @@
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
 			formData.append('dob', $('#editUserDOB').val());
+			formData.append('st_cat', $('#editUserStCat').val());
+			formData.append('role', $('#editUserRole').val());
+			formData.append('dept', $('#editUserDept').val());
 			
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
@@ -507,7 +512,7 @@
 
 			// Perform the AJAX request
 			$.ajax({
-				url: `${baseUrl}/api/users/${userId}/`, // Use `id` here for endpoint
+				url: `${baseUrl}/api/update/users/${userId}/`, // Use `id` here for endpoint
 				type: 'PUT',
 				data: formData,
 				processData: false, // Required for FormData
@@ -567,11 +572,11 @@
 			if (confirm('Are you sure you want to reset this user\'s password?')) {
 				// Reset the password via AJAX
 				$.ajax({
-					url: `${baseUrl}/api/users/${userId}/`,
+					url: `${baseUrl}/api/update/users/${userId}/`,
 					type: 'PUT',
 					data: { reset_password: true },
 					success: function(response) {
-						alert('Password reset successfully.');
+						alert('Password reset successfully to DD-MM-YY format of current date.');
 					},
 					error: function(err) {
 						console.log('Error resetting password:', err);

@@ -354,8 +354,11 @@
                 <div class="mdc-card info-card info-card--success">
                   <div class="card-inner">
                     <h5 class="card-title">No. of Students</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$62,0076.00</h5>
-                    <p class="tx-12 text-muted">48% target reached</p>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom"><span id="total_students"></span></h5>
+                    <p class="tx-12 text-muted">
+						<p>Boys: <span id = 'male_students'></span></p>
+						<p>Girls: <span id = 'female_students'></span></p>
+					</p>
                     <div class="card-icon-wrapper">
                       <i class="material-icons">dvr</i>
                     </div>
@@ -366,10 +369,10 @@
                 <div class="mdc-card info-card info-card--danger">
                   <div class="card-inner">
                     <h5 class="card-title">No. of Faculty Members</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,958,104.00</h5>
-                    <p class="tx-12 text-muted">55% target reached</p>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom"><span id="total_faculty"></span></h5>
+                    
                     <div class="card-icon-wrapper">
-                      <i class="material-icons">attach_money</i>
+                      <i class="material-icons">person</i>
                     </div>
                   </div>
                 </div>
@@ -378,10 +381,13 @@
                 <div class="mdc-card info-card info-card--primary">
                   <div class="card-inner">
                     <h5 class="card-title">Students At Hostel</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$234,769.00</h5>
-                    <p class="tx-12 text-muted">87% target reached</p>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom"><span id="total_students_in_hostel"></span></h5>
+                    <p class="tx-12 text-muted">
+						<p>Hostel 1: <span id = 'hostel1_students'></span></p>
+						<p>Hostel 2: <span id = 'hostel2_students'></span></p>
+					</p>
                     <div class="card-icon-wrapper">
-                      <i class="material-icons">trending_up</i>
+                      <i class="material-icons">home</i>
                     </div>
                   </div>
                 </div>
@@ -389,9 +395,9 @@
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                 <div class="mdc-card info-card info-card--info">
                   <div class="card-inner">
-                    <h5 class="card-title">Exam Vs Week</h5>
-                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">$1,200.00</h5>
-                    <p class="tx-12 text-muted">87% target reached</p>
+                    <h5 class="card-title">Upcoming Exam</h5>
+                    <h5 class="font-weight-light pb-2 mb-1 border-bottom">TBU</h5>
+                   
                     <div class="card-icon-wrapper">
                       <i class="material-icons">credit_card</i>
                     </div>
@@ -401,29 +407,7 @@
 			  </div>
               <!--<div class="page-wrapper mdc-toolbar-fixed-adjust">
 			  <main class="content-wrapper">--!>
-				  <div class="mdc-layout-grid">
-					<div class="mdc-layout-grid__inner">
-					  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-						<div class="mdc-card p-0">
-						  <p class="card-title card-padding pb-0"><b>User Information</b></p>
-						   <div class="table-responsive">
-							<table id="data-table" class="table">
-								<thead class = "thead">
-									<tr>
-										<th class='text-left'>User Id</th>
-										<th class="text-left">Name</th>
-										<th class="text-left">Email</th>
-										<th class="text-left">role</th>
-									</tr>
-								</thead>
-								<tbody>
-								
-								</tbody>
-							</table>
-							<button class="btn btn-primary" id="load-more">Load Data</button>
-						</div>
-					</div>
-					</div>
+				  <p>TBU<p>
 				<!--</div>
 				</main>-->
 			  </div>
@@ -466,5 +450,34 @@
   <!-- Custom js for this page-->
   <script src="./assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script type="text/javascript">
+        $(document).ready(function() {
+            // Send an AJAX request to the statistics API
+			
+			const baseUrl = localStorage.getItem("url");
+			const access = localStorage.getItem("access_token");
+
+		
+			
+            $.ajax({
+                url: `${baseUrl}/api/statistics/`,  
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    
+                    $('#total_students').text(data.total_students);
+                    $('#total_faculty').text(data.total_faculty);
+                    $('#total_students_in_hostel').text(data.total_students_in_hostel);
+					$('#male_students').text(data.male_students);
+					$('#female_students').text(data.female_students);
+					$('#hostel1_students').text(data.hostel1_students);
+					$('#hostel2_students').text(data.hostel2_students);
+                },
+                error: function(error) {
+                    console.log('Error fetching statistics:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html> 

@@ -64,20 +64,28 @@
 									<th class='text-left'>User Id</th>
 										<th class="text-left">Name</th>
 										<th class="text-left">Email</th>
-										<th>Actions</th>
+										<th class="text-center">Actions</th>
 									</tr>
 							</thead>
 							<tbody>
 									
 							</tbody>
 						</table>
-						<button class="btn btn-primary" id="load-more">Load Data</button>
+						
+						
+						<!--<button class="btn btn-primary" id="load-more">Load Data</button>-->
 					  </div>
 					</div>
 				  </div>
 				</div>
 			</div>
-			
+			<div class="text-center">
+				<nav>
+					<ul class="pagination justify-content-center" id="pagination">
+						<!-- Pagination Items Go Here -->
+					</ul>
+				</nav>
+			</div>
 			
           
         </main>
@@ -119,7 +127,7 @@
 													<th class="text-left">User Id</th>
 													<th class="text-left">Name</th>
 													<th class="text-right">DOB</th>
-													<th class="text-right">Roll No</th>
+													<th class="text-right">Batch</th>
 													
 												</tr>
 											</thead>
@@ -128,7 +136,7 @@
 												<td id="viewUserName" class="text-left"></td>
 										
 												<td id="viewUserDOB" class="text-right"></td>
-												<td id="viewUserRollNo" class="text-right"></td>
+												<td id="viewUserBatch" class="text-right"></td>
 												
 												
 											</tbody>
@@ -138,24 +146,22 @@
 													<th class="text-left">Email</th>
 													
 													<th class="text-right">Age</th>
-													
-													<th class="text-right">Batch</th>
+													<th class="text-right">Total Marks</th>
 												</tr>
 											</thead>
 											<tbody>
 												<td id="viewUserPhone" class="text-left"></td>
 												<td id="viewUserEmail" class="text-left"></td>
 												<td id="viewUserAge" class="text-right"></td>
-												<td id="viewUserBatch" class="text-right"></td>
+												<td id="viewUserTotalMark" class="text-right"></td>
 											</tbody>
 											<thead>
 												<tr>
-													<th class="text-left">Institute</th>
+													<th class="text-left">institute_name</th>
 													
 													<th class="text-left">Board</th>
 													<th class="text-right">Year Of Passing</th>
-													<th class="text-right">Total Marks</th>
-													
+													<th class="text-right">Secured Marks</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -163,7 +169,7 @@
 												<td id="viewInstitute" class="text-left"></td>
 												<td id="viewUserBoard" class="text-left"></td>
 												<td id="viewUserPassingYear" class="text-right"></td>
-												<td id="viewUserTotalMarkMark" class="text-right"></td>
+												<td id="viewUserMark" class="text-right"></td>
 											</tbody>
 											<thead>
 												<tr>
@@ -171,8 +177,7 @@
 													
 													<th class="text-left">Hostel</th>
 													<th >Status</th>
-													<th class="text-right">Secured Marks</th>
-													
+													<th >CGPA</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -180,7 +185,7 @@
 												<td id="viewCollege" class="text-left"></td>
 												<td id="viewUserHostel" class="text-left"></td>
 												<td id="viewUserStatus"></td>
-												<td id="viewUserMark" ></td>
+												<td id="viewUserCGPA" ></td>
 											</tbody>
 											<thead>
 												<tr>
@@ -188,8 +193,7 @@
 													
 													<th class="text-left">Religion</th>
 													<th class="text-right">Blood Group</th>
-													<th >CGPA / Percentage</th>
-													
+													<th></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -197,7 +201,7 @@
 												<td id="viewUserCaste" class="text-left"></td>
 												<td id="viewUserReligion" class="text-left"></td>
 												<td id="viewUserBloodGroup"></td>
-												<td id="viewUserCGPA"></td>
+												<td></td>
 											</tbody>
 											
 										</table>
@@ -221,7 +225,7 @@
 
 					<!-- Edit User Modal -->
 					<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+					  <div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 						  <div class="modal-header">
 							<h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
@@ -246,7 +250,7 @@
 							  <div class="col-md-6">
 								<div class="row">
 									<div class='col-md-3'><label for="editUserDp">Change DP:</label></div>
-									<div class='col-md-9'><input type="file" class="form-control" id="editUserDpInput" name="dp_image" accept="image/*"></div>
+									<div class='col-md-9'><input type="file" class="form-control" id="editUserDpInput" name="dp_image"></div>
 
 								</div>
 							  </div>	
@@ -263,7 +267,7 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserDOB">DOB:</label></div>
+										<div class="col-md-3"><label for="editUserPhone">DOB:</label></div>
 										<div class="col-md-9"><input type="date" class="form-control" id="editUserDOB" name="dob"></div>
 									  </div>
 									</div>
@@ -295,14 +299,14 @@
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserCollege">College:</label></div>
+										<div class="col-md-3"><label for="editUserCollege">College</label></div>
 										<div class="col-md-9"><input type="text" class="form-control" id="editUserCollege" name="college"></div>
 									  </div>
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
 										<div class="col-md-3"><label for="editUserPhone">Phone:</label></div>
-										<div class="col-md-9"><input type="number" class="form-control" id="editUserPhone" name="phone"></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserPhone" name="phone"></div>
 									  </div>
 									</div>
 								</div>
@@ -312,14 +316,31 @@
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserBatch">Batch:</label></div>
+										<div class="col-md-3"><label for="editUserBatch">Batch</label></div>
 										<div class="col-md-9"><input type="text" class="form-control" id="editUserBatch" name="batch"></div>
 									  </div>
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserInstitite">Institute:</label></div>
+										<div class="col-md-3"><label for="editUserPhone">Institute</label></div>
 										<div class="col-md-9"><input type="text" class="form-control" id="editUserInstitute" name="institute"></div>
+									  </div>
+									</div>
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserPhone">Total Marks</label></div>
+										<div class="col-md-9"><input type="number" class="form-control" id="editUserTotalMark" name="total_marks"></div>
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserMark">Mark Secured</label></div>
+										<div class="col-md-9"><input type="number" class="form-control" id="editUserMark" name="marks_secured"></div>
 									  </div>
 									</div>
 								</div>
@@ -335,37 +356,8 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserMark">Mark Secured:</label></div>
-										<div class="col-md-9"><input type="number" class="form-control" id="editUserMark" name="marks_secured"></div>
-									  </div>
-									</div>
-								</div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="row">								
-									<div class="col-md-6">
-									  <div class="row">
 										<div class="col-md-3"><label for="editUserBloodGroup">Blood Group:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserBloodGroup" name="blood_group"></div>
-									  </div>
-									</div>
-									<div class="col-md-6">
-									  <div class="row">
-										<div class = "col-md-3"><label for="editUserCGPA">Status:</label></div>
-										<div class="col-md-9">
-											
-											<select
-												type="text"
-												id = "editUserStatus"
-												class = "form-control"
-												name = "status"
-											>
-												<option id="editUserStatus"></option>
-												<option value = "Active">Active</option>
-												<option value = "Inactive">Inactive</option>
-											</select>
-										</div>										
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserBlodGroup" name="blood_group"></div>
 									  </div>
 									</div>
 								</div>
@@ -408,6 +400,88 @@
   <script src="./assets/js/misc.js"></script>
   <script src="./static/main.js"></script>
   <script src="./static/auth.js"></script>
+  
+<script>
+	$(document).ready(function() {
+		console.log('Document is ready.');
+
+		const baseUrl = localStorage.getItem("url");
+		const access = localStorage.getItem("access_token");
+		const limit = 5;  // Number of items per page
+		let allUsers = []; 
+		let currentPage = 1; // Track the current page
+
+		// Fetch all users
+		$.ajax({
+			url: `${baseUrl}/student/students/list/`,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data; 
+				displayTableData();
+				setupPagination(); // Call pagination after fetching data
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+
+		// Function to display the table data
+		function displayTableData() {
+			let start = (currentPage - 1) * limit;
+			let end = start + limit;
+			let paginatedData = allUsers.slice(start, end);
+
+			const tableBody = $('#data-table tbody');
+			tableBody.empty(); // Clear the table before adding new data
+
+			paginatedData.forEach(item => {
+				tableBody.append(`
+					<tr id="row-${item.student_id}">
+						<td class="text-left">${item.user.user_id}</td>
+						<td class="text-left">${item.first_name}</td>
+						<td class="text-left">${item.email}</td>
+						<td class="text-center">
+							<button class='btn btn-light btn-view-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
+								<i class="fa-solid fa-eye"></i> View
+							</button>
+							<button class='btn btn-light btn-edit-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<i class="fa-solid fa-pen-to-square"></i> Edit
+							</button>
+							<button class='btn btn-light btn-reset-password' style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-id="${item.student_id}">
+								<i class="fa-solid fa-key"></i> Reset Password
+							</button>
+						</td>
+					</tr>
+				`);
+			});
+		}
+
+		// Function to handle pagination setup
+		function setupPagination() {
+			const totalPages = Math.ceil(allUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			for (let i = 1; i <= totalPages; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				currentPage = parseInt($(this).attr('data-page'));
+				displayTableData();
+				setupPagination(); // Update pagination active state
+			});
+		}
+	});
+
+</script>
 <script>
 	$(document).ready(function() {
 		console.log('Document is ready.'); // Debug log for document ready
@@ -513,13 +587,13 @@
 					$('#viewUserId').text(user.user.user_id);
 					$('#viewUserName').text(full_name);
 					$('#viewUserEmail').text(user.email);
-					$('#viewUserPhone').text(user.user.phone);
+					
 					$('#viewUserAge').text(user.user.age);
 					$('#viewUserDOB').text(user.dob);
-					$('#viewUserRollNo').text(user.roll_number);
+					
 					$('#viewInstitute').text(user.institute_name);
 					$('#viewUserPassingYear').text(user.year_passing);
-					$('#viewUserBoard').text(user.board);
+					$('#viewUserBoard').text(user.board)
 					
 					$('#viewUserBatch').text(user.batch);
 					
@@ -550,7 +624,7 @@
 				type: 'GET',
 				success: function(user) {
 					let imageUrl;
-					if(user.user.dp_image != null) {
+					if(user.dp_image != null) {
 						imageUrl = `${baseUrl}${user.user.dp_image}`;
 					} else {
 						imageUrl = "./assets/images/default/default1.jpg";
@@ -561,7 +635,7 @@
 					$('#editUserName').val(user.first_name);
 					$('#editUserEmail').val(user.email);
 					$('#editUserPhone').val(user.user.phone);
-					$('#editUserAge').val(user.user.age);
+					$('#editUserAge').val(user.age);
 					$('#editUserDOB').val(user.dob);
 					
 					$('#editInstitute').val(user.institute_name);
@@ -576,9 +650,9 @@
 					$('#editUserMark').val(user.marks_secured);
 					$('#editUserStatus').val(user.status);
 					$('#editUserCGPA').val(user.cgpa_or_percentage);
-					
+					$('#editUserTotalMark').val(user.total_marks);
 					$('#editUserInstitute').val(user.institute_name);
-					$('#editUserBloodGroup').val(user.blood_group);
+					$('#editUserBlodGroup').val(user.blood_group);
 
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
@@ -600,12 +674,11 @@
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
 			formData.append('dob', $('#editUserDOB').val());
-			//formData.append('board',$('#editUserBoard').val());
+			formData.append('board',$('#editUserBoard').val());
 			formData.append('institute_name',$('#editUserInstitute').val());
 			formData.append('college',$('#editUserCollege').val());
 			formData.append('marks_secured',$('#editUserMark').val());
-			formData.append('status', $('#editUserStatus').val());
-			formData.append('blood_group', $('#editUserBloodGroup').val());
+			formData.append('total_marks',$('#editUserTotalMark').val());
 			formData.append('cgpa_or_percentage',$('#editUserCGPA').val());
 			
 			// Check if the file input exists and if a file has been selected
@@ -654,7 +727,7 @@
 					type: 'PUT',
 					data: { reset_password: true },
 					success: function(response) {
-						alert('Password reset successfully to DD-MM-YY format of current date.');
+						alert('Password reset successfully.');
 					},
 					error: function(err) {
 						console.log('Error resetting password:', err);

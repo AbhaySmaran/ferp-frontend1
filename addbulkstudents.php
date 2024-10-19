@@ -214,7 +214,7 @@
 						if (response.failed_records && response.failed_records.length > 0) {
 							let errorMessage = "Some records failed validation:\n";
 							
-							// Loop through the failed records and append the errors to the error message
+							// Loop through the failed records and append the errors to the error messag
 							response.failed_records.forEach(function(failedRecord) {
 								errorMessage += `Row ${failedRecord.row_number}: \n`;
 

@@ -51,12 +51,11 @@
                 <div class="mdc-notched-outline__trailing"></div>
               </div>
             </div>
-            
 			<div class="mdc-layout-grid">
 				<div class="mdc-layout-grid__inner">
 				  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
 					<div class="mdc-card p-0">
-					  <p class="card-title card-padding pb-0"><b>Student Information </b></p>
+					  <p class="card-title card-padding pb-0"><b>Faculty Information </b></p>
 					  <div class="table-responsive">
 						<table id="data-table" class="table">
 							<thead class = "thead">
@@ -64,7 +63,7 @@
 									<th class='text-left'>User Id</th>
 										<th class="text-left">Name</th>
 										<th class="text-left">Email</th>
-										<th>Actions</th>
+										<th class="text-center">Actions</th>
 									</tr>
 							</thead>
 							<tbody>
@@ -93,7 +92,7 @@
 					  <div class="modal-dialog modal-lg" role="document" >
 						<div class="modal-content">
 						  <div class="modal-header">
-							<p class="modal-title" id="viewUserModalLabel"><b>Student Information</b></p>
+							<p class="modal-title" id="viewUserModalLabel"><b>User Information</b></p>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
@@ -102,110 +101,53 @@
 							<!-- Display User Details -->
 							<div class='row'>
 								
-								<div class='col-md-2'>
+								<div class='col-md-3'>
 									<div>
 										<img src="" alt="Profile Picture" class="profile-dp" id="viewUserDp">
 										<br/>
 										<!--<p><strong>User ID:</strong> <span id="viewUserId"></span></p>-->
-										<div class="mt-2"><p><strong></strong> <span id="viewUserRole"></span></p></div>
+										<div class="mt-2"><p><strong>Role:</strong> <span id="viewUserRole"></span></p></div>
 										<!--<p><strong>Name:</strong> <span id="viewUserName"></span></p>-->
 									</div>
 								</div>
-								<div class='col-md-10'>
+								<div class='col-md-9'>
 									<div>
 										<table class="table table-striped">
 											<thead>
 												<tr>
 													<th class="text-left">User Id</th>
-													<th class="text-left">Name</th>
-													<th class="text-right">DOB</th>
-													<th class="text-right">Roll No</th>
+													<th >Department</th>
+													<th>DOB</th>
 													
+													<th class="text-right">Phone</th>
 												</tr>
 											</thead>
 											<tbody>
 												<td id="viewUserId" class="text-left"></td>
-												<td id="viewUserName" class="text-left"></td>
-										
-												<td id="viewUserDOB" class="text-right"></td>
-												<td id="viewUserRollNo" class="text-right"></td>
+												<td id="viewUserDept"></td>
+												<td id="viewUserDOB"></td>
+												<td id="viewUserName"></td>
 												
 												
 											</tbody>
 											<thead>
 												<tr>
-													<th class="text-left">Phone</th>
-													<th class="text-left">Email</th>
 													
-													<th class="text-right">Age</th>
-													
-													<th class="text-right">Batch</th>
+													<th class="text-left">Name</th>
+													<th>Email</th>
+													<th>Staff-Category</th>
+													<th>Age</th>
 												</tr>
 											</thead>
 											<tbody>
 												<td id="viewUserPhone" class="text-left"></td>
-												<td id="viewUserEmail" class="text-left"></td>
-												<td id="viewUserAge" class="text-right"></td>
-												<td id="viewUserBatch" class="text-right"></td>
-											</tbody>
-											<thead>
-												<tr>
-													<th class="text-left">Institute</th>
-													
-													<th class="text-left">Board</th>
-													<th class="text-right">Year Of Passing</th>
-													<th class="text-right">Total Marks</th>
-													
-												</tr>
-											</thead>
-											<tbody>
-												
-												<td id="viewInstitute" class="text-left"></td>
-												<td id="viewUserBoard" class="text-left"></td>
-												<td id="viewUserPassingYear" class="text-right"></td>
-												<td id="viewUserTotalMarkMark" class="text-right"></td>
-											</tbody>
-											<thead>
-												<tr>
-													<th class="text-left">College</th>
-													
-													<th class="text-left">Hostel</th>
-													<th >Status</th>
-													<th class="text-right">Secured Marks</th>
-													
-												</tr>
-											</thead>
-											<tbody>
-												
-												<td id="viewCollege" class="text-left"></td>
-												<td id="viewUserHostel" class="text-left"></td>
-												<td id="viewUserStatus"></td>
-												<td id="viewUserMark" ></td>
-											</tbody>
-											<thead>
-												<tr>
-													<th class="text-left">Caste</th>
-													
-													<th class="text-left">Religion</th>
-													<th class="text-right">Blood Group</th>
-													<th >CGPA / Percentage</th>
-													
-												</tr>
-											</thead>
-											<tbody>
-												
-												<td id="viewUserCaste" class="text-left"></td>
-												<td id="viewUserReligion" class="text-left"></td>
-												<td id="viewUserBloodGroup"></td>
-												<td id="viewUserCGPA"></td>
+												<td id="viewUserEmail"></td>
+												<td id="viewUserStCat"></td>
+												<td id="viewUserAge"></td>
 											</tbody>
 											
 										</table>
-									<!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+										
 									</div>
 									
 								</div>
@@ -221,7 +163,7 @@
 
 					<!-- Edit User Modal -->
 					<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+					  <div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 						  <div class="modal-header">
 							<h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
@@ -239,7 +181,7 @@
 							  <div class="dp-container">
 							  <div class="row">
 							  <div class="col-md-6">
-								<img src="" alt="Profile Picture" class="profile-dp" id="editUserDpImage">
+								<img src="" alt="Profile Picture" class="profile-dp" id="editUserDpImage" >
 							  </div>
 								<!--<button></button>-->
 								<br />
@@ -263,7 +205,7 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserDOB">DOB:</label></div>
+										<div class="col-md-3"><label for="editUserPhone">DOB:</label></div>
 										<div class="col-md-9"><input type="date" class="form-control" id="editUserDOB" name="dob"></div>
 									  </div>
 									</div>
@@ -286,90 +228,20 @@
 									</div>
 								</div>
 							  </div>
-							  <!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+							  
 							  <div class="form-group">
 								<div class="row">
-									<div class="col-md-6">
-									  <div class="row">
-										<div class="col-md-3"><label for="editUserCollege">College:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserCollege" name="college"></div>
-									  </div>
-									</div>
+									
 									<div class="col-md-6">
 									  <div class="row">
 										<div class="col-md-3"><label for="editUserPhone">Phone:</label></div>
-										<div class="col-md-9"><input type="number" class="form-control" id="editUserPhone" name="phone"></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserPhone" name="phone"></div>
 									  </div>
 									</div>
 								</div>
 							  </div>
 							  
-							  <div class="form-group">
-								<div class="row">
-									<div class="col-md-6">
-									  <div class="row">
-										<div class="col-md-3"><label for="editUserBatch">Batch:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserBatch" name="batch"></div>
-									  </div>
-									</div>
-									<div class="col-md-6">
-									  <div class="row">
-										<div class="col-md-3"><label for="editUserInstitite">Institute:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserInstitute" name="institute"></div>
-									  </div>
-									</div>
-								</div>
-							  </div>
 							  
-							  <div class="form-group">
-								<div class="row">
-									<div class="col-md-6">
-									  <div class="row">
-										<div class = "col-md-3"><label for="editUserCGPA">CGPA or Parcentage:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserCGPA" name="cgpa_or_percentage"></div>										
-									  </div>
-									</div>
-									<div class="col-md-6">
-									  <div class="row">
-										<div class="col-md-3"><label for="editUserMark">Mark Secured:</label></div>
-										<div class="col-md-9"><input type="number" class="form-control" id="editUserMark" name="marks_secured"></div>
-									  </div>
-									</div>
-								</div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="row">								
-									<div class="col-md-6">
-									  <div class="row">
-										<div class="col-md-3"><label for="editUserBloodGroup">Blood Group:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserBloodGroup" name="blood_group"></div>
-									  </div>
-									</div>
-									<div class="col-md-6">
-									  <div class="row">
-										<div class = "col-md-3"><label for="editUserCGPA">Status:</label></div>
-										<div class="col-md-9">
-											
-											<select
-												type="text"
-												id = "editUserStatus"
-												class = "form-control"
-												name = "status"
-											>
-												<option id="editUserStatus"></option>
-												<option value = "Active">Active</option>
-												<option value = "Inactive">Inactive</option>
-											</select>
-										</div>										
-									  </div>
-									</div>
-								</div>
-							  </div>
                               
 
 							  <!-- Add more fields as necessary -->
@@ -420,7 +292,7 @@
 
 		// Fetch all users
 		$.ajax({
-			url: `${baseUrl}/student/students/list/`,
+			url: `${baseUrl}/api/faculty/`,
 			type: 'GET',
 			success: function(data) {
 				console.log('Data received from API:', data); // Debug log for API data
@@ -440,21 +312,21 @@
 
 			nextUsers.forEach(item => {
 				// Avoid appending duplicate rows
-				if (!$(`#row-${item.student_id}`).length) {
+				if (!$(`#row-${item.user_id}`).length) {
 					console.log('Appending user:', item); // Debug log for appending user
 					$('#data-table tbody').append(`
-						<tr id="row-${item.student_id}">
-							<td class="text-left">${item.user.user_id}</td>
+						<tr id="row-${item.user_id}">
+							<td class="text-left">${item.user_id}</td>
 							<td class="text-left">${item.first_name}</td>
 							<td class="text-left">${item.email}</td>
-							<td>
-								<button class='btn btn-light btn-view-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
+							<td class="text-center">
+								<button class='btn btn-light btn-view-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
 									<i class="fa-solid fa-eye"></i> View
 								</button>
-								<button class='btn btn-light btn-edit-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<button class='btn btn-light btn-edit-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
 									<i class="fa-solid fa-pen-to-square"></i> Edit
 								</button>
-								<button class='btn btn-light btn-reset-password' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+								<button class='btn btn-light btn-reset-password' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 									<i class="fa-solid fa-key"></i> Reset Password
 								</button>
 							</td>
@@ -491,50 +363,29 @@
 		$('#data-table').on('click', '.btn-view-user', function() {
 			const userId = $(this).data('id');  // This fetches the correct user ID
 			$.ajax({
-				url: `${baseUrl}/student/student/${userId}`,  // Use the endpoint for the specific user
+				url: `${baseUrl}/api/user/${userId}/`,  // Use the endpoint for the specific user
 				type: 'GET',
 				success: function(user) {
 					let imageUrl;
-					if(user.user.dp_image != null) {
-						imageUrl = `${baseUrl}${user.user.dp_image}`;
+					if(user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.dp_image}`;
 					} else {
 						imageUrl = "./assets/images/default/default1.jpg";
 					}
 					//let full_name = user.first_name, user.last_name;
-					let last_name;
-					if(user.last_name != null){
-						last_name = `${user.last_name}`;
-					} else{
-						last_name = "";
-					}
-					const full_name = `${user.first_name} ${last_name}`
 					
 					$('#viewUserDp').attr('src', imageUrl);
-					$('#viewUserId').text(user.user.user_id);
-					$('#viewUserName').text(full_name);
+					$('#viewUserId').text(user.user_id);
+					$('#viewUserName').text(user.first_name);
 					$('#viewUserEmail').text(user.email);
-					$('#viewUserPhone').text(user.user.phone);
-					$('#viewUserAge').text(user.user.age);
+					$('#viewUserPhone').text(user.phone);
+					$('#viewUserAge').text(user.age);
 					$('#viewUserDOB').text(user.dob);
-					$('#viewUserRollNo').text(user.roll_number);
-					$('#viewInstitute').text(user.institute_name);
-					$('#viewUserPassingYear').text(user.year_passing);
-					$('#viewUserBoard').text(user.board);
-					
-					$('#viewUserBatch').text(user.batch);
-					
-					$('#viewCollege').text(user.college);
-					$('#viewUserHostel').text(user.hostel);
-					$('#viewUserMark').text(user.marks_secured);
-					$('#viewUserStatus').text(user.status);
-					$('#viewUserCGPA').text(user.cgpa_or_percentage);
-					$('#viewUserTotalMark').text(user.total_marks);
-					$('#viewUserCaste').text(user.caste);
-					$('#viewUserReligion').text(user.religion);
-					$('#viewUserBloodGroup').text(user.blood_group);
-					
-					
-					
+					$('#viewUserAddress').text(user.address);
+					$('#viewUserRole').text(user.role.role);
+					$('#viewUserStCat').text(user.st_cat.st_cat_name);
+					$('#viewUserDept').text(user.dept.dept_name);
+
 					$('#viewUserModal').modal('show');  // Show the modal after fetching data
 				},
 				error: function(err) {
@@ -546,39 +397,24 @@
 		$('#data-table').on('click', '.btn-edit-user', function() {
 			const userId = $(this).data('id');  // Fetch user ID from the data attribute
 			$.ajax({
-				url: `${baseUrl}/student/student/${userId}/`,  // Use the API endpoint for the user
+				url: `${baseUrl}/api/user/${userId}/`,  // Use the API endpoint for the user
 				type: 'GET',
 				success: function(user) {
 					let imageUrl;
-					if(user.user.dp_image != null) {
-						imageUrl = `${baseUrl}${user.user.dp_image}`;
+					if(user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.dp_image}`;
 					} else {
 						imageUrl = "./assets/images/default/default1.jpg";
 					}
 					
 					$('#editUserDpImage').attr('src', imageUrl);
-					$('#editUserId').val(user.student_id);  // Populate form fields with fetched data
+					$('#editUserId').val(user.id);  // Populate form fields with fetched data
 					$('#editUserName').val(user.first_name);
 					$('#editUserEmail').val(user.email);
-					$('#editUserPhone').val(user.user.phone);
-					$('#editUserAge').val(user.user.age);
+					$('#editUserPhone').val(user.phone);
+					$('#editUserAge').val(user.age);
 					$('#editUserDOB').val(user.dob);
 					
-					$('#editInstitute').val(user.institute_name);
-					$('#editUserPassingYear').val(user.year_passing);
-					
-					$('#editUserBoard').val(user.board);
-					
-					$('#editUserBatch').val(user.batch);
-					
-					$('#editUserCollege').val(user.college);
-					$('#editUserHostel').val(user.hostel);
-					$('#editUserMark').val(user.marks_secured);
-					$('#editUserStatus').val(user.status);
-					$('#editUserCGPA').val(user.cgpa_or_percentage);
-					
-					$('#editUserInstitute').val(user.institute_name);
-					$('#editUserBloodGroup').val(user.blood_group);
 
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
@@ -600,13 +436,7 @@
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
 			formData.append('dob', $('#editUserDOB').val());
-			//formData.append('board',$('#editUserBoard').val());
-			formData.append('institute_name',$('#editUserInstitute').val());
-			formData.append('college',$('#editUserCollege').val());
-			formData.append('marks_secured',$('#editUserMark').val());
-			formData.append('status', $('#editUserStatus').val());
-			formData.append('blood_group', $('#editUserBloodGroup').val());
-			formData.append('cgpa_or_percentage',$('#editUserCGPA').val());
+			
 			
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
@@ -617,7 +447,7 @@
 
 			// Perform the AJAX request
 			$.ajax({
-				url: `${baseUrl}/student/student/update/${userId}/`, // Use `id` here for endpoint
+				url: `${baseUrl}/api/update/users/${userId}/`, // Use `id` here for endpoint
 				type: 'PUT',
 				data: formData,
 				processData: false, // Required for FormData
@@ -636,7 +466,35 @@
 
 
 		
-		
+		/*$('#editUserForm').submit(function(e) {
+			e.preventDefault();
+			const userId = $('#editUserId').val(); // Use the `id` instead of `user_id`
+			const updatedData = {
+				first_name: $('#editUserName').val(),
+				email: $('#editUserEmail').val(),
+				phone: $('#editUserPhone').val(),
+				age: $('#editUserAge').val(),
+				dob: $('#editUserDOB').val(),
+				//dp_image: $('#editUserDp').val(),
+			};
+
+			// Update user info via API using `id`
+			$.ajax({
+				url: `${baseUrl}/api/users/${userId}/`, // Use `id` here for endpoint, like 10/ or 19/
+				type: 'PUT',
+				contentType: 'multipart/form-data',
+				data: JSON.stringify(updatedData),
+				success: function() {
+					alert('User updated successfully.');
+					$('#editUserModal').modal('hide');
+					location.reload(); // Refresh user table or user data
+				},
+				error: function(err) {
+					console.error('Error updating user:', err);
+				}
+			});
+		});*/
+
 
 
 
@@ -649,8 +507,7 @@
 			if (confirm('Are you sure you want to reset this user\'s password?')) {
 				// Reset the password via AJAX
 				$.ajax({
-					//url: `${baseUrl}/api/users/${userId}/`,
-					url: `${baseUrl}/student/student/update/${userId}/`,
+					url: `${baseUrl}/api/update/users/${userId}/`,
 					type: 'PUT',
 					data: { reset_password: true },
 					success: function(response) {
@@ -669,16 +526,7 @@
 			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 			});
 		  });
-		  
-		/*$('#search-bar').on('keyup', function() {
-			const searchTerm = $(this).val().toLowerCase(); // Get the search term
-			const filteredUsers = allUsers.filter(user => 
-				user.first_name.toLowerCase().includes(searchTerm) || 
-				user.email.toLowerCase().includes(searchTerm)
-			); // Filter the allUsers array based on the search term
-			
-			displayUsers(filteredUsers); // Display the filtered users
-		});*/
+		
 	});
 </script>
 </body>
