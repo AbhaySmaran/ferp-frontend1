@@ -205,11 +205,7 @@
 											</tbody>
 											
 										</table>
-									<!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+								
 									</div>
 									
 								</div>
@@ -290,11 +286,7 @@
 									</div>
 								</div>
 							  </div>
-							  <!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+							
 							  <div class="form-group">
 								<div class="row">
 									<div class="col-md-6">

@@ -163,7 +163,7 @@
 												<td id="viewInstitute" class="text-left"></td>
 												<td id="viewUserBoard" class="text-left"></td>
 												<td id="viewUserPassingYear" class="text-right"></td>
-												<td id="viewUserTotalMarkMark" class="text-right"></td>
+												<td id="viewUserTotalMark" class="text-right"></td>
 											</tbody>
 											<thead>
 												<tr>
@@ -186,7 +186,7 @@
 												<tr>
 													<th class="text-left">Caste</th>
 													
-													<th class="text-left">Religion</th>
+													<th class="text-left">Hostel Name</th>
 													<th class="text-right">Blood Group</th>
 													<th >CGPA / Percentage</th>
 													
@@ -195,7 +195,7 @@
 											<tbody>
 												
 												<td id="viewUserCaste" class="text-left"></td>
-												<td id="viewUserReligion" class="text-left"></td>
+												<td id="viewUserHostelName" class="text-left"></td>
 												<td id="viewUserBloodGroup"></td>
 												<td id="viewUserCGPA"></td>
 											</tbody>
@@ -213,7 +213,7 @@
 							<!-- Add more fields as needed -->
 						  </div>
 						  <div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						  </div>
 						</div>
 					  </div>
@@ -258,7 +258,10 @@
 									<div class="col-md-6">
 									  <div class="row">
 										<div class="col-md-3"><label for="editUserName">Name:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserName" name="username"></div>
+										<div class="col-md-9">
+											<input type="text" class="form-control" id="editUserName" name="username">
+											<div class="invalid-feedback" id=""></div>
+										</div>
 									  </div>
 									</div>
 									<div class="col-md-6">
@@ -286,11 +289,7 @@
 									</div>
 								</div>
 							  </div>
-							  <!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+							  
 							  <div class="form-group">
 								<div class="row">
 									<div class="col-md-6">
@@ -329,6 +328,23 @@
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
+										<div class="col-md-3"><label for="editUserBoard">Board:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserBatch" name="batch"></div>
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserInstitite">Roll No.:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserInstitute" name="institute"></div>
+									  </div>
+									</div>
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
 										<div class = "col-md-3"><label for="editUserCGPA">CGPA or Parcentage:</label></div>
 										<div class="col-md-9"><input type="text" class="form-control" id="editUserCGPA" name="cgpa_or_percentage"></div>										
 									  </div>
@@ -352,7 +368,7 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class = "col-md-3"><label for="editUserCGPA">Status:</label></div>
+										<div class = "col-md-3"><label for="editUserStatus">Status:</label></div>
 										<div class="col-md-9">
 											
 											<select
@@ -370,12 +386,53 @@
 									</div>
 								</div>
 							  </div>
-                              
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-3">
+												<label for="editUserHostel">Hostel:</label>
+											</div>
+											<div class="col-md-9">
+												<select
+													id="editUserHostel"
+													class="form-control"
+													name="hostel"
+													onchange="toggleHostelName()"
+												>
+													<option value="">Select</option>
+													<option value="Yes">Yes</option>
+													<option value="No">No</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-3">
+												<label for="editUserHostelName">Hostel Name:</label>
+											</div>
+											<div class="col-md-9">
+												<input 
+													type="text" 
+													class="form-control" 
+													id="editUserHostelName" 
+													name="hostel_name"
+													disabled  
+												>                                        
+											</div>                                        
+										</div>
+									</div>
+								</div>
+							</div>
+
+
 
 							  <!-- Add more fields as necessary -->
 							</div>
 							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 							  <button type="submit" class="btn btn-primary">Save Changes</button>
 							</div>
 						  </form>
@@ -408,6 +465,102 @@
   <script src="./assets/js/misc.js"></script>
   <script src="./static/main.js"></script>
   <script src="./static/auth.js"></script>
+  
+<script>
+	$(document).ready(function() {
+		console.log('Document is ready.');
+
+		const baseUrl = localStorage.getItem("url");
+		const access = localStorage.getItem("access_token");
+		const limit = 5;  // Number of items per page
+		let allUsers = []; 
+		let currentPage = 1; // Track the current page
+
+		// Fetch all users
+		$.ajax({
+			url: `${baseUrl}/student/students/list/`,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data; 
+				displayTableData();
+				setupPagination(); // Call pagination after fetching data
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+
+		// Function to display the table data
+		function displayTableData() {
+			let start = (currentPage - 1) * limit;
+			let end = start + limit;
+			let paginatedData = allUsers.slice(start, end);
+
+			const tableBody = $('#data-table tbody');
+			tableBody.empty(); // Clear the table before adding new data
+
+			paginatedData.forEach(item => {
+				tableBody.append(`
+					<tr id="row-${item.student_id}">
+						<td class="text-left">${item.user.user_id}</td>
+						<td class="text-left">${item.first_name}</td>
+						<td class="text-left">${item.email}</td>
+						<td class="text-center">
+							<button class='btn btn-light btn-view-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
+								<i class="fa-solid fa-eye"></i> View
+							</button>
+							<button class='btn btn-light btn-edit-user' data-id="${item.student_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<i class="fa-solid fa-pen-to-square"></i> Edit
+							</button>
+							<button class='btn btn-light btn-reset-password' style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-id="${item.student_id}">
+								<i class="fa-solid fa-key"></i> Reset Password
+							</button>
+						</td>
+					</tr>
+				`);
+			});
+		}
+
+		// Function to handle pagination setup
+		function setupPagination() {
+			const totalPages = Math.ceil(allUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			for (let i = 1; i <= totalPages; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				currentPage = parseInt($(this).attr('data-page'));
+				displayTableData();
+				setupPagination(); // Update pagination active state
+			});
+		}
+	});
+
+</script>
+
+<script>
+	function toggleHostelName() {
+		const hostelDropdown = document.getElementById("editUserHostel");
+		const hostelNameInput = document.getElementById("editUserHostelName");
+
+		if (hostelDropdown.value === "Yes") {
+			hostelNameInput.disabled = false;  // Enable input if "Yes" is selected
+		} else {
+			hostelNameInput.value = "";        // Clear input value
+			hostelNameInput.disabled = true;   // Disable input if "No" is selected
+		}
+	}
+	</script>
 <script>
 	$(document).ready(function() {
 		console.log('Document is ready.'); // Debug log for document ready
@@ -532,7 +685,7 @@
 					$('#viewUserCaste').text(user.caste);
 					$('#viewUserReligion').text(user.religion);
 					$('#viewUserBloodGroup').text(user.blood_group);
-					
+					$('#viewUserHostelName').text(user.hostel_name);
 					
 					
 					$('#viewUserModal').modal('show');  // Show the modal after fetching data
@@ -579,6 +732,8 @@
 					
 					$('#editUserInstitute').val(user.institute_name);
 					$('#editUserBloodGroup').val(user.blood_group);
+					
+					$('#editUserHostelName').val(user.hostel_name);
 
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
@@ -595,8 +750,15 @@
 			
 			// Create a FormData object to handle the form data (including potential file uploads)
 			const formData = new FormData();
-			formData.append('first_name', $('#editUserName').val());
-			formData.append('email', $('#editUserEmail').val());
+			
+			const name = $('#editUserName').val();
+			const email = $('#editUserEmail').val();
+			
+			if (name) formData.append('first_name', name);
+			if (email) formData.append('email', email);
+			
+			//formData.append('first_name', $('#editUserName').val());
+			//formData.append('email', $('#editUserEmail').val());
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
 			formData.append('dob', $('#editUserDOB').val());
@@ -607,7 +769,10 @@
 			formData.append('status', $('#editUserStatus').val());
 			formData.append('blood_group', $('#editUserBloodGroup').val());
 			formData.append('cgpa_or_percentage',$('#editUserCGPA').val());
+			formData.append('
 			
+			',$('#editUserHostel').val());
+			formData.append('hostel_name',$('#editUserHostelName').val());
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
 			if (dpInput && dpInput.files && dpInput.files.length > 0) {
@@ -629,7 +794,12 @@
 				},
 				error: function(err) {
 					console.error('Error updating user:', err);
-					alert('Failed to update user. Please check the console for more details.');
+					//alert('Failed to update user. Please check the console for more details.');
+					console.log(err.responseJSON);
+					alert(err.responseJSON.email);
+					
+					var errors = err.responseJSON;
+					console.log(errors);
 				}
 			});
 		});

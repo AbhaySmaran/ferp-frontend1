@@ -38,7 +38,7 @@
 				<div class="mdc-layout-grid__inner">
 				  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
 					<div class="mdc-card p-0">
-					  <p class="card-title card-padding pb-0"><b>Student Information </b></p>
+					  <p class="card-title card-padding pb-0"><b>Subject Assignment</b></p>
 					  <div class="table-responsive">
 						<table id="data-table" class="table">
 							<thead class = "thead">
@@ -49,6 +49,7 @@
 									<th class='text-left'>Sub-T-Teacher</th>
 									<th class='text-left'>Subject-P</th>
 									<th class='text-left'>Sub-P-Teacher</th>
+									<th class='text-left'>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -75,33 +76,88 @@
   <script>
 	$(document).ready(function(){
 		const baseUrl = localStorage.getItem('url');
+
 		
 		$.ajax({
-			url: `${baseUrl}/student/distinct-batches/`,
+			url: `${baseUrl}/subject/sub-assign/`,  
 			type: 'GET',
 			success: function(data){
-				batches = data;
-				console.log(data);
-				
-			}
+
+				console.log(data); 
+				DisplayData(data);  
+			},
 			error: function(err) {
-				console.log('Error fetching data:', err); // Debug log for error
+				console.log('Error fetching data:', err);  
+			}
+		});
+
+		
+		function DisplayData(batches){
+			const tableData = $('#data-table tbody');  
+			tableData.empty();  
+
+			batches.forEach((item)=>{
+				tableData.append(`
+					<tr>
+						<td class="text-left">${item.batch}</td>  
+						<td class="text-left">${item.sem}</td> 
+						<td class="text-left">${item.subject_T}</td>   
+						<td class="text-left">${item.sub_T_Teacher}</td> 
+						<td class="text-left">${item.subject_P}</td> 
+						<td class="text-left">${item.sub_P_Teacher}</td> 
+						<td class="text-left">
+							<button class='btn btn-light btn-edit-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<i class="fa-solid fa-pen-to-square"></i> Edit
+							</button>
+						</td>
+					</tr>
+				`);
+			});
+		}
+	});
+
+  </script>
+  
+  <!--<script>
+	$(document).ready(function(){
+		const baseUrl = localStorage.getItem('url')
+		
+		$.ajax({
+			url: `${baseUrl}/subject/sub-assign`,
+			type: 'GET',
+			success: function(data){
+				allData = data;
+				console.log(allData);
+			},
+			error: function(error){
+				console.log(error);
 			}
 		})
 		
-		function DisaplayData(){
-			const tableData = $('#data-table tbody')
-			batches.forEach({
-				tableData.append(`
-					<tr >
-						<td class="text-left">${item.user.user_id}</td>
+		function DisplayData(allData){
+			const dataTable = $('#data-table tbody')
+			dataTable.empty()
+			
+			allData.forEach((item)=>{
+				dataTable.append(`
+					<tr>
+						<td class="text-left">${item.batch}</td>
+						<td class="text-left">${item.sem}</td>
+						<td class="text-left">${item.subject_T}</td>
+						<td class="text-left">${item.sub_T_Teacher}</td>
+						<td class="text-left">${item.subject_P}</td>
+						<td class="text-left">${item.sub_P_Teacher}</td>
+						<td class="text-left">
+							<button class='btn btn-light btn-edit-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<i class="fa-solid fa-pen-to-square"></i> Edit
+							</button>
+						</td>
 					</tr>
-				`);
+				`)
 			})
 		}
-
 	})
-  </script>
+  </script>-->
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->

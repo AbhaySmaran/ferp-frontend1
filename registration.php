@@ -94,6 +94,7 @@
 					  <div class='col-md-2'><label>Username:</label></div>
 					  <div class='col-md-10'>
 						  <input
+							
 							type="text"
 							name="username"
 							class= "form-control"
@@ -141,6 +142,24 @@
 							class= "form-control"
 							id = "last_name"
 						  />
+					  </div>
+					</div>
+					<div class='row mb-3'>
+					  <div class='col-md-2'><label>Gender:</label></div>
+					  <div class='col-md-10'>
+						  <select
+							type="text"
+							name= "gender"
+							class = "form-control"
+							id = "gender"
+						  >
+							<option value="">Select</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+						  </select>
+						  <div class="invalid-feedback">
+								{error.gender}
+							</div>
 					  </div>
 					</div>
 					<div class="row mb-3">
@@ -283,19 +302,7 @@
         </main>
         <!-- partial:partials/_footer.php -->
 		<?php include 'components/footer.php'; ?>
-        <!--<footer>
-          <div class="mdc-layout-grid">
-            <div class="mdc-layout-grid__inner">
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2020</span>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">Free <a href="https://www.bootstrapdash.com/material-design-dashboard/" target="_blank"> material admin </a> dashboards from Bootstrapdash.com</span>
-              </div>
-            </div>
-          </div>
-        </footer>-->
-        <!-- partial -->
+        
       </div>
     </div>
   </div>
@@ -413,6 +420,7 @@
 				const st_cat = document.getElementById('st_cat').value;
 				const dept = document.getElementById('dept').value;
 				
+				const gender = document.getElementById('gender').value;
 				const age = document.getElementById('age').value;
 				const phone = document.getElementById('phone').value;
 				const role = document.getElementById('role').value;
@@ -427,6 +435,7 @@
 				if (first_name) formData.append('first_name', first_name);
 				if (last_name) formData.append('last_name', last_name);
 				if (age) formData.append('age', age);
+				if (gender) formData.append('gender', gender);
 				if (phone) formData.append('phone', phone);
 				if (role) formData.append('role', role);
 				if (role) formData.append('role', role);

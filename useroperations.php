@@ -107,6 +107,7 @@
 										<br/>
 										<!--<p><strong>User ID:</strong> <span id="viewUserId"></span></p>-->
 										<div class="mt-2"><p><strong>Role:</strong> <span id="viewUserRole"></span></p></div>
+										<div class="mt-2"><p><strong>Gender:</strong> <span id="viewUserGender"></span></p></div>
 										<!--<p><strong>Name:</strong> <span id="viewUserName"></span></p>-->
 									</div>
 								</div>
@@ -116,7 +117,7 @@
 											<thead>
 												<tr>
 													<th class="text-left">User Id</th>
-													<th >Department</th>
+													<th class="text-left">Department</th>
 													<th>DOB</th>
 													
 													<th class="text-right">Phone</th>
@@ -124,24 +125,24 @@
 											</thead>
 											<tbody>
 												<td id="viewUserId" class="text-left"></td>
-												<td id="viewUserDept"></td>
+												<td id="viewUserDept" class="text-left"></td>
 												<td id="viewUserDOB"></td>
-												<td id="viewUserName"></td>
+												<td id="viewUserPhone"></td>
 												
 												
 											</tbody>
 											<thead>
 												<tr>
 													
-													<th>Name</th>
-													<th>Email</th>
+													<th class="text-left">Name</th>
+													<th class="text-left">Email</th>
 													<th>Staff-Category</th>
 													<th>Age</th>
 												</tr>
 											</thead>
 											<tbody>
-												<td id="viewUserPhone" class="text-left"></td>
-												<td id="viewUserEmail"></td>
+												<td id="viewUserName" class="text-left"></td>
+												<td id="viewUserEmail" class="text-left"></td>
 												<td id="viewUserStCat"></td>
 												<td id="viewUserAge"></td>
 											</tbody>
@@ -155,7 +156,7 @@
 							<!-- Add more fields as needed -->
 						  </div>
 						  <div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						  </div>
 						</div>
 					  </div>
@@ -199,14 +200,14 @@
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserName">Name:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserName" name="username"></div>
+										<div class="col-md-3"><label for="editUserFirstName">First Name:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserFirstName" name="firstname"></div>
 									  </div>
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserPhone">DOB:</label></div>
-										<div class="col-md-9"><input type="date" class="form-control" id="editUserDOB" name="dob"></div>
+										<div class="col-md-3"><label for="editUserLastName">Last Name:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserLastName" name="lastname"></div>
 									  </div>
 									</div>
 								</div>
@@ -271,7 +272,7 @@
 													class= "form-control"
 													id = "editUserStCat"
 												  >
-													<option id = "editUserStCat"></option>
+													<option id = "editUserStCat"></span></option>
 													<option value="2">Student</option>
 													<option value="3">Faculty Member</option>
 													<option value="4">Principal</option>
@@ -284,7 +285,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="row">
-											<div class="col-md-3"><label>Role:</label></div>
+											<div class="col-md-3"><label for="editUserRole">Role:</label></div>
 											<div class="col-md-9">
 												<select
 													type="text"
@@ -292,7 +293,7 @@
 													class= "form-control"	
 													id = "editUserRole"
 												  >
-													<option id="editUserRole"></option>
+													<option id="editUserRole"></span></option>
 													<option value="2">Student</option>
 													<option value="3">Faculty</option>
 													<option value="4">Management</option>
@@ -303,12 +304,41 @@
 									</div>
 								</div>
 							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserGender">Gender:</label></div>
+										<div class="col-md-9">
+											<select
+												type="text"
+												id = "editUserGender"
+												class = "form-control"
+												name="gender"
+											>
+												<option id="editUserGender"></option>
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+											</select>
+										</div>
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserPhone">DOB:</label></div>
+										<div class="col-md-9"><input type="date" class="form-control" id="editUserDOB" name="dob"></div>
+									  </div>
+									</div>
+									
+								</div>
+							  </div>
                               
 
 							  <!-- Add more fields as necessary -->
 							</div>
 							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 							  <button type="submit" class="btn btn-primary">Save Changes</button>
 							</div>
 						  </form>
@@ -435,9 +465,17 @@
 					}
 					//let full_name = user.first_name, user.last_name;
 					
+					let lastName;
+					if(user.last_name == null){
+						lastName = "";
+					}else{
+						lastName = `${user.last_name}`;
+					}
+					const full_name = `${user.first_name} ${lastName}`;
+					
 					$('#viewUserDp').attr('src', imageUrl);
 					$('#viewUserId').text(user.user_id);
-					$('#viewUserName').text(user.first_name);
+					$('#viewUserName').text(full_name);
 					$('#viewUserEmail').text(user.email);
 					$('#viewUserPhone').text(user.phone);
 					$('#viewUserAge').text(user.age);
@@ -446,6 +484,7 @@
 					$('#viewUserRole').text(user.role.role);
 					$('#viewUserStCat').text(user.st_cat.st_cat_name);
 					$('#viewUserDept').text(user.dept.dept_name);
+					$('#viewUserGender').text(user.gender);
 
 					$('#viewUserModal').modal('show');  // Show the modal after fetching data
 				},
@@ -470,15 +509,18 @@
 					
 					$('#editUserDpImage').attr('src', imageUrl);
 					$('#editUserId').val(user.id);  // Populate form fields with fetched data
-					$('#editUserName').val(user.first_name);
+					$('#editUserFirstName').val(user.first_name);
+					$('#editUserLastName').val(user.last_name);
 					$('#editUserEmail').val(user.email);
 					$('#editUserPhone').val(user.phone);
 					$('#editUserAge').val(user.age);
 					$('#editUserDOB').val(user.dob);
-					$('#editUserStCat').val(user.st_cat.st_cat_name);
-					$('#editUserDept').val(user.dept.dept_name);
-					$('#editUserRole').val(user.role.role);
-
+					$('#editUserStCat').val(user.st_cat.st_cat_id);
+					$('#editUserDept').val(user.dept.dept_id);
+					$('#editUserRole').val(user.role.role_id);
+					$('#editUserRoleId').val(user.role.role_id);
+					$('#editUserGender').val(user.gender);
+					
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
 				error: function(err) {
@@ -494,7 +536,8 @@
 			
 			// Create a FormData object to handle the form data (including potential file uploads)
 			const formData = new FormData();
-			formData.append('first_name', $('#editUserName').val());
+			formData.append('first_name', $('#editUserFirstName').val());
+			formData.append('last_name', $('#editUserLastName').val());
 			formData.append('email', $('#editUserEmail').val());
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
@@ -502,6 +545,7 @@
 			formData.append('st_cat', $('#editUserStCat').val());
 			formData.append('role', $('#editUserRole').val());
 			formData.append('dept', $('#editUserDept').val());
+			formData.append('gender', $('#editUserGender').val());
 			
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
