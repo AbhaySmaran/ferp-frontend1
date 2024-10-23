@@ -70,13 +70,19 @@
 									
 							</tbody>
 						</table>
-						<button class="btn btn-primary" id="load-more">Load Data</button>
+						<!--<button class="btn btn-primary" id="load-more">Load Data</button>-->
 					  </div>
 					</div>
 				  </div>
 				</div>
 			</div>
-			
+			<div class="text-center">
+				<nav>
+					<ul class="pagination justify-content-center" id="pagination">
+						<!-- Pagination Items Go Here -->
+					</ul>
+				</nav>
+			</div>
 			
           
         </main>
@@ -218,13 +224,19 @@
 									<div class="col-md-6">
 									  <div class="row">
 										<div class = "col-md-3"><label for="editUserEmail">Email:</label></div>
-										<div class="col-md-9"><input type="email" class="form-control" id="editUserEmail" name="email"></div>										
+										<div class="col-md-9">
+											<input type="email" class="form-control" id="editUserEmail" name="email">
+											<div class="invalid-feedback" id='editUserEmailError'></div>
+										</div>										
 									  </div>
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserAge">Age:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserAge" name="age"></div>
+										<div class="col-md-3"><label for="editUserAge">Username:</label></div>
+										<div class="col-md-9">
+											<input type="text" class="form-control" id="editUserUsername" name="username">
+											<div class="invalid-feedback" id="editUserUsernameError"></div>
+										</div>
 									  </div>
 									</div>
 								</div>
@@ -333,13 +345,26 @@
 									
 								</div>
 							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+						
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserAge">Age:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserAge" name="age"></div>
+									  </div>
+									</div>
+								</div>
+							  </div>
                               
 
 							  <!-- Add more fields as necessary -->
 							</div>
 							<div class="modal-footer">
-							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 							  <button type="submit" class="btn btn-primary">Save Changes</button>
+							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							  
 							</div>
 						  </form>
 						</div>
@@ -371,9 +396,312 @@
   <script src="./assets/js/misc.js"></script>
   <script src="./static/main.js"></script>
   <script src="./static/auth.js"></script>
+  
 <script>
 	$(document).ready(function() {
-		console.log('Document is ready.'); // Debug log for document ready
+		console.log('Document is ready.');
+
+		const baseUrl = localStorage.getItem("url");
+		const access = localStorage.getItem("access_token");
+		const limit = 10;  // Number of items per page
+		let allUsers = []; 
+		let currentPage = 1; // Track the current page
+
+		// Fetch all users
+		$.ajax({
+			url: `${baseUrl}/api/users/`,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data; 
+				displayTableData();
+				setupPagination(); // Call pagination after fetching data
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+
+		// Function to display the table data
+		function displayTableData() {
+			let start = (currentPage - 1) * limit;
+			let end = start + limit;
+			let paginatedData = allUsers.slice(start, end);
+
+			const tableBody = $('#data-table tbody');
+			tableBody.empty(); // Clear the table before adding new data
+
+			paginatedData.forEach(item => {
+				tableBody.append(`
+					<tr id="row-${item.id}">
+						<td class="text-left">${item.id}</td>
+						<td class="text-left">${item.first_name}</td>
+						<td class="text-left">${item.email}</td>
+						<td class="text-center">
+							<button class='btn btn-light btn-view-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
+								<i class="fa-solid fa-eye"></i> View
+							</button>
+							<button class='btn btn-light btn-edit-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
+								<i class="fa-solid fa-pen-to-square"></i> Edit
+							</button>
+							<button class='btn btn-light btn-reset-password' style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-id="${item.id}">
+								<i class="fa-solid fa-key"></i> Reset Password
+							</button>
+						</td>
+					</tr>
+				`);
+			});
+		}
+
+		// Function to handle pagination setup
+		function setupPagination() {
+			const totalPages = Math.ceil(allUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			for (let i = 1; i <= totalPages; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				currentPage = parseInt($(this).attr('data-page'));
+				displayTableData();
+				setupPagination(); // Update pagination active state
+			});
+		}
+		
+		$('#view').on('shown.bs.modal', function () {
+		  $('#myInput').trigger('focus')
+		})
+		
+		
+		
+		$('#data-table').on('click', '.btn-view-user', function() {
+			const userId = $(this).data('id');  // This fetches the correct user ID
+			$.ajax({
+				url: `${baseUrl}/api/user/${userId}/`,  // Use the endpoint for the specific user
+				type: 'GET',
+				success: function(user) {
+					let imageUrl;
+					if(user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.dp_image}`;
+					} else {
+						imageUrl = "./assets/images/default/default1.jpg";
+					}
+					//let full_name = user.first_name, user.last_name;
+					
+					let lastName;
+					if(user.last_name == null){
+						lastName = "";
+					}else{
+						lastName = `${user.last_name}`;
+					}
+					const full_name = `${user.first_name} ${lastName}`;
+					
+					$('#viewUserDp').attr('src', imageUrl);
+					$('#viewUserId').text(user.user_id);
+					$('#viewUserName').text(full_name);
+					$('#viewUserEmail').text(user.email);
+					$('#viewUserPhone').text(user.phone);
+					$('#viewUserAge').text(user.age);
+					$('#viewUserDOB').text(user.dob);
+					$('#viewUserAddress').text(user.address);
+					$('#viewUserRole').text(user.role.role);
+					$('#viewUserStCat').text(user.st_cat.st_cat_name);
+					$('#viewUserDept').text(user.dept.dept_name);
+					$('#viewUserGender').text(user.gender);
+
+					$('#viewUserModal').modal('show');  // Show the modal after fetching data
+				},
+				error: function(err) {
+					console.error('Error fetching user details:', err);  // Log error if fetching fails
+				}
+			});
+		});
+		
+		$('#data-table').on('click', '.btn-edit-user', function() {
+			const userId = $(this).data('id');  // Fetch user ID from the data attribute
+			$.ajax({
+				url: `${baseUrl}/api/user/${userId}/`,  // Use the API endpoint for the user
+				type: 'GET',
+				success: function(user) {
+					let imageUrl;
+					if(user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.dp_image}`;
+					} else {
+						imageUrl = "./assets/images/default/default1.jpg";
+					}
+					
+					$('#editUserDpImage').attr('src', imageUrl);
+					$('#editUserId').val(user.id);  // Populate form fields with fetched data
+					$('#editUserUsername').val(user.username);
+					$('#editUserFirstName').val(user.first_name);
+					$('#editUserLastName').val(user.last_name);
+					$('#editUserEmail').val(user.email);
+					$('#editUserPhone').val(user.phone);
+					$('#editUserAge').val(user.age);
+					$('#editUserDOB').val(user.dob);
+					$('#editUserStCat').val(user.st_cat.st_cat_id);
+					$('#editUserDept').val(user.dept.dept_id);
+					$('#editUserRole').val(user.role.role_id);
+					$('#editUserRoleId').val(user.role.role_id);
+					$('#editUserGender').val(user.gender);
+					
+					$('#editUserModal').modal('show');  // Show the modal after populating the data
+				},
+				error: function(err) {
+					console.error('Error fetching user details for edit:', err);  // Log error if fetching fails
+				}
+			});
+		});
+		
+		$('#editUserForm').submit(function(e) {
+			e.preventDefault();
+			
+			const userId = $('#editUserId').val(); // Use the `id` instead of `user_id`
+			
+			// Create a FormData object to handle the form data (including potential file uploads)
+			const formData = new FormData();
+			formData.append('first_name', $('#editUserFirstName').val());
+			formData.append('last_name', $('#editUserLastName').val());
+			formData.append('email', $('#editUserEmail').val());
+			formData.append('phone', $('#editUserPhone').val());
+			formData.append('age', $('#editUserAge').val());
+			formData.append('dob', $('#editUserDOB').val());
+			formData.append('st_cat', $('#editUserStCat').val());
+			formData.append('role', $('#editUserRole').val());
+			formData.append('dept', $('#editUserDept').val());
+			formData.append('gender', $('#editUserGender').val());
+			formData.append('username',$('#editUserUsername').val());
+			// Check if the file input exists and if a file has been selected
+			const dpInput = $('#editUserDpInput')[0];
+			if (dpInput && dpInput.files && dpInput.files.length > 0) {
+				const dpImage = dpInput.files[0]; // Get the first file
+				formData.append('dp_image', dpImage);
+			}
+
+			// Perform the AJAX request
+			if(window.confirm("Update user data?")){
+				$.ajax({
+					url: `${baseUrl}/api/update/users/${userId}/`, // Use `id` here for endpoint
+					type: 'PUT',
+					data: formData,
+					processData: false, // Required for FormData
+					contentType: false, // Required for FormData
+					success: function(response) {
+						
+						$('#editUserModal').modal('hide');
+						$('#editUserForm')[0].reset();
+        
+						// Remove any error classes and messages
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						location.reload(); // Refresh user table or user data
+					},
+					error: function(err) {
+						// Remove previous error states
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						const errors = err.responseJSON;
+
+						// Show errors for each field
+						if (errors.name) {
+						  $('#editUserName').addClass('is-invalid');
+						  $('#editUserNameError').text(errors.name[0]);
+						}
+						
+						if (errors.email) {
+						  $('#editUserEmail').addClass('is-invalid');
+						  $('#editUserEmailError').text(errors.email[0]);
+						}
+						
+														
+						if(errors.username){
+							$('#editUserUsername').addClass('is-invalid');
+							$('#editUserUsernameError').text(errors.username[0]);
+						}
+						
+					}
+				});
+			}
+		});
+
+
+		
+		/*$('#editUserForm').submit(function(e) {
+			e.preventDefault();
+			const userId = $('#editUserId').val(); // Use the `id` instead of `user_id`
+			const updatedData = {
+				first_name: $('#editUserName').val(),
+				email: $('#editUserEmail').val(),
+				phone: $('#editUserPhone').val(),
+				age: $('#editUserAge').val(),
+				dob: $('#editUserDOB').val(),
+				//dp_image: $('#editUserDp').val(),
+			};
+
+			// Update user info via API using `id`
+			$.ajax({
+				url: `${baseUrl}/api/users/${userId}/`, // Use `id` here for endpoint, like 10/ or 19/
+				type: 'PUT',
+				contentType: 'multipart/form-data',
+				data: JSON.stringify(updatedData),
+				success: function() {
+					alert('User updated successfully.');
+					$('#editUserModal').modal('hide');
+					location.reload(); // Refresh user table or user data
+				},
+				error: function(err) {
+					console.error('Error updating user:', err);
+				}
+			});
+		});*/
+
+
+
+
+		
+
+		// Reset Password
+		$(document).on('click', '.btn-reset-password', function() {
+			const userId = $(this).data('id');
+
+			if (confirm('Are you sure you want to reset this user\'s password?')) {
+				// Reset the password via AJAX
+				$.ajax({
+					url: `${baseUrl}/api/update/users/${userId}/`,
+					type: 'PUT',
+					data: { reset_password: true },
+					success: function(response) {
+						alert('Password reset successfully to DD-MM-YY format of current date.');
+					},
+					error: function(err) {
+						console.log('Error resetting password:', err);
+					}
+				});
+			}
+		});
+		
+		$('#search-bar').on('keyup', function() {
+			const value = $(this).val().toLowerCase();
+			$('#data-table tbody tr').filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+			});
+		  });
+	});
+
+</script>
+<!--<script>
+	$(document).ready(function() {
+		/*console.log('Document is ready.'); // Debug log for document ready
 		const baseUrl = localStorage.getItem("url");
 		const access = localStorage.getItem("access_token");
 		
@@ -442,7 +770,7 @@
 		$('#load-more').off('click').on('click', function() {
 			console.log('Load More button clicked.'); // Debug log for button click
 			loadMoreUsers();
-		});
+		});*/
 		
 		
 		$('#view').on('shown.bs.modal', function () {
@@ -509,6 +837,7 @@
 					
 					$('#editUserDpImage').attr('src', imageUrl);
 					$('#editUserId').val(user.id);  // Populate form fields with fetched data
+					$('#editUserUsername').val(user.username);
 					$('#editUserFirstName').val(user.first_name);
 					$('#editUserLastName').val(user.last_name);
 					$('#editUserEmail').val(user.email);
@@ -546,7 +875,7 @@
 			formData.append('role', $('#editUserRole').val());
 			formData.append('dept', $('#editUserDept').val());
 			formData.append('gender', $('#editUserGender').val());
-			
+			formData.append('username',$('#editUserUsername').val());
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
 			if (dpInput && dpInput.files && dpInput.files.length > 0) {
@@ -555,22 +884,51 @@
 			}
 
 			// Perform the AJAX request
-			$.ajax({
-				url: `${baseUrl}/api/update/users/${userId}/`, // Use `id` here for endpoint
-				type: 'PUT',
-				data: formData,
-				processData: false, // Required for FormData
-				contentType: false, // Required for FormData
-				success: function(response) {
-					alert('User updated successfully.');
-					$('#editUserModal').modal('hide');
-					location.reload(); // Refresh user table or user data
-				},
-				error: function(err) {
-					console.error('Error updating user:', err);
-					alert('Failed to update user. Please check the console for more details.');
-				}
-			});
+			if(window.confirm("Update user data?")){
+				$.ajax({
+					url: `${baseUrl}/api/update/users/${userId}/`, // Use `id` here for endpoint
+					type: 'PUT',
+					data: formData,
+					processData: false, // Required for FormData
+					contentType: false, // Required for FormData
+					success: function(response) {
+						
+						$('#editUserModal').modal('hide');
+						$('#editUserForm')[0].reset();
+        
+						// Remove any error classes and messages
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						location.reload(); // Refresh user table or user data
+					},
+					error: function(err) {
+						// Remove previous error states
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						const errors = err.responseJSON;
+
+						// Show errors for each field
+						if (errors.name) {
+						  $('#editUserName').addClass('is-invalid');
+						  $('#editUserNameError').text(errors.name[0]);
+						}
+						
+						if (errors.email) {
+						  $('#editUserEmail').addClass('is-invalid');
+						  $('#editUserEmailError').text(errors.email[0]);
+						}
+						
+														
+						if(errors.username){
+							$('#editUserUsername').addClass('is-invalid');
+							$('#editUserUsernameError').text(errors.username[0]);
+						}
+						
+					}
+				});
+			}
 		});
 
 
@@ -637,6 +995,6 @@
 		  });
 		
 	});
-</script>
+</script>-->
 </body>
 </html> 

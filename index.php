@@ -34,6 +34,7 @@
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
                           <div class="mdc-text-field w-100">
                             <input class="mdc-text-field__input" id="email" name="email" type="text" required>
+							<div class="invalid-feedback" id="emailError"></div>
                             <div class="mdc-line-ripple"></div>
                             <label for="email" class="mdc-floating-label">Username</label>
                           </div>
@@ -41,10 +42,59 @@
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
                           <div class="mdc-text-field w-100">
                             <input class="mdc-text-field__input" id="password" name="password" type="password" required>
+							<div class="invalid-feedback" id="passwordError"></div>
                             <div class="mdc-line-ripple"></div>
                             <label for="password" class="mdc-floating-label">Password</label>
                           </div>
                         </div>
+						
+						<!--MDC form-->
+						<!--<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                          <div class="mdc-text-field w-100">
+                            <input class="mdc-text-field__input" id="email" name="email" type="text" required>
+							<div class="invalid-feedback" id="emailError"></div>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="email" class="mdc-floating-label">Username</label>
+                          </div>
+                        </div>
+                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                          <div class="mdc-text-field w-100">
+                            <input class="mdc-text-field__input" id="password" name="password" type="password" required>
+							<div class="invalid-feedback" id="passwordError"></div>
+                            <div class="mdc-line-ripple"></div>
+                            <label for="password" class="mdc-floating-label">Password</label>
+                          </div>
+                        </div>-->
+						
+						
+						 <!--<div className="form-group">
+							<label htmlFor="email">Email</label>
+							<input
+							  type="email"
+							  class="form-control"
+							  id="email"
+							  name="email"
+							  
+							/>
+							<div className= "invalid-feedback">
+							
+							</div>
+						  </div>
+
+						  <div className="form-group">
+							<label htmlFor="password">Password</label>
+							<input
+							  type="password"
+							  class="form-control"
+							  id="password"
+							  name="password"
+							  
+							/>
+							<div className= "invalid-feedback">
+							
+							</div>
+						  </div>-->
+						
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
                           <div class="mdc-form-field">
                             <div class="mdc-checkbox">
@@ -84,6 +134,7 @@
       </div>
     </div>
   </div>
+  
   <!-- plugins:js -->
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- inject:js -->

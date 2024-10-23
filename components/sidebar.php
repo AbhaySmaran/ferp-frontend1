@@ -102,11 +102,21 @@
 					</a>
 				  </div>
 				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="subjects.php">
+					  Add Subjects
+					</a>
+				  </div>
+				  <div class="mdc-list-item mdc-drawer-item">
 					<a class="mdc-drawer-link" href="subjectassignment.php">
 					  Subject Assignment
 					</a>
 				  </div>
 				  
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="sectionassignment.php">
+					  Section Assignment
+					</a>
+				  </div>
 				</nav>
 			  </div>
 			  

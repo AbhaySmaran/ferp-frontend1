@@ -2,15 +2,17 @@ $(document).ready(function() {
       // Handle form submission
       $("#loginForm").on("submit", function(e) {
         e.preventDefault(); // Prevent default form submission
+		
+		const baseUrl = "http://localhost:8000"
+		localStorage.setItem("url", baseUrl)
 
         // Get input values
         const email = $("#email").val();
         const password = $("#password").val();
-		const baseUrl = "http://localhost:8000"
-		localStorage.setItem("url", baseUrl)
+		
         // jQuery AJAX POST request
         $.ajax({
-		url: `${baseUrl}/auth/user/login/`, // API login URL
+		  url: `${baseUrl}/auth/user/login/`, // API login URL
           type: "POST",
           contentType: "application/json",
           data: JSON.stringify({
@@ -24,11 +26,19 @@ $(document).ready(function() {
             localStorage.setItem("refresh_token", response.tokens.refresh);
             window.location.href = "dashboard.php"; // Redirect to dashboard
           },
-          error: function(xhr, status, error) {
+          /*error: function(xhr, status, error) {
             // Handle error
             const errorMsg = xhr.responseJSON ? xhr.responseJSON.errors.error[0] : "Login failed.";
             alert(errorMsg);
-          }
+          }*/
+		  error: function(err){
+			  
+			  errors = err.responseJSON
+			  if(errors.email){
+				  alert(errors.email[0]);
+			  }
+			  
+		  }
         });
       });
     });

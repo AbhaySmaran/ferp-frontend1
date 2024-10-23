@@ -52,7 +52,7 @@
               </div>
             </div>
             
-			<div class="mdc-layout-grid">
+			<!--<div class="mdc-layout-grid">
 				<div class="mdc-layout-grid__inner">
 				  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
 					<div class="mdc-card p-0">
@@ -76,8 +76,42 @@
 					</div>
 				  </div>
 				</div>
-			</div>
+			</div>-->
 			
+			<div class="mdc-layout-grid">
+				<div class="mdc-layout-grid__inner">
+				  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+					<div class="mdc-card p-0">
+					  <p class="card-title card-padding pb-0"><b>Student Information </b></p>
+					  <div class="table-responsive">
+						<table id="data-table" class="table">
+							<thead class = "thead">
+								<tr>
+									<th class='text-left'>User Id</th>
+										<th class="text-left">Name</th>
+										<th class="text-left">Email</th>
+										<th class="text-center">Actions</th>
+									</tr>
+							</thead>
+							<tbody>
+									
+							</tbody>
+						</table>
+						
+						
+						<!--<button class="btn btn-primary" id="load-more">Load Data</button>-->
+					  </div>
+					</div>
+				  </div>
+				</div>
+			</div>
+			<div class="text-center">
+				<nav>
+					<ul class="pagination justify-content-center" id="pagination">
+						<!-- Pagination Items Go Here -->
+					</ul>
+				</nav>
+			</div>
 			
           
         </main>
@@ -184,7 +218,7 @@
 											</tbody>
 											<thead>
 												<tr>
-													<th class="text-left">Caste</th>
+													<th class="text-left">Course</th>
 													
 													<th class="text-left">Hostel Name</th>
 													<th class="text-right">Blood Group</th>
@@ -194,18 +228,14 @@
 											</thead>
 											<tbody>
 												
-												<td id="viewUserCaste" class="text-left"></td>
+												<td id="viewUserCourse" class="text-left"></td>
 												<td id="viewUserHostelName" class="text-left"></td>
 												<td id="viewUserBloodGroup"></td>
 												<td id="viewUserCGPA"></td>
 											</tbody>
 											
 										</table>
-									<!--	"user",'first_name', 'last_name', 'email', 'password', 'role', 
-            'st_cat', 'course', 'roll_number', 'lateral', 'batch', 'college', 'hostel', 'dob', 
-            'transport', 'gender', 'blood_group', 'caste', 'religion', 'mother_tongue', 'nationality', 
-            'last_exam_passed', 'board', 'institute_name', 'total_marks', 'year_passing', 'marks_secured', 
-            'cgpa_or_percentage', 'status', 'registered_on', 'registered_by-->
+									
 									</div>
 									
 								</div>
@@ -257,17 +287,20 @@
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserName">Name:</label></div>
+										<div class="col-md-3"><label for="editUserFirstName">First Name:</label></div>
 										<div class="col-md-9">
-											<input type="text" class="form-control" id="editUserName" name="username">
-											<div class="invalid-feedback" id=""></div>
+											<input type="text" class="form-control" id="editUserFirstName" name="first_name">
+											<div class="invalid-feedback" id="editUserFirstNameError"></div>
 										</div>
 									  </div>
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserDOB">DOB:</label></div>
-										<div class="col-md-9"><input type="date" class="form-control" id="editUserDOB" name="dob"></div>
+										<div class="col-md-3"><label for="editUserLastName">Last Name:</label></div>
+										<div class="col-md-9">
+											<input type="text" class="form-control" id="editUserLastName" name="last_name">
+											<div class="invalid-feedback" id="editUserLastNameError"></div>
+										</div>
 									  </div>
 									</div>
 								</div>
@@ -278,7 +311,33 @@
 									<div class="col-md-6">
 									  <div class="row">
 										<div class = "col-md-3"><label for="editUserEmail">Email:</label></div>
-										<div class="col-md-9"><input type="email" class="form-control" id="editUserEmail" name="email"></div>										
+										<div class="col-md-9">
+											<input type="email" class="form-control" id="editUserEmail" name="email">
+											<div class="invalid-feedback" id="editUserEmailError"></div>
+										</div>										
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class = "col-md-3"><label for="editUserUsername">Username:</label></div>
+										<div class="col-md-9">
+											<input type="text" class="form-control" id="editUserUsername" name="username">
+											<div class="invalid-feedback" id="editUserUsernameError"></div>
+										</div>										
+									  </div>
+									</div>
+								</div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserDOB">DOB:</label></div>
+										<div class="col-md-9">
+											<input type="date" class="form-control" id="editUserDOB" name="dob">
+											
+										</div>
 									  </div>
 									</div>
 									<div class="col-md-6">
@@ -300,19 +359,36 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserPhone">Phone:</label></div>
-										<div class="col-md-9"><input type="number" class="form-control" id="editUserPhone" name="phone"></div>
+										<div class="col-md-3"><label for="editUserCourse">Course:</label></div>
+										<div class="col-md-9">										
+											<select
+												type="text"
+												class="form-control"
+												id = "editUserCourse"
+												name = "course"
+											>
+												<option id="editUserCourse"></option>
+												<option value=1>+2 Science</option>
+												<option value=2>B.Tech</option>
+												<option value=3>MCA</option>
+											</select>
+										</div>
 									  </div>
 									</div>
 								</div>
 							  </div>
+							  
+							  
 							  
 							  <div class="form-group">
 								<div class="row">
 									<div class="col-md-6">
 									  <div class="row">
 										<div class="col-md-3"><label for="editUserBatch">Batch:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserBatch" name="batch"></div>
+										<div class="col-md-9">
+											<input type="text" class="form-control" id="editUserBatch" name="batch">
+											<div class="invalid-feedback" id="editUserBatchError"></div>
+										</div>
 									  </div>
 									</div>
 									<div class="col-md-6">
@@ -329,7 +405,7 @@
 									<div class="col-md-6">
 									  <div class="row">
 										<div class="col-md-3"><label for="editUserBoard">Board:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserBatch" name="batch"></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserBoard" name="board"></div>
 									  </div>
 									</div>
 									<div class="col-md-6">
@@ -425,15 +501,34 @@
 										</div>
 									</div>
 								</div>
-							</div>
+								
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserRoom">Room No:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserRoom" name="room"></div>
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserPhone">Phone:</label></div>
+										<div class="col-md-9"><input type="number" class="form-control" id="editUserPhone" name="phone"></div>
+									  </div>
+									</div>
+								</div>
+							  </div>
 
 
 
 							  <!-- Add more fields as necessary -->
 							</div>
 							<div class="modal-footer">
-							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 							  <button type="submit" class="btn btn-primary">Save Changes</button>
+							  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							  
 							</div>
 						  </form>
 						</div>
@@ -544,24 +639,291 @@
 				setupPagination(); // Update pagination active state
 			});
 		}
+		
+		$('#view').on('shown.bs.modal', function () {
+		  $('#myInput').trigger('focus')
+		})
+		
+		
+		
+		$('#data-table').on('click', '.btn-view-user', function() {
+			const userId = $(this).data('id');  // This fetches the correct user ID
+			$.ajax({
+				url: `${baseUrl}/student/student/${userId}`,  // Use the endpoint for the specific user
+				type: 'GET',
+				success: function(user) {
+					let imageUrl;
+					if(user.user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.user.dp_image}`;
+					} else {
+						imageUrl = "./assets/images/default/default1.jpg";
+					}
+					//let full_name = user.first_name, user.last_name;
+					let last_name;
+					if(user.last_name != null){
+						last_name = `${user.last_name}`;
+					} else{
+						last_name = "";
+					}
+					const full_name = `${user.first_name} ${last_name}`
+					
+					$('#viewUserDp').attr('src', imageUrl);
+					$('#viewUserId').text(user.user.user_id);
+					$('#viewUserName').text(full_name);
+					$('#viewUserEmail').text(user.email);
+					$('#viewUserPhone').text(user.user.phone);
+					$('#viewUserAge').text(user.user.age);
+					$('#viewUserDOB').text(user.dob);
+					$('#viewUserRollNo').text(user.roll_number);
+					$('#viewInstitute').text(user.institute_name);
+					$('#viewUserPassingYear').text(user.year_passing);
+					$('#viewUserBoard').text(user.board);
+					
+					$('#viewUserBatch').text(user.batch);
+					
+					$('#viewCollege').text(user.college);
+					$('#viewUserHostel').text(user.hostel);
+					$('#viewUserMark').text(user.marks_secured);
+					$('#viewUserStatus').text(user.status);
+					$('#viewUserCGPA').text(user.cgpa_or_percentage);
+					$('#viewUserTotalMark').text(user.total_marks);
+					$('#viewUserCourse').text(user.course.course_name);
+					$('#viewUserReligion').text(user.religion);
+					$('#viewUserBloodGroup').text(user.blood_group);
+					$('#viewUserHostelName').text(user.hostel_name);
+					
+					
+					$('#viewUserModal').modal('show');  // Show the modal after fetching data
+				},
+				error: function(err) {
+					console.error('Error fetching user details:', err);  // Log error if fetching fails
+				}
+			});
+		});
+		
+		$('#data-table').on('click', '.btn-edit-user', function() {
+			const userId = $(this).data('id');  // Fetch user ID from the data attribute
+			$.ajax({
+				url: `${baseUrl}/student/student/${userId}/`,  // Use the API endpoint for the user
+				type: 'GET',
+				success: function(user) {
+					let imageUrl;
+					if(user.user.dp_image != null) {
+						imageUrl = `${baseUrl}${user.user.dp_image}`;
+					} else {
+						imageUrl = "./assets/images/default/default1.jpg";
+					}
+					
+					$('#editUserDpImage').attr('src', imageUrl);
+					$('#editUserId').val(user.student_id);  // Populate form fields with fetched data
+					$('#editUserFirstName').val(user.first_name);
+					$('#editUserEmail').val(user.email);
+					$('#editUserPhone').val(user.user.phone);
+					$('#editUserAge').val(user.user.age);
+					$('#editUserDOB').val(user.dob);
+					
+					$('#editInstitute').val(user.institute_name);
+					$('#editUserPassingYear').val(user.year_passing);
+					
+					$('#editUserBoard').val(user.board);
+					
+					$('#editUserBatch').val(user.batch);
+					
+					$('#editUserCollege').val(user.college);
+					$('#editUserHostel').val(user.hostel);
+					$('#editUserMark').val(user.marks_secured);
+					$('#editUserStatus').val(user.status);
+					$('#editUserCGPA').val(user.cgpa_or_percentage);
+					
+					$('#editUserInstitute').val(user.institute_name);
+					$('#editUserBloodGroup').val(user.blood_group);
+					
+					$('#editUserHostelName').val(user.hostel_name);
+					$('#editUserCourse').val(user.course.course_id);
+					$('#editUserRoom').val(user.room_no);
+					
+					$('#editUserUsername').val(user.user.username);
+					$('#editUserLastName').val(user.last_name)
+
+					$('#editUserModal').modal('show');  // Show the modal after populating the data
+				},
+				error: function(err) {
+					console.error('Error fetching user details for edit:', err);  // Log error if fetching fails
+				}
+			});
+		});
+		
+		$('#editUserForm').submit(function(e) {
+			e.preventDefault();
+			
+			const userId = $('#editUserId').val(); // Use the `id` instead of `user_id`
+			
+			// Create a FormData object to handle the form data (including potential file uploads)
+			const formData = new FormData();
+			
+			const name = $('#editUserName').val();
+			const email = $('#editUserEmail').val();
+			const course = document.getElementById('editUserCourse').value;
+			const batch = document.getElementById('editUserBatch').value;
+			
+			if (name) formData.append('first_name', name);
+			if (email) formData.append('email', email);
+			if (course) formData.append('course', course);
+			if (batch) formData.append('batch', batch);
+			
+			//formData.append('first_name', $('#editUserFirstName').val());
+			//formData.append('email', $('#editUserEmail').val());
+			formData.append('phone', $('#editUserPhone').val());
+			formData.append('age', $('#editUserAge').val());
+			formData.append('dob', $('#editUserDOB').val());
+			
+			formData.append('last_name',$('#editUserLastName').val());
+			formData.append('user', $('#editUserUsername').val());
+			
+			formData.append('board',$('#editUserBoard').val());
+			//formData.append('batch',$('#editUserBatch').val());
+			formData.append('institute_name',$('#editUserInstitute').val());
+			formData.append('college',$('#editUserCollege').val());
+			formData.append('marks_secured',$('#editUserMark').val());
+			formData.append('status', $('#editUserStatus').val());
+			formData.append('blood_group', $('#editUserBloodGroup').val());
+			formData.append('cgpa_or_percentage',$('#editUserCGPA').val());
+			formData.append('hostel',$('#editUserHostel').val());
+			formData.append('hostel_name',$('#editUserHostelName').val());
+			//formData.append('course',$('#editUserCourse').val());
+			formData.append('room_no', $('#editUserRoom').val());
+			// Check if the file input exists and if a file has been selected
+			const dpInput = $('#editUserDpInput')[0];
+			if (dpInput && dpInput.files && dpInput.files.length > 0) {
+				const dpImage = dpInput.files[0]; // Get the first file
+				formData.append('dp_image', dpImage);
+			}
+			
+			if(window.confirm("Update Student Data")){					
+			// Perform the AJAX request
+				$.ajax({
+					url: `${baseUrl}/student/student/update/${userId}/`, // Use `id` here for endpoint
+					type: 'PUT',
+					data: formData,
+					processData: false, // Required for FormData
+					contentType: false, // Required for FormData
+					success: function(response) {
+						//alert('User updated successfully.');
+						
+						$('#editUserModal').modal('hide');
+						$('#editUserForm')[0].reset();
+        
+						// Remove any error classes and messages
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						// Reload the page to reflect changes (optional)
+						location.reload();
+						
+					},
+					error: function(err) {
+						// Remove previous error states
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						const errors = err.responseJSON;
+
+						// Show errors for each field
+						if (errors.first_name) {
+						  $('#editUserFirstName').addClass('is-invalid');
+						  $('#editUserFirstNameError').text(errors.name[0]);
+						}
+						
+						if (errors.email) {
+						  $('#editUserEmail').addClass('is-invalid');
+						  $('#editUserEmailError').text(errors.email[0]);
+						}
+						
+						if(error.username){
+							$('#editUserUsername').addClass('is-ivalid');
+							$('#editUserUsernameError').text(errors.username[0]);
+						}
+						
+						if(errors.batch){
+							$('#editUserBatch').addClass('is-invalid');
+							$('#editUserBatchError').text(errors.batch[0]);
+						}
+
+						
+
+						// Add more fields as necessary
+					  }
+				});
+			}
+		});
+
+
+		
+		
+
+
+
+		
+
+		// Reset Password
+		$(document).on('click', '.btn-reset-password', function() {
+			const userId = $(this).data('id');
+
+			if (confirm('Are you sure you want to reset this user\'s password?')) {
+				// Reset the password via AJAX
+				$.ajax({
+					//url: `${baseUrl}/api/users/${userId}/`,
+					url: `${baseUrl}/student/student/update/${userId}/`,
+					type: 'PUT',
+					data: { reset_password: true },
+					success: function(response) {
+						alert('Password reset successfully to DD-MM-YY format of current date.');
+					},
+					error: function(err) {
+						console.log('Error resetting password:', err);
+					}
+				});
+			}
+		});
+		
+		$('#search-bar').on('keyup', function() {
+			const value = $(this).val().toLowerCase();
+			$('#data-table tbody tr').filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+			});
+		  });
+		  
+		/*$('#search-bar').on('keyup', function() {
+			const searchTerm = $(this).val().toLowerCase(); // Get the search term
+			const filteredUsers = allUsers.filter(user => 
+				user.first_name.toLowerCase().includes(searchTerm) || 
+				user.email.toLowerCase().includes(searchTerm)
+			); // Filter the allUsers array based on the search term
+			
+			displayUsers(filteredUsers); // Display the filtered users
+		});*/
+	
 	});
 
 </script>
 
-<script>
+<!--<script>
 	function toggleHostelName() {
 		const hostelDropdown = document.getElementById("editUserHostel");
 		const hostelNameInput = document.getElementById("editUserHostelName");
+		const roomInput = document.getElementById("editUserRoom")
 
 		if (hostelDropdown.value === "Yes") {
 			hostelNameInput.disabled = false;  // Enable input if "Yes" is selected
+			roomInput.disabled = false;
 		} else {
 			hostelNameInput.value = "";        // Clear input value
 			hostelNameInput.disabled = true;   // Disable input if "No" is selected
+			roomInput.disabled = true;
 		}
 	}
-	</script>
-<script>
+	</script>-->
+<!--<script>
 	$(document).ready(function() {
 		console.log('Document is ready.'); // Debug log for document ready
 		const baseUrl = localStorage.getItem("url");
@@ -682,7 +1044,7 @@
 					$('#viewUserStatus').text(user.status);
 					$('#viewUserCGPA').text(user.cgpa_or_percentage);
 					$('#viewUserTotalMark').text(user.total_marks);
-					$('#viewUserCaste').text(user.caste);
+					$('#viewUserCourse').text(user.course.course_name);
 					$('#viewUserReligion').text(user.religion);
 					$('#viewUserBloodGroup').text(user.blood_group);
 					$('#viewUserHostelName').text(user.hostel_name);
@@ -711,7 +1073,7 @@
 					
 					$('#editUserDpImage').attr('src', imageUrl);
 					$('#editUserId').val(user.student_id);  // Populate form fields with fetched data
-					$('#editUserName').val(user.first_name);
+					$('#editUserFirstName').val(user.first_name);
 					$('#editUserEmail').val(user.email);
 					$('#editUserPhone').val(user.user.phone);
 					$('#editUserAge').val(user.user.age);
@@ -734,6 +1096,11 @@
 					$('#editUserBloodGroup').val(user.blood_group);
 					
 					$('#editUserHostelName').val(user.hostel_name);
+					$('#editUserCourse').val(user.course.course_id);
+					$('#editUserRoom').val(user.room_no);
+					
+					$('#editUserUsername').val(user.user.username);
+					$('#editUserLastName').val(user.last_name)
 
 					$('#editUserModal').modal('show');  // Show the modal after populating the data
 				},
@@ -753,55 +1120,98 @@
 			
 			const name = $('#editUserName').val();
 			const email = $('#editUserEmail').val();
+			const course = document.getElementById('editUserCourse').value;
+			const batch = document.getElementById('editUserBatch').value;
 			
 			if (name) formData.append('first_name', name);
 			if (email) formData.append('email', email);
+			if (course) formData.append('course', course);
+			if (batch) formData.append('batch', batch);
 			
-			//formData.append('first_name', $('#editUserName').val());
+			//formData.append('first_name', $('#editUserFirstName').val());
 			//formData.append('email', $('#editUserEmail').val());
 			formData.append('phone', $('#editUserPhone').val());
 			formData.append('age', $('#editUserAge').val());
 			formData.append('dob', $('#editUserDOB').val());
-			//formData.append('board',$('#editUserBoard').val());
+			
+			formData.append('last_name',$('#editUserLastName').val());
+			formData.append('user', $('#editUserUsername').val());
+			
+			formData.append('board',$('#editUserBoard').val());
+			//formData.append('batch',$('#editUserBatch').val());
 			formData.append('institute_name',$('#editUserInstitute').val());
 			formData.append('college',$('#editUserCollege').val());
 			formData.append('marks_secured',$('#editUserMark').val());
 			formData.append('status', $('#editUserStatus').val());
 			formData.append('blood_group', $('#editUserBloodGroup').val());
 			formData.append('cgpa_or_percentage',$('#editUserCGPA').val());
-			formData.append('
-			
-			',$('#editUserHostel').val());
+			formData.append('hostel',$('#editUserHostel').val());
 			formData.append('hostel_name',$('#editUserHostelName').val());
+			//formData.append('course',$('#editUserCourse').val());
+			formData.append('room_no', $('#editUserRoom').val());
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
 			if (dpInput && dpInput.files && dpInput.files.length > 0) {
 				const dpImage = dpInput.files[0]; // Get the first file
 				formData.append('dp_image', dpImage);
 			}
-
+			
+			if(window.confirm("Update Student Data")){					
 			// Perform the AJAX request
-			$.ajax({
-				url: `${baseUrl}/student/student/update/${userId}/`, // Use `id` here for endpoint
-				type: 'PUT',
-				data: formData,
-				processData: false, // Required for FormData
-				contentType: false, // Required for FormData
-				success: function(response) {
-					alert('User updated successfully.');
-					$('#editUserModal').modal('hide');
-					location.reload(); // Refresh user table or user data
-				},
-				error: function(err) {
-					console.error('Error updating user:', err);
-					//alert('Failed to update user. Please check the console for more details.');
-					console.log(err.responseJSON);
-					alert(err.responseJSON.email);
-					
-					var errors = err.responseJSON;
-					console.log(errors);
-				}
-			});
+				$.ajax({
+					url: `${baseUrl}/student/student/update/${userId}/`, // Use `id` here for endpoint
+					type: 'PUT',
+					data: formData,
+					processData: false, // Required for FormData
+					contentType: false, // Required for FormData
+					success: function(response) {
+						//alert('User updated successfully.');
+						
+						$('#editUserModal').modal('hide');
+						$('#editUserForm')[0].reset();
+        
+						// Remove any error classes and messages
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						// Reload the page to reflect changes (optional)
+						location.reload();
+						
+					},
+					error: function(err) {
+						// Remove previous error states
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						const errors = err.responseJSON;
+
+						// Show errors for each field
+						if (errors.first_name) {
+						  $('#editUserFirstName').addClass('is-invalid');
+						  $('#editUserFirstNameError').text(errors.name[0]);
+						}
+						
+						if (errors.email) {
+						  $('#editUserEmail').addClass('is-invalid');
+						  $('#editUserEmailError').text(errors.email[0]);
+						}
+						
+						if(error.username){
+							$('#editUserUsername').addClass('is-ivalid');
+							$('#editUserUsernameError').text(errors.username[0]);
+						}
+						
+						if(errors.batch){
+							$('#editUserBatch').addClass('is-invalid');
+							$('#editUserBatchError').text(errors.batch[0]);
+						}
+
+						
+
+						// Add more fields as necessary
+					  }
+				});
+			}
 		});
 
 
@@ -850,6 +1260,6 @@
 			displayUsers(filteredUsers); // Display the filtered users
 		});*/
 	});
-</script>
+</script>-->
 </body>
 </html> 
