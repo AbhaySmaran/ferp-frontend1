@@ -85,26 +85,70 @@
             </div>
 			<form id="addSubjectForm">
 				<div class="modal-body">
-                
-                    <div class="form-group">
-                        <label for="subject_code">Subject Code</label>
-                        <input type="text" class="form-control" id="subject_code" name="subject_code" required>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="subject_name">Subject Name:- </label>
+							</div>
+							<div class="col-md-10">
+								<input type="text" class="form-control" id="subject_name" name="subject_name" >
+								<div class="invalid-feedback" id="subjectNameError"> </div>
+							</div>
+						</div>
                     </div>
                     <div class="form-group">
-                        <label for="subject_name">Subject Name</label>
-                        <input type="text" class="form-control" id="subject_name" name="subject_name" required>
+						<div class="row">
+							<div class="col-md-2">
+								<label for="subject_code">Subject Code:-</label>
+							</div>
+							<div class="col-md-10">
+								<input type="text" class="form-control" id="subject_code" name="subject_code" >
+								<div class="invalid-feedback" id="subjectCodeError"> </div>
+							</div>
+						</div>
+                    </div>
+                    
+                    <div class="form-group">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="subject_type">Subject Type:- </label>
+							</div>
+							<div class="col-md-10">
+								<select
+									type="text" 
+									class = "form-control"
+									id="subject_type"
+									name="subject_type"
+								>
+									<option value="">Select Subject Type <option>
+									<option value="T">Theory<option>
+									<option value="P">Practical</option>
+								</select>
+								<div class="invalid-feedback" id="subjectTypeError"></div>
+							</div>
+						</div>	
                     </div>
                     <div class="form-group">
-                        <label for="subject_type">Subject Type</label>
-                        <input type="text" class="form-control" id="subject_type" name="subject_type">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="full_mark">Full Mark:- </label>
+							</div>
+							<div class="col-md-10">
+								<input type="number" class="form-control" id="full_mark" name="full_mark">
+								<div class="invalid-feedback" id="fullMarkError"></div>
+							</div>
+						</div>
                     </div>
                     <div class="form-group">
-                        <label for="full_mark">Full Mark</label>
-                        <input type="number" class="form-control" id="full_mark" name="full_mark">
-                    </div>
-                    <div class="form-group">
-                        <label for="pass_mark">Pass Mark</label>
-                        <input type="number" class="form-control" id="pass_mark" name="pass_mark">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="pass_mark">Pass Mark:- </label>
+							</div>
+							<div class="col-md-10">
+								<input type="number" class="form-control" id="pass_mark" name="pass_mark">
+								<div class="invalid-feedback" id="passMarkError"></div>
+							</div>
+						</div>
                     </div>
                     
                 
@@ -176,26 +220,73 @@
 				<div class="modal-body">
                 
                     <input type="hidden" id="update_subject_id" name="subject_id">
-                    <div class="form-group">
-                        <label for="update_subject_code">Subject Code</label>
-                        <input type="text" class="form-control" id="update_subject_code" name="subject_code" required>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="update_subject_name">Subject Name:-</label>
+							</div>
+							<div class="col-md-10">
+								<input type="text" class="form-control" id="update_subject_name" name="subject_name" >
+								<div class="invalid-feedback" id="updateNameError"> </div>
+								
+							</div>
+						</div>
                     </div>
+					
                     <div class="form-group">
-                        <label for="update_subject_name">Subject Name</label>
-                        <input type="text" class="form-control" id="update_subject_name" name="subject_name" required>
+						<div class="row">
+							<div class="col-md-2">
+								<label for="update_subject_code">Subject Code:-</label>
+							</div>
+							<div class="col-md-10">
+								<input type="text" class="form-control" id="update_subject_code" name="subject_code" >
+								<div class="invalid-feedback" id="updateCodeError"> </div>
+							</div>
+						</div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="update_subject_type">Subject Type</label>
-                        <input type="text" class="form-control" id="update_subject_type" name="subject_type">
-						
+						<div class="row">
+							<div class="col-md-2">
+								<label for="update_subject_type">Subject Type:-</label>
+							</div>
+							<div class="col-md-10">
+								<select
+									type="text" 
+									class = "form-control"
+									id="subject-type"
+									name="subject-type"
+								>
+									<option value="T">Theory<option>
+									<option value="P">Practical</option>
+								</select>
+							</div>
+							<div class="invalid-feedback" id="updateTypeError"> </div>
+						</div>	
                     </div>
+					
                     <div class="form-group">
-                        <label for="update_full_mark">Full Mark</label>
-                        <input type="number" class="form-control" id="update_full_mark" name="full_mark">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="update_full_mark">Full Mark:-</label>
+							</div>
+							<div class="col-md-10">
+								<input type="number" class="form-control" id="update_full_mark" name="full_mark">
+								<div class="invalid-feedback" id="updateFullMarkError"> </div>
+							</div>
+						</div>
                     </div>
+					
                     <div class="form-group">
-                        <label for="update_pass_mark">Pass Mark</label>
-                        <input type="number" class="form-control" id="update_pass_mark" name="pass_mark">
+						<div class="row">
+							<div class="col-md-2">
+								<label for="update_pass_mark">Pass Mark:-</label>
+							</div>
+							<div class="col-md-10">
+								<input type="number" class="form-control" id="update_pass_mark" name="pass_mark">
+								<div class="invalid-feedback" id="updatePassMarkError"> </div>
+							</div>
+						</div>
                     </div>
                     
                 
@@ -241,50 +332,6 @@
 		
         // Function to load all subjects and append to table
 		
-		/*$.ajax({
-			url: `${baseUrl}/api/users/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data);
-				allUsers = data; 
-				displayTableData();
-				setupPagination(); // Call pagination after fetching data
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err);
-			}
-		});
-
-		// Function to display the table data
-		function displayTableData() {
-			let start = (currentPage - 1) * limit;
-			let end = start + limit;
-			let paginatedData = allUsers.slice(start, end);
-
-			const tableBody = $('#data-table tbody');
-			tableBody.empty(); // Clear the table before adding new data
-
-			paginatedData.forEach(item => {
-				tableBody.append(`
-					<tr id="row-${item.id}">
-						<td class="text-left">${item.id}</td>
-						<td class="text-left">${item.first_name}</td>
-						<td class="text-left">${item.email}</td>
-						<td class="text-center">
-							<button class='btn btn-light btn-view-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#viewUserModal">
-								<i class="fa-solid fa-eye"></i> View
-							</button>
-							<button class='btn btn-light btn-edit-user' data-id="${item.id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-toggle="modal" data-target="#editUserModal">
-								<i class="fa-solid fa-pen-to-square"></i> Edit
-							</button>
-							<button class='btn btn-light btn-reset-password' style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" data-id="${item.id}">
-								<i class="fa-solid fa-key"></i> Reset Password
-							</button>
-						</td>
-					</tr>
-				`);
-			});
-		}*/
         function loadSubjects() {
             $.ajax({
 				url: `${baseUrl}/subject/subjects/`,
@@ -317,6 +364,7 @@
         $('#addSubjectForm').submit(function(e) {
             e.preventDefault();
             var formData = $(this).serialize();
+			//const formData = new FormData();
             $.ajax({
                 url: `${baseUrl}/subject/subjects/`,
                 method: 'POST',
@@ -326,7 +374,37 @@
                     loadSubjects();  // Reload the table after adding
                 },
                 error: function(error) {
-                    alert('Failed to add subject.');
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+						
+                    const errors = error.responseJSON;
+					console.log(errors);
+					
+					if(errors.subject_name){
+						$('#subject_name').addClass('is-invalid')
+						$('#subjectNameError').text(errors.subject_name[0])
+					}
+					
+					if(errors.subject_code){
+						$('#subject_code').addClass('is-invalid')
+						$('#subjectCodeError').text(errors.subject_code[0])
+					}
+					
+					if(errors.subject_type){
+						$('#subject_type').addClass('is-invalid')
+						$('#subjectTypeError').text(errors.subject_type[0])
+					}
+					
+					if(errors.full_mark){
+						$('#full_mark').addClass('is-invalid')
+						$('#fullMarkError').text(errors.full_mark[0])
+					}
+					if(errors.pass_mark){
+						$('#pass_mark').addClass('is-invalid')
+						$('#passMarkError').text(errors.pass_mark[0])
+					}
+					
+					
                 }
             });
         });
@@ -367,7 +445,37 @@
                     loadSubjects();  // Reload the table after update
                 },
                 error: function(error) {
-                    alert('Failed to update subject.');
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+					
+                    const errors = error.responseJSON;
+					console.log(errors);
+					
+					if(errors.subject_name){
+						$('#subject_name').addClass('is-invalid')
+						$('#subjectNameError').text(errors.subject_name[0])
+					}
+					
+					if(errors.subject_code){
+						$('#subject_code').addClass('is-invalid')
+						$('#subjectCodeError').text(errors.subject_code[0])
+					}
+					
+					if(errors.subject_type){
+						$('#subject_type').addClass('is-invalid')
+						$('#subjectTypeError').text(errors.subject_type[0])
+					}
+					
+					if(errors.full_mark){
+						$('#full_mark').addClass('is-invalid')
+						$('#fullMarkError').text(errors.full_mark[0])
+					}
+					if(errors.pass_mark){
+						$('#pass_mark').addClass('is-invalid')
+						$('#passMarkError').text(errors.pass_mark[0])
+					}
+					
+					
                 }
             });
         });

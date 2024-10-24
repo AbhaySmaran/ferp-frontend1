@@ -56,7 +56,9 @@
 
 							<!-- Check/Uncheck All Section -->
 							
-							
+							<div class="col-md-4">
+								<button class="btn btn-primary"  data-toggle="modal" data-target="#sectionEnrollModal">Enroll Section</button>
+							</div>
 
 						</div>
 
@@ -81,7 +83,7 @@
 
 						<!-- Log Attendance Button -->
 						<div class="text-right">
-							<button class="btn btn-primary" id="log-attendance">Log Attendance</button>
+							
 						</div>
 					</div>
 				</div>
@@ -95,6 +97,50 @@
       </div>
     </div>
   </div>
+  
+  <div class="modal fade" id="sectionEnrollModal" tabindex="-1" role="dialog" aria-labelledby="sectionEnrollLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" >
+		<div class="modal-content">
+			<div class="modal-header">
+                <h5 class="modal-title" id="addSubjectModalLabel">Enroll Section</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<form id="addSubjectForm">
+				<div class="modal-body">
+                
+                    <div class="form-group">
+                        <div class="row">
+							<div class="col-md-6">
+								<label>Enroll section for selected students:- </label>
+							</div>
+							<div class="col-md-3">
+								<select
+								>
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									
+								</select>
+							</div>
+						</div>
+                    </div>
+                    
+                
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Enroll</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+				
+			</form>
+        </div>
+    </div>
+</div>
+  
   <!-- plugins:js -->
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -103,7 +149,11 @@
   <script src="./assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
   <script src="./assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
   <!-- End plugin js for this page-->
   <!-- inject:js -->
   <script src="./assets/js/material.js"></script>
@@ -115,113 +165,134 @@
   
 <script>
 	$(document).ready(function() {
-		// Fetch batches and populate the batch dropdown
+		
+		
+		const baseUrl = localStorage.getItem('url')
+		var currentYear = new Date().getFullYear();
 		$.ajax({
-			url: '/api/batches/',  // Adjust API endpoint for batches
+			url: `${baseUrl}/student/batches/`,
+			method: 'GET',
+			success: function(response) {
+				var batchSelect = $('#batch-select');
+				var defaultBatch = null;
+
+				$.each(response, function(index, batch) {
+					batchSelect.append('<option value="' + batch + '">' + batch + '</option>');
+
+					var startYear = parseInt(batch.split('-')[0]); 
+					if (startYear === currentYear) {
+						defaultBatch = batch;
+					}
+				});
+
+				if (defaultBatch) {
+					batchSelect.val(defaultBatch);
+					fetchStudentsByBatch(defaultBatch);
+				} else if (response.length > 0) {
+					batchSelect.val(response[0]);
+					fetchStudentsByBatch(response[0]);
+				}
+			},
+			error: function() {
+				alert("Error fetching batch data!");
+			}
+		});
+
+		$('#batch-select').change(function() {
+			var batchValue = $(this).val();
+			fetchStudentsByBatch(batchValue);
+		});
+
+		function fetchStudentsByBatch(batch) {
+			$.ajax({
+				url: `${baseUrl}/student/batch/${batch}/`,  
+				method: 'GET',
+				success: function(response) {
+					var tableBody = $('#data-table tbody');
+					tableBody.empty();  
+					$.each(response, function(index, student) {
+					
+						var row = '<tr>' +
+							'<td class="text-left"><input type="checkbox" class="student-checkbox" data-student-id="' + student.student_id + '"></td>' +
+							'<td class="text-left">' + student.first_name + ' ' + (student.last_name || '') + '</td>' +
+							'<td class="text-left">' + student.email + '</td>' +
+							'</tr>';
+						tableBody.append(row);
+					});
+				},
+				error: function() {
+					alert("Error fetching student data!");
+				}
+			});
+		}
+	
+
+		
+		/*var currentYear = new Date().getFullYear(); 
+		$.ajax({
+			url: `${baseUrl}/student/batches/`,  
 			method: 'GET',
 			success: function(response) {
 				var batchSelect = $('#batch-select');
 				$.each(response, function(index, batch) {
-					batchSelect.append('<option value="' + batch.id + '">' + batch.name + '</option>');
+					
+					batchSelect.append('<option value="' + batch + '">' + batch + '</option>');
 				});
-				// Set the default batch (current year's batch) - you can define how to set this
-				batchSelect.val(response[0].id);
-				// Load students for the default batch
-				fetchStudentsByBatch(response[0].id);
+
+				
+				if (response.length > 0) {
+					batchSelect.val(response[0]);
+					fetchStudentsByBatch(response[0]);
+				}
+			},
+			error: function() {
+				alert("Error fetching batch data!");
 			}
 		});
 
-		// Fetch students when a batch is selected
+		
 		$('#batch-select').change(function() {
-			var batchId = $(this).val();
-			fetchStudentsByBatch(batchId);
-		});
+			var batchValue = $(this).val();
+			fetchStudentsByBatch(batchValue);
+		})
 
-		// Function to fetch students by batch
-		function fetchStudentsByBatch(batchId) {
+		
+		function fetchStudentsByBatch(batch) {
 			$.ajax({
-				url: '/students/batch/' + batchId + '/',
+				url: `${baseUrl}/student/batch/${batch}/`,  
 				method: 'GET',
 				success: function(response) {
 					var tableBody = $('#data-table tbody');
-					tableBody.empty();  // Clear previous data
+					tableBody.empty(); 
 					$.each(response, function(index, student) {
+						
 						var row = '<tr>' +
-							'<td><input type="checkbox" class="student-checkbox" data-student-id="' + student.student_id + '"></td>' +
-							'<td>' + student.first_name + ' ' + student.last_name + '</td>' +
-							'<td>' + student.email + '</td>' +
+							'<td class="text-left"><input type="checkbox" class="student-checkbox" data-student-id="' + student.student_id + '"></td>' +
+							'<td class="text-left">' + student.first_name + ' ' + (student.last_name || '') + '</td>' +
+							'<td class="text-left">' + student.email + '</td>' +
 							'</tr>';
 						tableBody.append(row);
 					});
+				},
+				error: function() {
+					alert("Error fetching student data!");
 				}
 			});
-		}
+		}*/
 
-		// Check all checkboxes
+		
 		$('#check-all').change(function() {
 			$('.student-checkbox').prop('checked', true);
 		});
 
-		// Uncheck all checkboxes
+		
 		$('#uncheck-all').change(function() {
 			$('.student-checkbox').prop('checked', false);
 		});
 
-		// Log attendance on button click
-		$('#log-attendance').click(function() {
-			var selectedStudents = [];
-			$('.student-checkbox:checked').each(function() {
-				selectedStudents.push($(this).data('student-id'));
-			});
-			if (selectedStudents.length > 0) {
-				// Send selected student IDs to the server for attendance logging
-				$.ajax({
-					url: '/api/log-attendance/',  // Adjust API endpoint
-					method: 'POST',
-					data: {
-						students: selectedStudents,
-						date: $('#year-select').val() + '-' + $('#month-select').val() + '-' + $('#day-select').val()
-					},
-					success: function(response) {
-						alert('Attendance logged successfully!');
-					},
-					error: function() {
-						alert('An error occurred while logging attendance.');
-					}
-				});
-			} else {
-				alert('No students selected.');
-			}
-		});
+		
 
-		// Populate date pickers
-		populateDatePickers();
-		function populateDatePickers() {
-			var yearSelect = $('#year-select');
-			var monthSelect = $('#month-select');
-			var daySelect = $('#day-select');
-
-			var currentYear = new Date().getFullYear();
-			var currentMonth = new Date().getMonth() + 1;
-			var currentDay = new Date().getDate();
-
-			for (var i = currentYear; i >= 2000; i--) {
-				yearSelect.append('<option value="' + i + '">' + i + '</option>');
-			}
-
-			for (var i = 1; i <= 12; i++) {
-				monthSelect.append('<option value="' + (i < 10 ? '0' + i : i) + '">' + i + '</option>');
-			}
-
-			for (var i = 1; i <= 31; i++) {
-				daySelect.append('<option value="' + (i < 10 ? '0' + i : i) + '">' + i + '</option>');
-			}
-
-			// Set default to today's date
-			yearSelect.val(currentYear);
-			monthSelect.val((currentMonth < 10 ? '0' + currentMonth : currentMonth));
-			daySelect.val((currentDay < 10 ? '0' + currentDay : currentDay));
-		}
+		
 	});
 
 </script>
