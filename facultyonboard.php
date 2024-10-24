@@ -338,21 +338,25 @@
 		const limit = 5;  // Number of items per page
 		let allUsers = []; 
 		let currentPage = 1; // Track the current page
+		
+		loadFaculties();
 
 		// Fetch all users
-		$.ajax({
-			url: `${baseUrl}/api/faculty/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data);
-				allUsers = data; 
-				displayTableData();
-				setupPagination(); // Call pagination after fetching data
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err);
-			}
-		});
+		function loadFaculties(){
+			$.ajax({
+				url: `${baseUrl}/api/faculty/`,
+				type: 'GET',
+				success: function(data) {
+					console.log('Data received from API:', data);
+					allUsers = data; 
+					displayTableData();
+					setupPagination(); // Call pagination after fetching data
+				},
+				error: function(err) {
+					console.log('Error fetching data:', err);
+				}
+			});
+		}
 
 		// Function to display the table data
 		function displayTableData() {

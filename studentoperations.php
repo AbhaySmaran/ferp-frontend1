@@ -570,21 +570,25 @@
 		const limit = 5;  // Number of items per page
 		let allUsers = []; 
 		let currentPage = 1; // Track the current page
+		
+		loadStudents();
 
 		// Fetch all users
-		$.ajax({
-			url: `${baseUrl}/student/students/list/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data);
-				allUsers = data; 
-				displayTableData();
-				setupPagination(); // Call pagination after fetching data
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err);
-			}
-		});
+		function loadStudents(){
+			$.ajax({
+				url: `${baseUrl}/student/students/list/`,
+				type: 'GET',
+				success: function(data) {
+					console.log('Data received from API:', data);
+					allUsers = data; 
+					displayTableData();
+					setupPagination(); // Call pagination after fetching data
+				},
+				error: function(err) {
+					console.log('Error fetching data:', err);
+				}
+			});
+		}
 
 		// Function to display the table data
 		function displayTableData() {
@@ -818,8 +822,8 @@
 						$('.invalid-feedback').text('');
 						
 						// Reload the page to reflect changes (optional)
-						location.reload();
-						
+						//location.reload();
+						loadStudents();
 					},
 					error: function(err) {
 						// Remove previous error states

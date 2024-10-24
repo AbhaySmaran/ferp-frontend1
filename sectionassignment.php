@@ -51,7 +51,7 @@
 							
 							<div class="col-md-4">
 								<input type="checkbox" id="check-all" /> <label for="check-all">Check All</label>
-								<input type="checkbox" id="uncheck-all" /> <label for="uncheck-all">Uncheck All</label>
+								<!--<input type="checkbox" id="uncheck-all" /> <label for="uncheck-all">Uncheck All</label>-->
 							</div>
 
 							<!-- Check/Uncheck All Section -->
@@ -112,7 +112,7 @@
                 
                     <div class="form-group">
                         <div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<label>Enroll section for selected students:- </label>
 							</div>
 							<div class="col-md-3">
@@ -281,15 +281,33 @@
 		}*/
 
 		
-		$('#check-all').change(function() {
+		/*$('#check-all').change(function() {
 			$('.student-checkbox').prop('checked', true);
 		});
 
 		
 		$('#uncheck-all').change(function() {
 			$('.student-checkbox').prop('checked', false);
-		});
+		});*/
+		
+		$('#check-all').click(function () {
+			if ($(this).is(':checked')) {
+			  $('.student-checkbox').prop('checked', true);
+			  $('#uncheck-all').prop('checked', false); // Uncheck the "Uncheck All" checkbox
+			}else{
+				$('.student-checkbox').prop('checked', false);
+				$('#check-all').prop('checked', false);
+			}
+		  });
 
+		  /*
+		  $('#uncheck-all').click(function () {
+			if ($(this).is(':checked')) {
+			  $('.student-checkbox').prop('checked', false);
+			  $('#check-all').prop('checked', false); // Uncheck the "Check All" checkbox
+			}
+		  });
+			*/
 		
 
 		

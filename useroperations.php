@@ -255,10 +255,10 @@
 												name="dept"
 											>
 												<option id="editUserDept"></option>
-												<option value="2">Student</option>
-												<option value="3">Faculty</option>
-												<option value="4">Management</option>
-												<option value="5">Parent</option>
+												<option value="2">Basic Science</option>
+												<option value="3">Computer Science</option>
+												<option value="4">Accounts</option>
+												<option value="5">HR</option>
 											</select>
 										</div>
 									  </div>
@@ -406,21 +406,28 @@
 		const limit = 10;  // Number of items per page
 		let allUsers = []; 
 		let currentPage = 1; // Track the current page
+		
+		loadUseres();
 
 		// Fetch all users
-		$.ajax({
-			url: `${baseUrl}/api/users/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data);
-				allUsers = data; 
-				displayTableData();
-				setupPagination(); // Call pagination after fetching data
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err);
-			}
-		});
+		function loadUseres(){	
+			$.ajax({
+				url: `${baseUrl}/api/users/`,
+				type: 'GET',
+				success: function(data) {
+					console.log('Data received from API:', data);
+					allUsers = data; 
+					displayTableData();
+					setupPagination(); // Call pagination after fetching data
+				},
+				error: function(err) {
+					console.log('Error fetching data:', err);
+				}
+			});
+		}
+		
+		
+		
 
 		// Function to display the table data
 		function displayTableData() {
@@ -429,7 +436,7 @@
 			let paginatedData = allUsers.slice(start, end);
 
 			const tableBody = $('#data-table tbody');
-			tableBody.empty(); // Clear the table before adding new data
+			tableBody.empty(); 
 
 			paginatedData.forEach(item => {
 				tableBody.append(`
@@ -603,8 +610,9 @@
 						$('.form-control').removeClass('is-invalid');
 						$('.invalid-feedback').text('');
 						
-						location.reload(); // Refresh user table or user data
+						//location.reload(); // Refresh user table or user data
 						//displayTableData();
+						loadUseres();
 					},
 					error: function(err) {
 						// Remove previous error states

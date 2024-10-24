@@ -79,83 +79,159 @@
 		<div class="modal-content">
 			<div class="modal-header">
                 <h5 class="modal-title" id="addSubjectModalLabel">Add Subject</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddSubject">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 			<form id="addSubjectForm">
 				<div class="modal-body">
-					<div class="form-group">
-						<div class="row">
-							<div class="col-md-2">
-								<label for="subject_name">Subject Name:- </label>
+				
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="subject_name">Subject Name:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="subject_name" name="subject_name" >
+										<div class="invalid-feedback" id="subjectNameError"> </div>
+									</div>
+								</div>
 							</div>
-							<div class="col-md-10">
-								<input type="text" class="form-control" id="subject_name" name="subject_name" >
-								<div class="invalid-feedback" id="subjectNameError"> </div>
+						</div> 
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="subject_code">Subject Code:-</label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="subject_code" name="subject_code" >
+										<div class="invalid-feedback" id="subjectCodeError"> </div>
+									</div>
+								</div>
 							</div>
 						</div>
-                    </div>
-                    <div class="form-group">
-						<div class="row">
-							<div class="col-md-2">
-								<label for="subject_code">Subject Code:-</label>
-							</div>
-							<div class="col-md-10">
-								<input type="text" class="form-control" id="subject_code" name="subject_code" >
-								<div class="invalid-feedback" id="subjectCodeError"> </div>
-							</div>
-						</div>
-                    </div>
+					</div>
+				
                     
-                    <div class="form-group">
-						<div class="row">
-							<div class="col-md-2">
-								<label for="subject_type">Subject Type:- </label>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="full_mark">Full Mark:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="number" class="form-control" id="full_mark" name="full_mark">
+										<div class="invalid-feedback" id="fullMarkError"></div>
+									</div>
+								</div>
 							</div>
-							<div class="col-md-10">
-								<select
-									type="text" 
-									class = "form-control"
-									id="subject_type"
-									name="subject_type"
-								>
-									<option value="">Select Subject Type <option>
-									<option value="T">Theory<option>
-									<option value="P">Practical</option>
-								</select>
-								<div class="invalid-feedback" id="subjectTypeError"></div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="pass_mark">Pass Mark:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="number" class="form-control" id="pass_mark" name="pass_mark">
+										<div class="invalid-feedback" id="passMarkError"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="pass_mark">Text Book 1:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="text_book_1" name="text_book_1">
+										
+									</div>
+								</div>
 							</div>
 						</div>	
-                    </div>
-                    <div class="form-group">
-						<div class="row">
-							<div class="col-md-2">
-								<label for="full_mark">Full Mark:- </label>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="pass_mark">Text Book 2:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="text_book_2" name="text_book_2">
+										
+									</div>
+								</div>
 							</div>
-							<div class="col-md-10">
-								<input type="number" class="form-control" id="full_mark" name="full_mark">
-								<div class="invalid-feedback" id="fullMarkError"></div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="pass_mark">Reference Book 1:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="ref_book_1" name="ref_book_1">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="pass_mark">Reference Book 2:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="Ref_book_2" name="ref_book_2">
+										
+									</div>
+								</div>
 							</div>
 						</div>
                     </div>
-                    <div class="form-group">
+					
+					<div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
-								<label for="pass_mark">Pass Mark:- </label>
-							</div>
-							<div class="col-md-10">
-								<input type="number" class="form-control" id="pass_mark" name="pass_mark">
-								<div class="invalid-feedback" id="passMarkError"></div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="subject_type">Subject Type:- </label>
+									</div>
+									<div class="col-md-9">
+										<select
+											type="text" 
+											class = "form-control"
+											id="subject_type"
+											name="subject_type"
+										>
+											<option value="">Select Subject Type <option>
+											<option value="T">Theory<option>
+											<option value="P">Practical</option>
+										</select>
+										<div class="invalid-feedback" id="subjectTypeError"></div>
+									</div>
+								</div>	
 							</div>
 						</div>
                     </div>
-                    
                 
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Add Subject</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeAddSubject">Close</button>
 				</div>
 				
 			</form>
@@ -212,7 +288,7 @@
 			<div class="modal-header">
 
                 <h5 class="modal-title" id="updateSubjectModalLabel">Update Subject</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeUpdateSubject">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -222,10 +298,10 @@
                     <input type="hidden" id="update_subject_id" name="subject_id">
 					<div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label for="update_subject_name">Subject Name:-</label>
 							</div>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<input type="text" class="form-control" id="update_subject_name" name="subject_name" >
 								<div class="invalid-feedback" id="updateNameError"> </div>
 								
@@ -235,10 +311,10 @@
 					
                     <div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label for="update_subject_code">Subject Code:-</label>
 							</div>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<input type="text" class="form-control" id="update_subject_code" name="subject_code" >
 								<div class="invalid-feedback" id="updateCodeError"> </div>
 							</div>
@@ -247,10 +323,10 @@
                     
                     <div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label for="update_subject_type">Subject Type:-</label>
 							</div>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<select
 									type="text" 
 									class = "form-control"
@@ -267,10 +343,10 @@
 					
                     <div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label for="update_full_mark">Full Mark:-</label>
 							</div>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<input type="number" class="form-control" id="update_full_mark" name="full_mark">
 								<div class="invalid-feedback" id="updateFullMarkError"> </div>
 							</div>
@@ -279,10 +355,10 @@
 					
                     <div class="form-group">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label for="update_pass_mark">Pass Mark:-</label>
 							</div>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<input type="number" class="form-control" id="update_pass_mark" name="pass_mark">
 								<div class="invalid-feedback" id="updatePassMarkError"> </div>
 							</div>
@@ -293,7 +369,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save Changes</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeUpdateSubject">Close</button>
 				</div>
 			</form>
         </div>
@@ -363,14 +439,35 @@
         // Add subject using AJAX
         $('#addSubjectForm').submit(function(e) {
             e.preventDefault();
-            var formData = $(this).serialize();
+            //var formData = $(this).serialize();
 			//const formData = new FormData();
+			
+			const formData = new FormData();
+			if($('#subject_name').val()) formData.append('subject_name', $('#subject_name').val());
+			if($('#subject_code').val()) formData.append('subject_code', $('#subject_code').val());
+			if($('#subject_type').val()) formData.append('subject_type', $('#subject_type').val());
+			if($('#full_mark').val()) formData.append('full_mark', $('#full_mark').val());
+			if($('#pass_mark').val()) formData.append('pass_mark', $('#pass_mark').val());
+			if($('#text_book_1').val()) formData.append('text_book_1', $('#text_book_1').val());
+			if($('#text_book_2').val()) formData.append('text_book_2', $('#text_book_2').val());
+			if($('#ref_book_1').val()) formData.append('ref_book_1', $('#ref_book_1').val());
+			if($('#ref_book_2').val()) formData.append('ref_book_2', $('#ref_book_2').val());
+			
             $.ajax({
                 url: `${baseUrl}/subject/subjects/`,
                 method: 'POST',
                 data: formData,
+				processData: false, // Necessary for FormData
+				contentType: false,
                 success: function(data) {
                     $('#addSubjectModal').modal('hide');
+					
+					$('#addSubjectForm')[0].reset();
+        
+					// Remove any error classes and messages
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+					
                     loadSubjects();  // Reload the table after adding
                 },
                 error: function(error) {
@@ -408,6 +505,18 @@
                 }
             });
         });
+		
+		$(document).on('click', '#closeAddSubject', function(){
+			$('#addSubjectForm')[0].reset();
+			$('.form-control').removeClass('is-invalid');
+			$('.invalid-feedback').text('');
+		});
+		
+		$(document).on('click', '#closeUpdateSubject', function(){
+			$('#updateSubjectForm')[0].reset();
+			$('.form-control').removeClass('is-invalid');
+			$('.invalid-feedback').text('');
+		});
 
         // Update subject: Open modal with data filled
         $(document).on('click', '.update-subject', function() {
@@ -436,12 +545,29 @@
             e.preventDefault();
             var subjectId = $('#update_subject_id').val();
             var formData = $(this).serialize();
+			
+			/*const formData = new FormData();
+			if($('#update_subject_name').val()) formData.append('subject_name', $('#subject_name').val());
+			if($('#update_subject_code').val()) formData.append('subject_code', $('#subject_code').val());
+			if($('#update_subject_type').val()) formData.append('subject_type', $('#subject_type').val());
+			if($('#update_full_mark').val()) formData.append('full_mark', $('#full_mark').val());
+			if($('#update_pass_mark').val()) formData.append('pass_mark', $('#pass_mark').val());
+			*/
             $.ajax({
                 url: `${baseUrl}/subject/subjects/${subjectId}/`,
                 method: 'PUT',
                 data: formData,
+				//processData: false, // Necessary for FormData
+				//contentType: false,
                 success: function(data) {
                     $('#updateSubjectModal').modal('hide');
+					
+					$('#updateSubjectForm')[0].reset();
+        
+						// Remove any error classes and messages
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+					
                     loadSubjects();  // Reload the table after update
                 },
                 error: function(error) {
@@ -452,27 +578,27 @@
 					console.log(errors);
 					
 					if(errors.subject_name){
-						$('#subject_name').addClass('is-invalid')
-						$('#subjectNameError').text(errors.subject_name[0])
+						$('#update_subject_name').addClass('is-invalid')
+						$('#updateNameError').text(errors.subject_name[0])
 					}
 					
 					if(errors.subject_code){
-						$('#subject_code').addClass('is-invalid')
-						$('#subjectCodeError').text(errors.subject_code[0])
+						$('#update_subject_code').addClass('is-invalid')
+						$('#updateCodeError').text(errors.subject_code[0])
 					}
 					
 					if(errors.subject_type){
-						$('#subject_type').addClass('is-invalid')
-						$('#subjectTypeError').text(errors.subject_type[0])
+						$('#update_subject_type').addClass('is-invalid')
+						$('#updateTypeError').text(errors.subject_type[0])
 					}
 					
 					if(errors.full_mark){
-						$('#full_mark').addClass('is-invalid')
-						$('#fullMarkError').text(errors.full_mark[0])
+						$('#update_full_mark').addClass('is-invalid')
+						$('#updateFullMarkError').text(errors.full_mark[0])
 					}
 					if(errors.pass_mark){
-						$('#pass_mark').addClass('is-invalid')
-						$('#passMarkError').text(errors.pass_mark[0])
+						$('#update_pass_mark').addClass('is-invalid')
+						$('#updatePassMarkError').text(errors.pass_mark[0])
 					}
 					
 					

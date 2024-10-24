@@ -242,7 +242,7 @@
       });
     });
   </script>-->
-  <script>
+  <!--<script>
     $(document).ready(function () {
       const baseUrl = localStorage.getItem("url");
       const access = localStorage.getItem("access_token");
@@ -250,7 +250,7 @@
 
       // Function to generate years
       function generateYears() {
-        const currentYear = new Date().getFullYear();
+        const currentYear = new Date().getFullYear();		
         for (let i = currentYear; i >= 2000; i--) {
           $('#year-select').append(`<option value="${i}">${i}</option>`);
         }
@@ -258,6 +258,7 @@
 
       // Function to generate months
       function generateMonths() {
+		
         for (let i = 1; i <= 12; i++) {
           $('#month-select').append(`<option value="${i}">${i}</option>`);
         }
@@ -265,6 +266,7 @@
 
       // Function to generate days
       function generateDays() {
+		
         for (let i = 1; i <= 31; i++) {
           $('#day-select').append(`<option value="${i}">${i}</option>`);
         }
@@ -357,6 +359,131 @@
         });
       });
     });
+  </script>-->
+  <script>
+	$(document).ready(function () {
+	  const baseUrl = localStorage.getItem("url");
+	  const access = localStorage.getItem("access_token");
+	  
+	  // Get current date
+	  const currentDate = new Date();
+	  const currentYear = currentDate.getFullYear();
+	  const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed
+	  const currentDay = currentDate.getDate();
+
+	  // Function to generate years
+	  function generateYears() {
+		for (let i = currentYear; i >= 2000; i--) {
+		  $('#year-select').append(`<option value="${i}">${i}</option>`);
+		}
+		// Set the current year as selected
+		$('#year-select').val(currentYear);
+	  }
+
+	  // Function to generate months
+	  function generateMonths() {
+		for (let i = 1; i <= 12; i++) {
+		  $('#month-select').append(`<option value="${i}">${i}</option>`);
+		}
+		// Set the current month as selected
+		$('#month-select').val(currentMonth);
+	  }
+
+	  // Function to generate days
+	  function generateDays() {
+		for (let i = 1; i <= 31; i++) {
+		  $('#day-select').append(`<option value="${i}">${i}</option>`);
+		}
+		// Set the current day as selected
+		$('#day-select').val(currentDay);
+	  }
+
+	  // Initialize the dropdowns
+	  generateYears();
+	  generateMonths();
+	  generateDays();
+
+	  // Fetch all students and populate table
+	  $.ajax({
+		url: `${baseUrl}/student/students/`,
+		type: 'GET',
+		success: function (data) {
+		  data.forEach(item => {
+			$('#data-table tbody').append(`
+			  <tr id="row-${item.student_id}">
+				<td class="text-left"><input type="checkbox" class="attendance-checkbox" data-student-id="${item.student_id}" /></td>
+				<td class="text-left">${item.first_name}</td>
+				<td class="text-left">${item.email}</td>
+			  </tr>
+			`);
+		  });
+		},
+		error: function (err) {
+		  console.log('Error fetching data:', err);
+		}
+	  });
+	  
+	  const user = localStorage.getItem("user");
+
+	  $('#check-all').click(function () {
+		if ($(this).is(':checked')) {
+		  $('.attendance-checkbox').prop('checked', true);
+		  $('#uncheck-all').prop('checked', false); // Uncheck the "Uncheck All" checkbox
+		}
+	  });
+
+	  // Uncheck All functionality
+	  $('#uncheck-all').click(function () {
+		if ($(this).is(':checked')) {
+		  $('.attendance-checkbox').prop('checked', false);
+		  $('#check-all').prop('checked', false); // Uncheck the "Check All" checkbox
+		}
+	  });
+
+	  // Log attendance button click handler
+	  $('#log-attendance').click(function () {
+		const attendanceData = [];
+		$('.attendance-checkbox').each(function () {
+		  const studentId = $(this).data('student-id');
+		  const status = $(this).is(':checked') ? 'P' : 'A'; // P for present, A for absent
+		  attendanceData.push({ student_id: studentId, status: status, uploaded_by: user });
+		});
+
+		// Send attendance data to the backend
+		const year = $('#year-select').val();
+		const month = $('#month-select').val();
+		const day = $('#day-select').val();
+
+		$.ajax({
+		  url: `${baseUrl}/student/attendance/${year}/${month}/${day}/`,
+		  type: 'POST',
+		  headers: {
+			'Authorization': `Bearer ${access}`
+		  },
+		  data: JSON.stringify({ attendance_data: attendanceData }),
+		  contentType: 'application/json',
+		  success: function (response) {
+			if (response.non_field_errors && response.non_field_errors.length > 0) {
+			  alert(response.non_field_errors);
+			} else {
+			  alert('Attendance logged successfully');
+			}
+		  },
+		  error: function (err) {
+			console.log('Error logging attendance:', err);
+		  }
+		});
+	  });
+
+	  // Search functionality for students
+	  $('#search-bar').on('keyup', function () {
+		const value = $(this).val().toLowerCase();
+		$('#data-table tbody tr').filter(function () {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+		});
+	  });
+	});
+
   </script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
