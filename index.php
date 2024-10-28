@@ -34,6 +34,7 @@
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
                           <div class="mdc-text-field w-100">
                             <input class="mdc-text-field__input" id="email" name="email" type="text" required>
+							
 							<div class="invalid-feedback" id="emailError"></div>
                             <div class="mdc-line-ripple"></div>
                             <label for="email" class="mdc-floating-label">Username</label>
@@ -48,24 +49,24 @@
                           </div>
                         </div>
 						
-						<!--MDC form-->
-						<!--<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+						<!--
+						<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
                           <div class="mdc-text-field w-100">
-                            <input class="mdc-text-field__input" id="email" name="email" type="text" required>
+							<label for="email" class="mdc-floating-label">Username</label>
+                            <input class="form-control" id="email" name="email" type="text" >
 							<div class="invalid-feedback" id="emailError"></div>
-                            <div class="mdc-line-ripple"></div>
-                            <label for="email" class="mdc-floating-label">Username</label>
+                            
                           </div>
                         </div>
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
                           <div class="mdc-text-field w-100">
-                            <input class="mdc-text-field__input" id="password" name="password" type="password" required>
+							<label for="password" class="mdc-floating-label">Password</label>
+                            <input class="form-control" id="password" name="password" type="password" >
 							<div class="invalid-feedback" id="passwordError"></div>
-                            <div class="mdc-line-ripple"></div>
-                            <label for="password" class="mdc-floating-label">Password</label>
+
                           </div>
-                        </div>-->
-						
+                        </div>
+						-->
 						
 						 <!--<div className="form-group">
 							<label htmlFor="email">Email</label>
@@ -143,111 +144,10 @@
   <!-- jQuery (required for AJAX) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="./static/index.js"></script> 
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	  $(document).ready(function() {
-		// Handle form submission
-		$("#loginForm").on("submit", function(e) {
-		  e.preventDefault(); // Prevent default form submission
-
-		  // Get input values
-		  const email = $("#email").val();
-		  const password = $("#password").val();
-
-		  // jQuery AJAX POST request
-		  $.ajax({
-			url: "http://localhost:8000/api/user/login/", // API login URL
-			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({
-			  email: email,
-			  password: password
-			}),
-			success: function(response) {
-			  // Handle successful login
-			  alert(response.message); // Display success message
-			  localStorage.setItem("access_token", response.tokens.access);
-			  localStorage.setItem("refresh_token", response.tokens.refresh);
-			  
-			  // Dynamically load dashboard content instead of redirecting
-			  loadDashboardContent();
-			},
-			error: function(xhr, status, error) {
-			  // Handle error
-			  const errorMsg = xhr.responseJSON ? xhr.responseJSON.errors.error[0] : "Login failed.";
-			  alert(errorMsg);
-			}
-		  });
-		});
-		
-		// Function to load dashboard content dynamically
-		function loadDashboardContent() {
-		  $.ajax({
-			url: "dashboard.php",  // Dashboard content file
-			type: "GET",
-			success: function(data) {
-			  // Inject dashboard content into the 'content' div
-			  $("#content").php(data);
-			},
-			error: function(xhr, status, error) {
-			  console.error("Error loading dashboard:", error);
-			}
-		  });
-		}
-	  });
-	</script> --!>
-	<!--<script>
-	  $(document).ready(function() {
-		// Function to get CSRF token from cookies
-		function getCookie(name) {
-		  let cookieValue = null;
-		  if (document.cookie && document.cookie !== '') {
-			const cookies = document.cookie.split(';');
-			for (let i = 0; i < cookies.length; i++) {
-			  const cookie = cookies[i].trim();
-			  if (cookie.substring(0, name.length + 1) === (name + '=')) {
-				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-				break;
-			  }
-			}
-		  }
-		  return cookieValue;
-		}
-
-		// Setup AJAX to always include the CSRF token
-		$.ajaxSetup({
-		  beforeSend: function(xhr, settings) {
-			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken')); // Get the latest CSRF token
-		  }
-		});
-
-		// Login form submit event handler
-		$("#loginForm").on("submit", function(e) {
-		  e.preventDefault(); // Prevent default form submission
-
-		  const email = $("#email").val();
-		  const password = $("#password").val();
-
-		  // Perform the AJAX request to login
-		  $.ajax({
-			url: "http://localhost:8000/api/user/login/", // Your API login URL
-			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({ email: email, password: password }), // Send email and password in JSON format
-			success: function(response) {
-			  alert(response.message); // Display success message
-			  window.location.href = "dashboard.php"; // Redirect to dashboard on success
-			},
-			error: function(xhr) {
-			  const errorMsg = xhr.responseJSON && xhr.responseJSON.errors
-				? xhr.responseJSON.errors.error[0]
-				: "Login failed. Please try again."; // Default error message
-			  alert(errorMsg);
-			}
-		  });
-		});
-	  });
-	</script>--!>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </body>
 </html>

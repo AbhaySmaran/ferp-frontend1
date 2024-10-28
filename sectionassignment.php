@@ -281,14 +281,7 @@
 		}*/
 
 		
-		/*$('#check-all').change(function() {
-			$('.student-checkbox').prop('checked', true);
-		});
-
-		
-		$('#uncheck-all').change(function() {
-			$('.student-checkbox').prop('checked', false);
-		});*/
+	
 		
 		$('#check-all').click(function () {
 			if ($(this).is(':checked')) {

@@ -44,8 +44,8 @@
 					</a>
 				  </div>
 				  <div class="mdc-list-item mdc-drawer-item">
-					<a class="mdc-drawer-link" href="#">
-					  Add Department
+					<a class="mdc-drawer-link" href="departments.php">
+					  Departments
 					</a>
 				  </div>
 				  <div class="mdc-list-item mdc-drawer-item">

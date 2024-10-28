@@ -25,74 +25,84 @@
 </head>
 <body>
 <script>
-	$(document).ready(function() {
-		console.log('Document is ready.'); // Debug log for document ready
+	$(document).ready(function(){
 		const baseUrl = localStorage.getItem("url");
 		const access = localStorage.getItem("access_token");
-		
-		const limit = 5; 
+		const limit = 10;  
 		let allUsers = []; 
-		let displayedUsers = 0; 
+		let currentPage = 1;
+		
+		loadUseres();
 
 		// Fetch all users
-		$.ajax({
-			url: `${baseUrl}/api/users/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data); // Debug log for API data
-				allUsers = data; // If data has a 'results' property, use data.results
-				loadMoreUsers(); // Load the first batch of users
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err); // Debug log for error
-			}
-		});
-
-		// Function to load more users
-		function loadMoreUsers() {
-			console.log('Loading more users:', displayedUsers); // Debug log for current count
-			const nextUsers = allUsers.slice(displayedUsers, displayedUsers + limit);
-			console.log('Next users to be displayed:', nextUsers); // Debug log for next batch
-
-			nextUsers.forEach(item => {
-				// Avoid appending duplicate rows
-				if (!$(`#row-${item.user_id}`).length) {
-					console.log('Appending user:', item); // Debug log for appending user
-					$('#data-table tbody').append(`
-						<tr id="row-${item.user_id}">
-							<td class="text-left">${item.user_id}</td>
-							<td class='text-left'>${item.first_name}</td>
-							<td class='text-left'>${item.email}</td>
-							<td class='text-left'>${item.role.role}</td>
-						</tr>
-					`);
-				} else {
-					console.log('User already exists in table:', item); // Debug log for duplicates
+		function loadUseres(){	
+			$.ajax({
+				url: `${baseUrl}/api/users/`,
+				type: 'GET',
+				success: function(data) {
+					console.log('Data received from API:', data);
+					allUsers = data; 
+					displayTableData();
+					setupPagination(); // Call pagination after fetching data
+				},
+				error: function(err) {
+					console.log('Error fetching data:', err);
 				}
 			});
+		}
+		
+		
+		
 
-			displayedUsers += nextUsers.length;
-			console.log('Updated displayedUsers count:', displayedUsers); // Debug log for displayed users
+		// Function to display the table data
+		function displayTableData() {
+			let start = (currentPage - 1) * limit;
+			let end = start + limit;
+			let paginatedData = allUsers.slice(start, end);
 
-			// Hide the "Load More" button if all users are displayed
-			if (displayedUsers >= allUsers.length) {
-				console.log('All users loaded, hiding Load More button.'); // Debug log for hiding button
-				$('#load-more').hide();
-			}
+			const tableBody = $('#data-table tbody');
+			tableBody.empty(); 
+
+			paginatedData.forEach(item => {
+				tableBody.append(`
+					<tr id="row-${item.id}">
+						<td class="text-left">${item.id}</td>
+						<td class="text-left">${item.first_name}</td>
+						<td class="text-left">${item.email}</td>
+						<td class="text-left">
+							${item.role.role}
+						</td>
+					</tr>
+				`);
+			});
 		}
 
-		// Load more items when the "Load More" button is clicked
-		$('#load-more').off('click').on('click', function() {
-			console.log('Load More button clicked.'); // Debug log for button click
-			loadMoreUsers();
-		});
-	});
-</script>
+		// Function to handle pagination setup
+		function setupPagination() {
+			const totalPages = Math.ceil(allUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
 
- <script>
-        $(document).ready(function(){
+			for (let i = 1; i <= totalPages; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				currentPage = parseInt($(this).attr('data-page'));
+				displayTableData();
+				setupPagination(); // Update pagination active state
+			});
+		}
+		
+	
 			
-			const baseUrl = localStorage.getItem("url");
+			
 
             $('#csvForm').on('submit', function(e){
                 e.preventDefault();
@@ -129,11 +139,17 @@
 						} else {
 							// Show success message if no errors
 							alert(response.success);
+							loadUsers();
+							$('#csvForm')[0].resset();
 						}
 					},
-					error: function() {
-						alert('Error uploading file');
+					error: function(err) {
+						//alert('Error uploading file');
+						
+						const error = err.responseJSON;
+						alert(err.error)
 						console.log(error);
+						
 					}
                 });
             });
@@ -154,11 +170,18 @@
 					<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
 						<div class="mdc-card p-0">-->
 						<div style="border-radius: 10px; background-color: lightblue; padding: 8px;">
-							<p><b>Upload User CSV</b></p>
-							<form id="csvForm" enctype="multipart/form-data">
-								<input type="file" name="file" id="file" accept=".csv">
-								<button class="btn btn-light" type="submit">Upload</button>
-							</form>
+							<div class="row">
+								<div class="col-md-9">
+									<p><b>Upload User CSV</b></p>
+									<form id="csvForm" enctype="multipart/form-data">
+										<input type="file" name="file" id="file" accept=".csv">
+										<button class="btn btn-light" type="submit">Upload</button>
+									</form> 
+								</div>
+								<div class="cpl-md-3">
+									<button class='btn btn-light mt-5' onclick="downloadSampleCsv()"><b>Download Sample CSV</b></button>
+								</div>
+							</div>
 						</div>
 						<!--</div>
 					</div>
@@ -194,11 +217,19 @@
 								
 						</tbody>
 					</table>
-					<button class="btn btn-primary" id="load-more">Load Data</button>
+					<!--<button class="btn btn-primary" id="load-more">Load Data</button>-->
 				  </div>
 				</div>
 			  </div>
 			</div>
+			</div>
+			
+			<div class="text-center">
+				<nav>
+					<ul class="pagination justify-content-center" id="pagination">
+						<!-- Pagination Items Go Here -->
+					</ul>
+				</nav>
 			</div>
           
         </main>
@@ -269,5 +300,28 @@
   <!-- Custom js for this page-->
   <script src="./assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  
+  <script>
+	function downloadSampleCsv() {
+		// Create a sample CSV content
+		const sampleData = `Username,Email,First Name,Last Name,Password,Phone,DOB,Age,Aaddress,Role,Staff Category,Department,Dp Image,Signature,Gender`
+		// Create a Blob with the sample CSV content
+		const blob = new Blob([sampleData], { type: 'text/csv' });
+		
+		// Create a temporary link element to initiate the download
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = 'sample_user_data.csv';
+		
+		// Append link to body, trigger click, and remove it afterward
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		
+		// Release the Blob URL
+		URL.revokeObjectURL(url);
+	}
+</script>
 </body>
 </html> 

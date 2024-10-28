@@ -35,7 +35,7 @@
       <div class="page-wrapper mdc-toolbar-fixed-adjust">
         <main class="content-wrapper">
 			<div class="d-flex justify-content-between mb-4">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#addSubjectModal">Add Subject</button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#addSubjectModal"><i class="fa-regular fa-square-plus"></i> Add Subject</button>
 			</div>
           <div class="mdc-layout-grid">
 			<div class="mdc-layout-grid__inner">
@@ -150,7 +150,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="pass_mark">Text Book 1:- </label>
+										<label for="text_book_1">Text Book 1:- </label>
 									</div>
 									<div class="col-md-9">
 										<input type="text" class="form-control" id="text_book_1" name="text_book_1">
@@ -163,7 +163,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="pass_mark">Text Book 2:- </label>
+										<label for="text_book_2">Text Book 2:- </label>
 									</div>
 									<div class="col-md-9">
 										<input type="text" class="form-control" id="text_book_2" name="text_book_2">
@@ -179,7 +179,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="pass_mark">Reference Book 1:- </label>
+										<label for="ref_book_1">Reference Book 1:- </label>
 									</div>
 									<div class="col-md-9">
 										<input type="text" class="form-control" id="ref_book_1" name="ref_book_1">
@@ -192,10 +192,10 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="pass_mark">Reference Book 2:- </label>
+										<label for="ref_book_2">Reference Book 2:- </label>
 									</div>
 									<div class="col-md-9">
-										<input type="text" class="form-control" id="Ref_book_2" name="ref_book_2">
+										<input type="text" class="form-control" id="ref_book_2" name="ref_book_2">
 										
 									</div>
 								</div>
@@ -252,20 +252,20 @@
 			
 			<div class="modal-body">
                 
-				<table table-responsive>
+				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Text Book 1<th>
-							<th>Text Book 2<th>
-							<th>Reference Book 1<th>
-							<th>Reference Book 1<th>
+							<th class="text-left">Text Book 1</th>
+							<th class="text-left">Text Book 2</th>
+							<th class="text-left">Reference Book 1</th>
+							<th class="text-left">Reference Book 2</th>
 						</tr>
 					</thead>
-					<tbody id="subject_books">
-						<td id="text_book_1"></td>
-						<td id="text_book_2"></td>
-						<td id="ref_book_1"></td>
-						<td id="text_book_1"></td>
+					<tbody>
+						<td id="view_text_book_1" class="text-left"></td>
+						<td id="view_text_book_2" class="text-left"></td>
+						<td id="view_ref_book_1" class="text-left"></td>
+						<td id="view_ref_book_2" class="text-left"></td>
 					</tbody>
 				</table>
                     
@@ -296,7 +296,7 @@
 				<div class="modal-body">
                 
                     <input type="hidden" id="update_subject_id" name="subject_id">
-					<div class="form-group">
+					<!--<div class="form-group">
 						<div class="row">
 							<div class="col-md-3">
 								<label for="update_subject_name">Subject Name:-</label>
@@ -363,6 +363,148 @@
 								<div class="invalid-feedback" id="updatePassMarkError"> </div>
 							</div>
 						</div>
+                    </div>-->
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_subject_name">Subject Name:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_subject_name" name="subject_name" >
+										<div class="invalid-feedback" id="updateNameError"> </div>
+									</div>
+								</div>
+							</div>
+						</div> 
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_subject_code">Subject Code:-</label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_subject_code" name="subject_code" >
+										<div class="invalid-feedback" id="updadteCodeError"> </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+                    
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_full_mark">Full Mark:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="number" class="form-control" id="update_full_mark" name="full_mark">
+										<div class="invalid-feedback" id="updateFullMarkError"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_pass_mark">Pass Mark:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="number" class="form-control" id="update_pass_mark" name="pass_mark">
+										<div class="invalid-feedback" id="updatePassMarkError"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_text_book_1">Text Book 1:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_text_book_1" name="text_book_1">
+										
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_text_book_2">Text Book 2:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_text_book_2" name="text_book_2">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_ref_book_1">Reference Book 1:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_ref_book_1" name="ref_book_1">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="update_ref_book_2">Reference Book 2:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="update_ref_book_2" name="ref_book_2">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+					
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-3">
+										<label for="subject_type">Subject Type:- </label>
+									</div>
+									<div class="col-md-9">
+										<select
+											type="text" 
+											class = "form-control"
+											id="update_subject_type"
+											name="subject_type"
+										>
+											<option value="">Select Subject Type <option>
+											<option value="T">Theory<option>
+											<option value="P">Practical</option>
+										</select>
+										<div class="invalid-feedback" id="updateTypeError"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
                     </div>
                     
                 
@@ -424,8 +566,8 @@
                                 <td>${subject.full_mark}</td>
                                 <td>${subject.pass_mark}</td>
                                 <td>
-									<button class="btn btn-light view-books" data-id="${subject.subject_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" >Books</button>
-                                    <button class="btn btn-light update-subject" data-id="${subject.subject_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" >Update</button>
+									<button class="btn btn-light view-books" data-id="${subject.subject_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" ><i class="fa-solid fa-book"></i> Books</button>
+                                    <button class="btn btn-light update-subject" data-id="${subject.subject_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" ><i class="fa-solid fa-pen-to-square"></i> Edit</button>
 									<!--<button class='btn btn-light btn-view-user' data-id="${subject.subject_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Update</button>-->
                                 </td>
                             </tr>
@@ -512,11 +654,37 @@
 			$('.invalid-feedback').text('');
 		});
 		
+		
+		
 		$(document).on('click', '#closeUpdateSubject', function(){
 			$('#updateSubjectForm')[0].reset();
 			$('.form-control').removeClass('is-invalid');
 			$('.invalid-feedback').text('');
 		});
+		
+		$('#subjectsTable').on('click','.view-books', function(){
+			var subjectId = $(this).data('id');
+			
+			$.ajax({
+				url: `${baseUrl}/subject/subjects/${subjectId}/`,
+                method: 'GET',
+                success: function(data) {
+                    /*$('#update_subject_id').val(data.subject_id);
+                    $('#update_subject_code').val(data.subject_code);
+                    $('#update_subject_name').val(data.subject_name);
+                    $('#update_subject_type').val(data.subject_type);
+                    $('#update_full_mark').val(data.full_mark);
+                    $('#update_pass_mark').val(data.pass_mark);
+                    $('#updateSubjectModal').modal('show');*/
+					
+					$('#view_text_book_1').text(data.text_book_1);
+					$('#view_text_book_2').text(data.text_book_2);
+					$('#view_ref_book_1').text(data.ref_book_1);
+					$('#view_ref_book_2').text(data.ref_book_2);
+					$('#subjectBooksModal').modal('show');
+				}
+			})
+		})
 
         // Update subject: Open modal with data filled
         $(document).on('click', '.update-subject', function() {
@@ -531,14 +699,18 @@
                     $('#update_subject_type').val(data.subject_type);
                     $('#update_full_mark').val(data.full_mark);
                     $('#update_pass_mark').val(data.pass_mark);
+					
+					$('#update_text_book_1').val(data.text_book_1);
+					$('#update_text_book_2').val(data.text_book_2);
+					$('#update_ref_book_1').val(data.ref_book_1);
+					$('#update_ref_book_2').val(data.ref_book_2);
+					
                     $('#updateSubjectModal').modal('show');
                 }
             });
         });
 		
-		/*$('#subjectsTable').on('click','.view-books', function(){
-			var subjectId = $(this).data('id);
-		})*/
+		
 
         // Submit the update form
         $('#updateSubjectForm').submit(function(e) {
@@ -553,57 +725,60 @@
 			if($('#update_full_mark').val()) formData.append('full_mark', $('#full_mark').val());
 			if($('#update_pass_mark').val()) formData.append('pass_mark', $('#pass_mark').val());
 			*/
-            $.ajax({
-                url: `${baseUrl}/subject/subjects/${subjectId}/`,
-                method: 'PUT',
-                data: formData,
-				//processData: false, // Necessary for FormData
-				//contentType: false,
-                success: function(data) {
-                    $('#updateSubjectModal').modal('hide');
-					
-					$('#updateSubjectForm')[0].reset();
-        
-						// Remove any error classes and messages
-					$('.form-control').removeClass('is-invalid');
-					$('.invalid-feedback').text('');
-					
-                    loadSubjects();  // Reload the table after update
-                },
-                error: function(error) {
-					$('.form-control').removeClass('is-invalid');
-					$('.invalid-feedback').text('');
-					
-                    const errors = error.responseJSON;
-					console.log(errors);
-					
-					if(errors.subject_name){
-						$('#update_subject_name').addClass('is-invalid')
-						$('#updateNameError').text(errors.subject_name[0])
+			
+			if(window.confirm('Save Changes!')){
+				$.ajax({
+					url: `${baseUrl}/subject/subjects/${subjectId}/`,
+					method: 'PUT',
+					data: formData,
+					//processData: false, // Necessary for FormData
+					//contentType: false,
+					success: function(data) {
+						$('#updateSubjectModal').modal('hide');
+						
+						$('#updateSubjectForm')[0].reset();
+			
+							// Remove any error classes and messages
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						loadSubjects();  // Reload the table after update
+					},
+					error: function(error) {
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('');
+						
+						const errors = error.responseJSON;
+						console.log(errors);
+						
+						if(errors.subject_name){
+							$('#update_subject_name').addClass('is-invalid')
+							$('#updateNameError').text(errors.subject_name[0])
+						}
+						
+						if(errors.subject_code){
+							$('#update_subject_code').addClass('is-invalid')
+							$('#updateCodeError').text(errors.subject_code[0])
+						}
+						
+						if(errors.subject_type){
+							$('#update_subject_type').addClass('is-invalid')
+							$('#updateTypeError').text(errors.subject_type[0])
+						}
+						
+						if(errors.full_mark){
+							$('#update_full_mark').addClass('is-invalid')
+							$('#updateFullMarkError').text(errors.full_mark[0])
+						}
+						if(errors.pass_mark){
+							$('#update_pass_mark').addClass('is-invalid')
+							$('#updatePassMarkError').text(errors.pass_mark[0])
+						}
+						
+						
 					}
-					
-					if(errors.subject_code){
-						$('#update_subject_code').addClass('is-invalid')
-						$('#updateCodeError').text(errors.subject_code[0])
-					}
-					
-					if(errors.subject_type){
-						$('#update_subject_type').addClass('is-invalid')
-						$('#updateTypeError').text(errors.subject_type[0])
-					}
-					
-					if(errors.full_mark){
-						$('#update_full_mark').addClass('is-invalid')
-						$('#updateFullMarkError').text(errors.full_mark[0])
-					}
-					if(errors.pass_mark){
-						$('#update_pass_mark').addClass('is-invalid')
-						$('#updatePassMarkError').text(errors.pass_mark[0])
-					}
-					
-					
-                }
-            });
+				});
+			}
         });
     });
 </script>
