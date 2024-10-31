@@ -74,23 +74,37 @@
 	<div class="modal-dialog modal-lg" role="document" >
 		<div class="modal-content">
 			<div class="modal-header">
-                <h5 class="modal-title" id="addSubjectModalLabel">Add Subject</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddSubject">
+                <h5 class="modal-title" id="addDepartmentModalLabel">Add Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeAddDept">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-			<form id="addSubjectForm">
+			<form id="addDepartmentForm">
 				<div class="modal-body">
 				
 					
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="subject_name">Subject Name:- </label>
+										<label>Department Name:- </label>
 									</div>
 									<div class="col-md-9">
-										<input type="text" class="form-control" id="subject_name" name="subject_name" >
-										<div class="invalid-feedback" id="subjectNameError"> </div>
+										<input type="text" class="form-control" id="dept_name"  >
+										<div class="invalid-feedback" id="deptNameError"> </div>
+									</div>
+								</div>
+							</div>
+						
+							
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label>HOD:-</label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="hod"  >
+										
 									</div>
 								</div>
 							</div>
@@ -98,27 +112,106 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
-										<label for="subject_code">Subject Code:-</label>
+										<label>Department Contact No.:-</label>
 									</div>
 									<div class="col-md-9">
-										<input type="text" class="form-control" id="subject_code" name="subject_code" >
-										<div class="invalid-feedback" id="subjectCodeError"> </div>
+										<input type="text" class="form-control" id="dept_contact" >
+										
 									</div>
 								</div>
 							</div>
-						
-				
                     
 					
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Add Subject</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeAddSubject">Close</button>
+					<button type="submit" class="btn btn-primary">Add Department</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeAddDept">Close</button>
 				</div>
 				
 			</form>
         </div>
     </div>
 </div>
+
+ 
+<!--<div class="modal fade" id="editDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" >
+		<div class="modal-content">
+			<div class="modal-header">
+                <h5 class="modal-title" id="editDepartmentModalLabel">Update Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEditDept">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+		</div>
+	</div>
+</div>-->
+
+<!-- Edit Dept Modal-->
+<div class="modal fade" id="editDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" >
+		<div class="modal-content">
+			<div class="modal-header">
+                <h5 class="modal-title" id="editDepartmentModalLabel">Edit Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeEditDepartment">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<form id="editDepartmentForm">
+				<div class="modal-body">
+				
+							<input type="hidden" id="update_dept_id" name="dept_id">
+					
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label>Department Name:- </label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="editDeptName" >
+										<div class="invalid-feedback" id="editDeptError"> </div>
+									</div>
+								</div>
+							</div>
+						
+							
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label>HOD:-</label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="editHOD" >
+										
+									</div>
+								</div>
+							</div>
+						
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-3">
+										<label >Department Contact No.:-</label>
+									</div>
+									<div class="col-md-9">
+										<input type="text" class="form-control" id="editDeptContact" >
+										
+									</div>
+								</div>
+							</div>
+                    
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Update Subject</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeEditSubject">Close</button>
+				</div>
+				
+			</form>
+        </div>
+    </div>
+</div>
+
+
+
 
   
   
@@ -162,7 +255,7 @@
                                 <td class="text-left">${dept.HOD}</td>
                                 <td class="text-right">${dept.dept_contact}</td>                       
                                 <td>
-                                    <button class="btn btn-light update-subject" data-id="${dept.dept_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" ><i class="fa-solid fa-pen-to-square"></i> Edit</button>									
+                                    <button class="btn btn-light update-dept" data-id="${dept.dept_id}" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" ><i class="fa-solid fa-pen-to-square"></i> Edit</button>									
                                 </td>
                             </tr>
                         `;
@@ -171,8 +264,101 @@
                 }
 			})
 		}
+		
+		$('#addDepartmentForm').submit(function(e){
+			e.preventDefault();
+			const formData = new FormData();
+			const dept_name = $('#dept_name').val();
+			const hod = $('#hod').val();
+			const dept_contact = $('#dept_contact').val();
+			
+			if(dept_name) formData.append('dept_name', dept_name);
+			if(hod) formData.append('HOD',hod);
+			if(dept_contact) formData.append('dept_contact', dept_contact);
+			
+			
+			$.ajax({
+				url: `${baseUrl}/api/dept/`,
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data){
+					$('#addDepartmentModal').modal('hide');
+					
+					$('#addDepartmentForm')[0].reset();
+        
+					// Remove any error classes and messages
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+					
+					loadDepartments();
+				},
+				error: function(err){
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('');
+					
+					const errors = err.responseJSON;
+					
+					if(errors.dept_name){
+						$('#dept_name').addClass('is-invalid');
+						$('#deptNameError').text(errors.dept_name[0]);
+					}
+				}
+			})
+		})
+		
+		$(document).on('click', '#closeAddDept', function(){
+			$('#addDepartmentForm')[0].reset();
+			$('.form-control').removeClass('is-invalid');
+			$('.invalid-feedback').text('');
+		})
+		
+		
+		$(document).on('click', '.update-dept', function(){
+			var deptId = $(this).data('id');
+			$.ajax({
+				url:`${baseUrl}/api/dept/${deptId}/`,
+				method: 'GET',
+				success: function(data){
+					$('#update_dept_id').val(data.dept_id);
+					$('#editDeptName').val(data.dept_name);
+					$('#editHOD').val(data.HOD);
+					$('#editDeptContact').val(data.dept_contact);
+					
+					$('#editDepartmentModal').modal('show');
+					console.log(data)
+					
+				},
+				error: function(err){
+					console.log(err);
+				}
+			})
+		})
+		
+		$('#editDepartmentForm').submit(function(e){
+			e.preventDefault();
+			var deptId = $(this).data('id');
+			const formData = $(this).serialize();
+			
+			$.ajax({
+				url: `${baseUrl}/api/dept/${deptId}/`,
+				type: 'PUT',
+				data: formData,
+				success: function(response){
+					$('#editDepartmentModal').modal('hide');
+					$('#editDepartmentForm')[0].reset();
+					$('.form-control').removeClass('is-invalid');
+					$('.invalid-feedback').text('')
+				},
+				error: function(err){
+					
+					console.log(err);
+				}
+			})
+		})
 	})
-  </script>,
+  </script>
   
   
   

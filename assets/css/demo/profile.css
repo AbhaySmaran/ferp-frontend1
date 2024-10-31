@@ -19,6 +19,13 @@
     border: 2px solid #ccc; /* Border for DP */
 }
 
+.user-dp {
+	object-fit: cover; /* Maintain aspect ratio */
+    border: 2px solid #ccc; /* Border for DP */
+	width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
+}
+
 /* Button styles */
 .change-dp-btn {
     margin-top: 10px;

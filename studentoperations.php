@@ -410,8 +410,8 @@
 									</div>
 									<div class="col-md-6">
 									  <div class="row">
-										<div class="col-md-3"><label for="editUserInstitite">Roll No.:</label></div>
-										<div class="col-md-9"><input type="text" class="form-control" id="editUserInstitute" name="institute"></div>
+										<div class="col-md-3"><label for="editUserRollNo">Roll No.:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserRollNo" name="institute"></div>
 									  </div>
 									</div>
 								</div>
@@ -796,6 +796,7 @@
 			formData.append('hostel_name',$('#editUserHostelName').val());
 			//formData.append('course',$('#editUserCourse').val());
 			formData.append('room_no', $('#editUserRoom').val());
+			formData.append('roll_number', $('#editUserRollNo').val());
 			// Check if the file input exists and if a file has been selected
 			const dpInput = $('#editUserDpInput')[0];
 			if (dpInput && dpInput.files && dpInput.files.length > 0) {
@@ -881,7 +882,7 @@
 					type: 'PUT',
 					data: { reset_password: true },
 					success: function(response) {
-						alert('Password reset successfully to DD-MM-YY format of current date.');
+						alert('Password successfully reset to DDMMYY format of current date.');
 					},
 					error: function(err) {
 						console.log('Error resetting password:', err);

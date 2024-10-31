@@ -304,7 +304,7 @@
   <script>
 	function downloadSampleCsv() {
 		// Create a sample CSV content
-		const sampleData = `Username,Email,First Name,Last Name,Password,Phone,DOB,Age,Aaddress,Role,Staff Category,Department,Dp Image,Signature,Gender`
+		const sampleData = `Username,Email,First Name,Last Name,Password,Phone,DOB,Age,Aaddress,Role,Staff Category,Department,Dp Image,Signature,Gender`;
 		// Create a Blob with the sample CSV content
 		const blob = new Blob([sampleData], { type: 'text/csv' });
 		

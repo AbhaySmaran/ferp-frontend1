@@ -690,7 +690,7 @@
 					type: 'PUT',
 					data: { reset_password: true },
 					success: function(response) {
-						alert('Password reset successfully to DD-MM-YY format of current date.');
+						alert('Password successfully reset to DDMMYY format of current date.');
 					},
 					error: function(err) {
 						console.log('Error resetting password:', err);
