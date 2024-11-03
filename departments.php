@@ -202,7 +202,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Update Subject</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeEditSubject">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeEditDept">Close</button>
 				</div>
 				
 			</form>
@@ -319,7 +319,7 @@
 			var deptId = $(this).data('id');
 			$.ajax({
 				url:`${baseUrl}/api/dept/${deptId}/`,
-				method: 'GET',
+				type: 'GET',
 				success: function(data){
 					$('#update_dept_id').val(data.dept_id);
 					$('#editDeptName').val(data.dept_name);

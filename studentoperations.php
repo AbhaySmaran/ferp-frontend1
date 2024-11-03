@@ -124,7 +124,7 @@
   
 					<!--Modals-->
 					<div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="viewUserModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg" role="document" >
+					  <div class="modal-dialog modal-xl" role="document" id="stuEditModal">
 						<div class="modal-content">
 						  <div class="modal-header">
 							<p class="modal-title" id="viewUserModalLabel"><b>Student Information</b></p>
@@ -222,7 +222,7 @@
 													
 													<th class="text-left">Hostel Name</th>
 													<th class="text-right">Blood Group</th>
-													<th >CGPA / Percentage</th>
+													<th class="text-right">CGPA / Percentage</th>
 													
 												</tr>
 											</thead>
@@ -232,6 +232,24 @@
 												<td id="viewUserHostelName" class="text-left"></td>
 												<td id="viewUserBloodGroup"></td>
 												<td id="viewUserCGPA"></td>
+											</tbody>
+											
+											<thead>
+												<tr>
+													<th class="text-left">Nationality</th>
+													
+													<th class="text-left">Religion</th>
+													<th class="text-right">Transport</th>
+													<th class="text-right">Section</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+												
+												<td id="viewUserNationality" class="text-left"></td>
+												<td id="viewUserReligion" class="text-left"></td>
+												<td id="viewUserTransport"></td>
+												<td id="viewUserSection"></td>
 											</tbody>
 											
 										</table>
@@ -520,6 +538,23 @@
 									</div>
 								</div>
 							  </div>
+							  
+							  <div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUser">Room No:</label></div>
+										<div class="col-md-9"><input type="text" class="form-control" id="editUserRoom" name="room"></div>
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="row">
+										<div class="col-md-3"><label for="editUserPhone">Phone:</label></div>
+										<div class="col-md-9"><input type="number" class="form-control" id="editUserPhone" name="phone"></div>
+									  </div>
+									</div>
+								</div>
+							  </div>
 
 
 
@@ -696,6 +731,11 @@
 					$('#viewUserBloodGroup').text(user.blood_group);
 					$('#viewUserHostelName').text(user.hostel_name);
 					
+					$('#viewUserNationality').text(user.nationality);
+					$('#viewUserReligion').text(user.religion);
+					$('#viewUserTransport').text(user.transport);
+					$('#viewUserSection').text(user.section);
+					
 					
 					$('#viewUserModal').modal('show');  // Show the modal after fetching data
 				},
@@ -745,6 +785,7 @@
 					$('#editUserHostelName').val(user.hostel_name);
 					$('#editUserCourse').val(user.course.course_id);
 					$('#editUserRoom').val(user.room_no);
+					$('#editUserRollNo').val(user.roll_number);
 					
 					$('#editUserUsername').val(user.user.username);
 					$('#editUserLastName').val(user.last_name)
