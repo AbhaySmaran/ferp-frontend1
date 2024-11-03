@@ -132,7 +132,7 @@
     </div>
 </div>
 
- 
+ </div>
 <!--<div class="modal fade" id="editDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="editDepartmentModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document" >
 		<div class="modal-content">
@@ -336,26 +336,36 @@
 			})
 		})
 		
+		
 		$('#editDepartmentForm').submit(function(e){
 			e.preventDefault();
-			var deptId = $(this).data('id');
-			const formData = $(this).serialize();
+			var deptId = $('#update_dept_id').val();
+			const formData = new FormData();
 			
-			$.ajax({
-				url: `${baseUrl}/api/dept/${deptId}/`,
-				type: 'PUT',
-				data: formData,
-				success: function(response){
-					$('#editDepartmentModal').modal('hide');
-					$('#editDepartmentForm')[0].reset();
-					$('.form-control').removeClass('is-invalid');
-					$('.invalid-feedback').text('')
-				},
-				error: function(err){
-					
-					console.log(err);
-				}
-			})
+			if($('#editDeptName').val()) formData.append('dept_name', $('#editDeptName').val());
+			if($('#editHOD').val()) formData.append('HOD', $('#editHOD').val());
+			if($('#editDeptContact').val()) formData.append('dept_contact', $('#editDeptContact').val());
+			
+			if(window.confirm("Update department data?")){
+				$.ajax({
+					url: `${baseUrl}/api/dept/${deptId}/`,
+					type: 'PUT',
+					data: formData,
+					processData: false, // Necessary for FormData
+					contentType: false,
+					success: function(response){
+						$('#editDepartmentModal').modal('hide');
+						$('#editDepartmentForm')[0].reset();
+						$('.form-control').removeClass('is-invalid');
+						$('.invalid-feedback').text('')
+						loadDepartments();
+					},
+					error: function(err){
+						
+						console.log(err);
+					}
+				})
+			}
 		})
 	})
   </script>

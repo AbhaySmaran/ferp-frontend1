@@ -602,7 +602,7 @@
 
 		const baseUrl = localStorage.getItem("url");
 		const access = localStorage.getItem("access_token");
-		const limit = 5;  // Number of items per page
+		const limit = 10;  // Number of items per page
 		let allUsers = []; 
 		let currentPage = 1; // Track the current page
 		

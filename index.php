@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./assets/css/demo/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="./assets/images/favicon.png" />
+  
 </head>
 <body>
 <!--<script src="./assets/js/preloader.js"></script>-->
@@ -37,7 +38,7 @@
 							
 							<div class="invalid-feedback" id="emailError"></div>
                             <div class="mdc-line-ripple"></div>
-                            <label for="email" class="mdc-floating-label">Username</label>
+                            <label for="email" class="mdc-floating-label">Email</label>
                           </div>
                         </div>
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
@@ -49,52 +50,6 @@
                           </div>
                         </div>
 						
-						<!--
-						<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-                          <div class="mdc-text-field w-100">
-							<label for="email" class="mdc-floating-label">Username</label>
-                            <input class="form-control" id="email" name="email" type="text" >
-							<div class="invalid-feedback" id="emailError"></div>
-                            
-                          </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-                          <div class="mdc-text-field w-100">
-							<label for="password" class="mdc-floating-label">Password</label>
-                            <input class="form-control" id="password" name="password" type="password" >
-							<div class="invalid-feedback" id="passwordError"></div>
-
-                          </div>
-                        </div>
-						-->
-						
-						 <!--<div className="form-group">
-							<label htmlFor="email">Email</label>
-							<input
-							  type="email"
-							  class="form-control"
-							  id="email"
-							  name="email"
-							  
-							/>
-							<div className= "invalid-feedback">
-							
-							</div>
-						  </div>
-
-						  <div className="form-group">
-							<label htmlFor="password">Password</label>
-							<input
-							  type="password"
-							  class="form-control"
-							  id="password"
-							  name="password"
-							  
-							/>
-							<div className= "invalid-feedback">
-							
-							</div>
-						  </div>-->
 						
                         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
                           <div class="mdc-form-field">
@@ -137,17 +92,21 @@
   </div>
   
   <!-- plugins:js -->
+  
+  
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- inject:js -->
   <script src="./assets/js/material.js"></script>
-  <script src="./assets/js/misc.js"></script>
-  <!-- jQuery (required for AJAX) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!--<script src="./assets/js/misc.js"></script>-->
+
+  
   <script src="./static/index.js"></script> 
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+  
+  
 
 </body>
 </html>

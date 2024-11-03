@@ -46,12 +46,12 @@ $(document).ready(function() {
 				  $('#emailError').text(errors.email);
 				  console.log("e",errors.email[0])
 				  alert(errors.email[0])
-			  }
-			  
-			  if(errors.password){
+			  }else if(errors.password){
 				  $('password').addClass('is-invalid');
 				  $('#passwordError').text(errors.passsword[0]);
 				  console.log("p",errors.password)
+			  }else if(errors.errors.error){
+				  alert(errors.errors.error[0]);
 			  }
 			  
 		  }
