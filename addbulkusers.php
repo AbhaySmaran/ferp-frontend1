@@ -24,144 +24,7 @@
   <script src="./static/auth.js"></script>
 </head>
 <body>
-<!--<script>
-	$(document).ready(function(){
-		const baseUrl = localStorage.getItem("url");
-		const access = localStorage.getItem("access_token");
-		const limit = 10;  
-		let allUsers = []; 
-		let currentPage = 1;
-		
-		loadUsers();
 
-		// Fetch all users
-		function loadUsers(){	
-			$.ajax({
-				url: `${baseUrl}/api/users/`,
-				type: 'GET',
-				success: function(data) {
-					console.log('Data received from API:', data);
-					allUsers = data; 
-					displayTableData();
-					setupPagination(); // Call pagination after fetching data
-				},
-				error: function(err) {
-					console.log('Error fetching data:', err);
-				}
-			});
-		}
-		
-		
-		
-
-		// Function to display the table data
-		function displayTableData() {
-			let start = (currentPage - 1) * limit;
-			let end = start + limit;
-			let paginatedData = allUsers.slice(start, end);
-
-			const tableBody = $('#data-table tbody');
-			tableBody.empty(); 
-
-			paginatedData.forEach(item => {
-				tableBody.append(`
-					<tr id="row-${item.id}">
-						<td class="text-left">${item.id}</td>
-						<td class="text-left">${item.first_name}</td>
-						<td class="text-left">${item.email}</td>
-						<td class="text-left">
-							${item.role.role}
-						</td>
-					</tr>
-				`);
-			});
-		}
-
-		// Function to handle pagination setup
-		function setupPagination() {
-			const totalPages = Math.ceil(allUsers.length / limit);
-			const pagination = $('#pagination');
-			pagination.empty();
-
-			for (let i = 1; i <= totalPages; i++) {
-				pagination.append(`
-					<li class="page-item ${i === currentPage ? 'active' : ''}">
-						<a href="#" class="page-link" data-page="${i}">${i}</a>
-					</li>
-				`);
-			}
-
-			// Click event for pagination links
-			$(".page-link").off('click').on('click', function(e) {
-				e.preventDefault();
-				currentPage = parseInt($(this).attr('data-page'));
-				displayTableData();
-				setupPagination(); // Update pagination active state
-			});
-		}
-		
-	
-			
-			
-
-            $('#csvForm').on('submit', function(e){
-                e.preventDefault();
-
-                let formData = new FormData();
-                formData.append('file', $('#file')[0].files[0]);
-
-                $.ajax({
-                    url: `${baseUrl}/api/uplodCSV/`,
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-						// Check if there are any failed records
-							
-						if (response.failed_records && response.failed_records.length > 0) {
-							let errorMessage = "Some records failed validation:\n";
-							
-							// Loop through the failed records and append the errors to the error messag
-							response.failed_records.forEach(function(failedRecord) {
-								errorMessage += `Row ${failedRecord.row_number}: \n`;
-
-								Object.keys(failedRecord.errors).forEach(function(field) {
-									errorMessage += `${field}: ${failedRecord.errors[field].join(', ')}\n`;
-								});
-
-								errorMessage += "\n";
-							});
-
-							// Show the error message as an alert
-							alert(errorMessage);
-
-						} else {
-							// Show success message if no errors
-							alert(response.success);
-							loadUsers();
-							$('#csvForm')[0].reset();
-						}
-					},
-					error: function(err) {
-						//alert('Error uploading file');
-						
-						const error = err.responseJSON;
-						alert(error.error)
-						console.log(error);
-						
-					}
-                });
-            });
-			
-			$('#search-bar').on('keyup', function() {
-				const value = $(this).val().toLowerCase();
-				$('#data-table tbody tr').filter(function() {
-				  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-				});
-			  });
-        });
-    </script>-->
 <!--<script src="./assets/js/preloader.js"></script>-->
   <div class="body-wrapper">
     <!-- partial:partials/_sidebar.php -->
@@ -292,7 +155,7 @@
 	}
 </script>
 
-<!--<script>
+<script>
 $(document).ready(function() {
 	const baseUrl = localStorage.getItem("url");
 	const access = localStorage.getItem("access_token");
@@ -302,7 +165,7 @@ $(document).ready(function() {
 	let currentPage = 1;
 
 	// Fetch all users with optional search term
-	function loadUsers(searchTerm = '') {
+	/*function loadUsers(searchTerm = '') {
 		const searchUrl = searchTerm ? `${baseUrl}/api/users/?search=${searchTerm}` : `${baseUrl}/api/users/`;
 
 		$.ajax({
@@ -312,6 +175,23 @@ $(document).ready(function() {
 				console.log('Data received from API:', data);
 				allUsers = data;
 				filteredUsers = allUsers; // Start with the full list
+				displayTableData();
+				setupPagination();
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+	}*/
+	
+	function loadUsers() {
+		$.ajax({
+			url: `${baseUrl}/api/users/`,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data;  // Store all users data in allUsers
+				filteredUsers = allUsers; // Start with the full list as the filtered list
 				displayTableData();
 				setupPagination();
 			},
@@ -424,100 +304,7 @@ $(document).ready(function() {
 	loadUsers();
 });
 
-</script>-->
-
-<script>
-$(document).ready(function() {
-	const baseUrl = localStorage.getItem("url");
-	const access = localStorage.getItem("access_token");
-	const limit = 10;
-	let allUsers = [];
-	let filteredUsers = [];
-	let currentPage = 1;
-
-	// Fetch all users initially
-	function loadUsers() {
-		$.ajax({
-			url: `${baseUrl}/api/users/`,
-			type: 'GET',
-			success: function(data) {
-				console.log('Data received from API:', data);
-				allUsers = data;  // Store all users data in allUsers
-				filteredUsers = allUsers; // Start with the full list as the filtered list
-				displayTableData();
-				setupPagination();
-			},
-			error: function(err) {
-				console.log('Error fetching data:', err);
-			}
-		});
-	}
-
-	// Display the table data with pagination
-	function displayTableData() {
-		let start = (currentPage - 1) * limit;
-		let end = start + limit;
-		let paginatedData = filteredUsers.slice(start, end);
-
-		const tableBody = $('#data-table tbody');
-		tableBody.empty();
-
-		paginatedData.forEach(item => {
-			tableBody.append(`
-				<tr id="row-${item.id}">
-					<td class="text-left">${item.id}</td>
-					<td class="text-left">${item.first_name}</td>
-					<td class="text-left">${item.email}</td>
-					<td class="text-left">${item.role.role}</td>
-				</tr>
-			`);
-		});
-	}
-
-	// Setup pagination based on the filtered list
-	function setupPagination() {
-		const totalPages = Math.ceil(filteredUsers.length / limit);
-		const pagination = $('#pagination');
-		pagination.empty();
-
-		for (let i = 1; i <= totalPages; i++) {
-			pagination.append(`
-				<li class="page-item ${i === currentPage ? 'active' : ''}">
-					<a href="#" class="page-link" data-page="${i}">${i}</a>
-				</li>
-			`);
-		}
-
-		$(".page-link").off('click').on('click', function(e) {
-			e.preventDefault();
-			currentPage = parseInt($(this).attr('data-page'));
-			displayTableData();
-			setupPagination();
-		});
-	}
-
-	// Search function
-	$('#search-bar').on('keyup', function() {
-		const searchTerm = $(this).val().toLowerCase();
-		if (searchTerm) {
-			// Filter users based on the search term across all users
-			filteredUsers = allUsers.filter(user => 
-				user.first_name.toLowerCase().includes(searchTerm) ||
-				user.email.toLowerCase().includes(searchTerm) ||
-				user.role.role.toLowerCase().includes(searchTerm)
-			);
-		} else {
-			filteredUsers = allUsers; // Reset to all users if search term is cleared
-		}
-		currentPage = 1; // Reset to the first page
-		displayTableData();
-		setupPagination();
-	});
-
-	// Initial load of users
-	loadUsers();
-});
-
 </script>
+
 </body>
 </html> 
