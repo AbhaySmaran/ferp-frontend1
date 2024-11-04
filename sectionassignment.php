@@ -227,6 +227,22 @@
 		}
 	
 
+		// Uncheck All functionality
+	  /*$('#uncheck-all').click(function () {
+		if ($(this).is(':checked')) {
+		  $('.attendance-checkbox').prop('checked', false);
+		  $('#check-all').prop('checked', false); // Uncheck the "Check All" checkbox
+		}
+	  });
+
+	  // Log attendance button click handler
+	  $('#log-attendance').click(function () {
+		const attendanceData = [];
+		$('.attendance-checkbox').each(function () {
+		  const studentId = $(this).data('student-id');
+		  const status = $(this).is(':checked') ? 'P' : 'A'; // P for present, A for absent
+		  attendanceData.push({ student_id: studentId, status: status, uploaded_by: user });
+		});*/
 		
 		/*var currentYear = new Date().getFullYear(); 
 		$.ajax({

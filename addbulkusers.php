@@ -24,7 +24,7 @@
   <script src="./static/auth.js"></script>
 </head>
 <body>
-<script>
+<!--<script>
 	$(document).ready(function(){
 		const baseUrl = localStorage.getItem("url");
 		const access = localStorage.getItem("access_token");
@@ -153,8 +153,15 @@
 					}
                 });
             });
+			
+			$('#search-bar').on('keyup', function() {
+				const value = $(this).val().toLowerCase();
+				$('#data-table tbody tr').filter(function() {
+				  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+				});
+			  });
         });
-    </script>
+    </script>-->
 <!--<script src="./assets/js/preloader.js"></script>-->
   <div class="body-wrapper">
     <!-- partial:partials/_sidebar.php -->
@@ -187,13 +194,14 @@
 					</div>
 				</div>
 			</div>-->
+			<br />
 			<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon search-text-field d-none d-md-flex">
               <i class="material-icons mdc-text-field__icon">search</i>
-              <input class="mdc-text-field__input" id="text-field-hero-input">
+              <input class="mdc-text-field__input" id="search-bar" type="text" placeholder="Search for students...">
               <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading"></div>
                 <div class="mdc-notched-outline__notch">
-                  <label for="text-field-hero-input" class="mdc-floating-label">Search..</label>
+                  <label for="text-field-hero-input" class="mdc-floating-label" >Search..</label>
                 </div>
                 <div class="mdc-notched-outline__trailing"></div>
               </div>
@@ -239,47 +247,7 @@
       </div>
     </div>
   </div>
-	<!--<script>
-		
-		$(document).ready(function () {
-			$('#upload-csv').click(function () {
-			  var fileInput = document.getElementById('csv-file-input');
-			  if (fileInput.files.length === 0) {
-				alert('Please select a CSV file.');
-				return;
-			  }
-			  
-			  var formData = new FormData();
-			  formData.append('file', fileInput.files[0]);
-			  
-			  const baseUrl = localStorage.getItem("url");
-			  const access = localStorage.getItem("access_token");
-	
 
-			  // AJAX call to upload the CSV file to the backend
-			  $.ajax({
-				url: `${baseUrl}/api/upload-csv/`,
-				type: 'POST',
-				data: formData,
-				processData: false, // Prevent jQuery from automatically transforming the data into a string
-				contentType: false, // Set to false to ensure multipart encoding
-				headers: {
-				  'Authorization': `Bearer ${access}`
-				},
-				success: function (data) {
-				  alert('CSV file uploaded successfully.');
-				  console.log('Data saved:', data);
-				},
-				error: function (err) {
-				  alert('Error uploading CSV file.');
-				  console.error('Upload error:', err);
-				}
-			  });
-			});
-		});
-		
-
-	</script>-->
   <!-- plugins:js -->
   <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -322,6 +290,234 @@
 		// Release the Blob URL
 		URL.revokeObjectURL(url);
 	}
+</script>
+
+<!--<script>
+$(document).ready(function() {
+	const baseUrl = localStorage.getItem("url");
+	const access = localStorage.getItem("access_token");
+	const limit = 10;
+	let allUsers = [];
+	let filteredUsers = [];
+	let currentPage = 1;
+
+	// Fetch all users with optional search term
+	function loadUsers(searchTerm = '') {
+		const searchUrl = searchTerm ? `${baseUrl}/api/users/?search=${searchTerm}` : `${baseUrl}/api/users/`;
+
+		$.ajax({
+			url: searchUrl,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data;
+				filteredUsers = allUsers; // Start with the full list
+				displayTableData();
+				setupPagination();
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+	}
+
+	// Display the table data with pagination
+	function displayTableData() {
+		let start = (currentPage - 1) * limit;
+		let end = start + limit;
+		let paginatedData = filteredUsers.slice(start, end);
+
+		const tableBody = $('#data-table tbody');
+		tableBody.empty();
+
+		paginatedData.forEach(item => {
+			tableBody.append(`
+				<tr id="row-${item.id}">
+					<td class="text-left">${item.id}</td>
+					<td class="text-left">${item.first_name}</td>
+					<td class="text-left">${item.email}</td>
+					<td class="text-left">${item.role.role}</td>
+				</tr>
+			`);
+		});
+	}
+
+	// Setup pagination based on the filtered list
+	function setupPagination() {
+		const totalPages = Math.ceil(filteredUsers.length / limit);
+		const pagination = $('#pagination');
+		pagination.empty();
+
+		for (let i = 1; i <= totalPages; i++) {
+			pagination.append(`
+				<li class="page-item ${i === currentPage ? 'active' : ''}">
+					<a href="#" class="page-link" data-page="${i}">${i}</a>
+				</li>
+			`);
+		}
+
+		$(".page-link").off('click').on('click', function(e) {
+			e.preventDefault();
+			currentPage = parseInt($(this).attr('data-page'));
+			displayTableData();
+			setupPagination();
+		});
+	}
+
+	// Handle CSV upload form submission
+	$('#csvForm').on('submit', function(e) {
+		e.preventDefault();
+
+		let formData = new FormData();
+		formData.append('file', $('#file')[0].files[0]);
+
+		$.ajax({
+			url: `${baseUrl}/api/uplodCSV/`,
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(response) {
+				if (response.failed_records && response.failed_records.length > 0) {
+					let errorMessage = "Some records failed validation:\n";
+					response.failed_records.forEach(function(failedRecord) {
+						errorMessage += `Row ${failedRecord.row_number}: \n`;
+						Object.keys(failedRecord.errors).forEach(function(field) {
+							errorMessage += `${field}: ${failedRecord.errors[field].join(', ')}\n`;
+						});
+						errorMessage += "\n";
+					});
+					alert(errorMessage);
+				} else {
+					alert(response.success);
+					loadUsers();
+					$('#csvForm')[0].reset();
+				}
+			},
+			error: function(err) {
+				const error = err.responseJSON;
+				alert(error.error);
+				console.log(error);
+			}
+		});
+	});
+
+	// Search function
+	$('#search-bar').on('keyup', function() {
+		const searchTerm = $(this).val().toLowerCase();
+		if (searchTerm) {
+			// Filter users based on the search term
+			filteredUsers = allUsers.filter(user => 
+				user.first_name.toLowerCase().includes(searchTerm) ||
+				user.email.toLowerCase().includes(searchTerm) ||
+				user.role.role.toLowerCase().includes(searchTerm)
+			);
+		} else {
+			filteredUsers = allUsers; // Reset to all users if search term is cleared
+		}
+		currentPage = 1; // Reset to first page
+		displayTableData();
+		setupPagination();
+	});
+
+	// Initial load of users
+	loadUsers();
+});
+
+</script>-->
+
+<script>
+$(document).ready(function() {
+	const baseUrl = localStorage.getItem("url");
+	const access = localStorage.getItem("access_token");
+	const limit = 10;
+	let allUsers = [];
+	let filteredUsers = [];
+	let currentPage = 1;
+
+	// Fetch all users initially
+	function loadUsers() {
+		$.ajax({
+			url: `${baseUrl}/api/users/`,
+			type: 'GET',
+			success: function(data) {
+				console.log('Data received from API:', data);
+				allUsers = data;  // Store all users data in allUsers
+				filteredUsers = allUsers; // Start with the full list as the filtered list
+				displayTableData();
+				setupPagination();
+			},
+			error: function(err) {
+				console.log('Error fetching data:', err);
+			}
+		});
+	}
+
+	// Display the table data with pagination
+	function displayTableData() {
+		let start = (currentPage - 1) * limit;
+		let end = start + limit;
+		let paginatedData = filteredUsers.slice(start, end);
+
+		const tableBody = $('#data-table tbody');
+		tableBody.empty();
+
+		paginatedData.forEach(item => {
+			tableBody.append(`
+				<tr id="row-${item.id}">
+					<td class="text-left">${item.id}</td>
+					<td class="text-left">${item.first_name}</td>
+					<td class="text-left">${item.email}</td>
+					<td class="text-left">${item.role.role}</td>
+				</tr>
+			`);
+		});
+	}
+
+	// Setup pagination based on the filtered list
+	function setupPagination() {
+		const totalPages = Math.ceil(filteredUsers.length / limit);
+		const pagination = $('#pagination');
+		pagination.empty();
+
+		for (let i = 1; i <= totalPages; i++) {
+			pagination.append(`
+				<li class="page-item ${i === currentPage ? 'active' : ''}">
+					<a href="#" class="page-link" data-page="${i}">${i}</a>
+				</li>
+			`);
+		}
+
+		$(".page-link").off('click').on('click', function(e) {
+			e.preventDefault();
+			currentPage = parseInt($(this).attr('data-page'));
+			displayTableData();
+			setupPagination();
+		});
+	}
+
+	// Search function
+	$('#search-bar').on('keyup', function() {
+		const searchTerm = $(this).val().toLowerCase();
+		if (searchTerm) {
+			// Filter users based on the search term across all users
+			filteredUsers = allUsers.filter(user => 
+				user.first_name.toLowerCase().includes(searchTerm) ||
+				user.email.toLowerCase().includes(searchTerm) ||
+				user.role.role.toLowerCase().includes(searchTerm)
+			);
+		} else {
+			filteredUsers = allUsers; // Reset to all users if search term is cleared
+		}
+		currentPage = 1; // Reset to the first page
+		displayTableData();
+		setupPagination();
+	});
+
+	// Initial load of users
+	loadUsers();
+});
+
 </script>
 </body>
 </html> 
