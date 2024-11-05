@@ -158,7 +158,7 @@
   <script>
 	function downloadSampleCsv() {
 		// Create a sample CSV content
-		const sampleData = `First_Name,Last_Name,UserName,Email,Password,Role,Staff_Category,Course,Photo,Roll_Number,,Lateral,Batch,College,Hostel,DOB,Transport,Gender,Blood_Group,Caste,Religion,Mother_Tongue,Nationality,Last_Exam_Passed,Board,Institute_Name,Year_Passing,Total_Marks,Markes_Secured,CGPA_OR_Percentage,Status,Section`;
+		const sampleData = `First_Name,Last_Name,UserName,Email,Password,Course,Photo,Roll_Number,Lateral,Batch,College,Hostel,Hostel_Name,Room_No,DOB,Transport,Gender,Blood_Group,Caste,Religion,Mother_Tongue,Nationality,Last_Exam_Passed,Board,Institute_Name,Year_Passing,Total_Marks,Markes_Secured,CGPA_OR_Percentage,Status,Section`;
 		
 		// Create a Blob with the sample CSV content
 		const blob = new Blob([sampleData], { type: 'text/csv' });
@@ -179,6 +179,63 @@
 	}
 </script>
   <!-- End custom js for this page-->
+  
+  <!--<script>
+	// Function to handle pagination setup with visible page number limit
+function setupPagination() {
+    const totalPages = Math.ceil(filteredUsers.length / limit);
+    const pagination = $('#pagination');
+    pagination.empty();
+
+    // Add "Previous" button
+    pagination.append(`
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a href="#" class="page-link" data-page="${currentPage - 1}">Previous</a>
+        </li>
+    `);
+
+    // Determine the start and end page numbers to display
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+
+    // Adjust start and end page if at the beginning or end of the page range
+    if (endPage - startPage < 4) {
+        if (startPage === 1) {
+            endPage = Math.min(totalPages, startPage + 4);
+        } else if (endPage === totalPages) {
+            startPage = Math.max(1, endPage - 4);
+        }
+    }
+
+    // Display page numbers within the range
+    for (let i = startPage; i <= endPage; i++) {
+        pagination.append(`
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a href="#" class="page-link" data-page="${i}">${i}</a>
+            </li>
+        `);
+    }
+
+    // Add "Next" button
+    pagination.append(`
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a href="#" class="page-link" data-page="${currentPage + 1}">Next</a>
+        </li>
+    `);
+
+    // Click event for pagination links
+    $(".page-link").off('click').on('click', function(e) {
+        e.preventDefault();
+        const selectedPage = parseInt($(this).attr('data-page'));
+        if (selectedPage >= 1 && selectedPage <= totalPages) {
+            currentPage = selectedPage;
+            displayTableData();
+            setupPagination(); // Update pagination active state
+        }
+    });
+}
+
+  </script>-->
   
   <script>
 	$(document).ready(function() {
@@ -232,9 +289,64 @@
 				`);
 			});
 		}
+		
+		
+		function setupPagination() {
+			const totalPages = Math.ceil(filteredUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			// Add "Previous" button
+			pagination.append(`
+				<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage - 1}">Previous</a>
+				</li>
+			`);
+
+			// Determine the start and end page numbers to display
+			let startPage = Math.max(1, currentPage - 2);
+			let endPage = Math.min(totalPages, currentPage + 2);
+
+			// Adjust start and end page if at the beginning or end of the page range
+			if (endPage - startPage < 4) {
+				if (startPage === 1) {
+					endPage = Math.min(totalPages, startPage + 4);
+				} else if (endPage === totalPages) {
+					startPage = Math.max(1, endPage - 4);
+				}
+			}
+
+			// Display page numbers within the range
+			for (let i = startPage; i <= endPage; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Add "Next" button
+			pagination.append(`
+				<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage + 1}">Next</a>
+				</li>
+			`);
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				const selectedPage = parseInt($(this).attr('data-page'));
+				if (selectedPage >= 1 && selectedPage <= totalPages) {
+					currentPage = selectedPage;
+					displayTableData();
+					setupPagination(); // Update pagination active state
+				}
+			});
+		}
+
 
 		// Function to handle pagination setup
-		function setupPagination() {
+		/*function setupPagination() {
 			const totalPages = Math.ceil(filteredUsers.length / limit);
 			const pagination = $('#pagination');
 			pagination.empty();
@@ -254,7 +366,7 @@
 				displayTableData();
 				setupPagination(); // Update pagination active state
 			});
-		}
+		}*/
 		
 			$('#csvForm').on('submit', function(e){
                 e.preventDefault();

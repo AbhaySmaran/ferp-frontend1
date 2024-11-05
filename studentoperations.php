@@ -124,7 +124,7 @@
   
 					<!--Modals-->
 					<div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="viewUserModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-xl" role="document" id="stuEditModal">
+					  <div class="modal-dialog modal-lg" role="document" id="stuEditModal">
 						<div class="modal-content">
 						  <div class="modal-header">
 							<p class="modal-title" id="viewUserModalLabel"><b>Student Information</b></p>
@@ -604,6 +604,7 @@
 		const access = localStorage.getItem("access_token");
 		const limit = 10;  // Number of items per page
 		let allUsers = []; 
+		let filteredUsers = [];
 		let currentPage = 1; // Track the current page
 		
 		loadStudents();
@@ -616,7 +617,8 @@
 				success: function(data) {
 					console.log('Data received from API:', data);
 					allUsers = data; 
-					displayTableData();
+					filteredUsers = allUsers ;
+					displayTableData();					
 					setupPagination(); // Call pagination after fetching data
 				},
 				error: function(err) {
@@ -629,7 +631,7 @@
 		function displayTableData() {
 			let start = (currentPage - 1) * limit;
 			let end = start + limit;
-			let paginatedData = allUsers.slice(start, end);
+			let paginatedData = filteredUsers.slice(start, end);
 
 			const tableBody = $('#data-table tbody');
 			tableBody.empty(); // Clear the table before adding new data
@@ -655,10 +657,63 @@
 				`);
 			});
 		}
+		
+		function setupPagination() {
+			const totalPages = Math.ceil(filteredUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			// Add "Previous" button
+			pagination.append(`
+				<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage - 1}">Previous</a>
+				</li>
+			`);
+
+			// Determine the start and end page numbers to display
+			let startPage = Math.max(1, currentPage - 2);
+			let endPage = Math.min(totalPages, currentPage + 2);
+
+			// Adjust start and end page if at the beginning or end of the page range
+			if (endPage - startPage < 4) {
+				if (startPage === 1) {
+					endPage = Math.min(totalPages, startPage + 4);
+				} else if (endPage === totalPages) {
+					startPage = Math.max(1, endPage - 4);
+				}
+			}
+
+			// Display page numbers within the range
+			for (let i = startPage; i <= endPage; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Add "Next" button
+			pagination.append(`
+				<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage + 1}">Next</a>
+				</li>
+			`);
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				const selectedPage = parseInt($(this).attr('data-page'));
+				if (selectedPage >= 1 && selectedPage <= totalPages) {
+					currentPage = selectedPage;
+					displayTableData();
+					setupPagination(); // Update pagination active state
+				}
+			});
+		}
 
 		// Function to handle pagination setup
-		function setupPagination() {
-			const totalPages = Math.ceil(allUsers.length / limit);
+		/*function setupPagination() {
+			const totalPages = Math.ceil(filteredUsers.length / limit);
 			const pagination = $('#pagination');
 			pagination.empty();
 
@@ -677,7 +732,7 @@
 				displayTableData();
 				setupPagination(); // Update pagination active state
 			});
-		}
+		}*/
 		
 		$('#view').on('shown.bs.modal', function () {
 		  $('#myInput').trigger('focus')
@@ -932,28 +987,29 @@
 			}
 		});
 		
+		
+		
 		$('#search-bar').on('keyup', function() {
-			const value = $(this).val().toLowerCase();
-			$('#data-table tbody tr').filter(function() {
-			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-			});
-		  });
-		  
-		/*$('#search-bar').on('keyup', function() {
-			const searchTerm = $(this).val().toLowerCase(); // Get the search term
-			const filteredUsers = allUsers.filter(user => 
-				user.first_name.toLowerCase().includes(searchTerm) || 
-				user.email.toLowerCase().includes(searchTerm)
-			); // Filter the allUsers array based on the search term
-			
-			displayUsers(filteredUsers); // Display the filtered users
-		});*/
+			const searchTerm = $(this).val().toLowerCase();
+			if (searchTerm) {
+				// Filter users based on the search term
+				filteredUsers = allUsers.filter(user => 
+					user.first_name.toLowerCase().includes(searchTerm) ||
+					user.email.toLowerCase().includes(searchTerm) 
+				);
+			} else {
+				filteredUsers = allUsers; // Reset to all users if search term is cleared
+			}
+			currentPage = 1; // Reset to first page
+			displayTableData();
+			setupPagination();
+		});
 	
 	});
 
 </script>
 
-<!--<script>
+<script>
 	function toggleHostelName() {
 		const hostelDropdown = document.getElementById("editUserHostel");
 		const hostelNameInput = document.getElementById("editUserHostelName");
@@ -968,7 +1024,7 @@
 			roomInput.disabled = true;
 		}
 	}
-	</script>-->
+</script>
 <!--<script>
 	$(document).ready(function() {
 		console.log('Document is ready.'); // Debug log for document ready

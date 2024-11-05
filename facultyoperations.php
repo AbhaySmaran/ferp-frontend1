@@ -337,6 +337,7 @@
 		const access = localStorage.getItem("access_token");
 		const limit = 5;  // Number of items per page
 		let allUsers = []; 
+		let filteredUsers = [];
 		let currentPage = 1; // Track the current page
 		
 		loadFaculties();
@@ -349,6 +350,7 @@
 				success: function(data) {
 					console.log('Data received from API:', data);
 					allUsers = data; 
+					filteredUsers = allUsers;
 					displayTableData();
 					setupPagination(); // Call pagination after fetching data
 				},
@@ -362,7 +364,7 @@
 		function displayTableData() {
 			let start = (currentPage - 1) * limit;
 			let end = start + limit;
-			let paginatedData = allUsers.slice(start, end);
+			let paginatedData = filteredUsers.slice(start, end);
 
 			const tableBody = $('#data-table tbody');
 			tableBody.empty(); // Clear the table before adding new data
@@ -388,10 +390,64 @@
 				`);
 			});
 		}
+		
+		
+		function setupPagination() {
+			const totalPages = Math.ceil(filteredUsers.length / limit);
+			const pagination = $('#pagination');
+			pagination.empty();
+
+			// Add "Previous" button
+			pagination.append(`
+				<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage - 1}">Previous</a>
+				</li>
+			`);
+
+			// Determine the start and end page numbers to display
+			let startPage = Math.max(1, currentPage - 2);
+			let endPage = Math.min(totalPages, currentPage + 2);
+
+			// Adjust start and end page if at the beginning or end of the page range
+			if (endPage - startPage < 4) {
+				if (startPage === 1) {
+					endPage = Math.min(totalPages, startPage + 4);
+				} else if (endPage === totalPages) {
+					startPage = Math.max(1, endPage - 4);
+				}
+			}
+
+			// Display page numbers within the range
+			for (let i = startPage; i <= endPage; i++) {
+				pagination.append(`
+					<li class="page-item ${i === currentPage ? 'active' : ''}">
+						<a href="#" class="page-link" data-page="${i}">${i}</a>
+					</li>
+				`);
+			}
+
+			// Add "Next" button
+			pagination.append(`
+				<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+					<a href="#" class="page-link" data-page="${currentPage + 1}">Next</a>
+				</li>
+			`);
+
+			// Click event for pagination links
+			$(".page-link").off('click').on('click', function(e) {
+				e.preventDefault();
+				const selectedPage = parseInt($(this).attr('data-page'));
+				if (selectedPage >= 1 && selectedPage <= totalPages) {
+					currentPage = selectedPage;
+					displayTableData();
+					setupPagination(); // Update pagination active state
+				}
+			});
+		}
 
 		// Function to handle pagination setup
-		function setupPagination() {
-			const totalPages = Math.ceil(allUsers.length / limit);
+		/*function setupPagination() {
+			const totalPages = Math.ceil(filteredUsers.length / limit);
 			const pagination = $('#pagination');
 			pagination.empty();
 
@@ -410,7 +466,7 @@
 				displayTableData();
 				setupPagination(); // Update pagination active state
 			});
-		}
+		*/
 		
 		$('#view').on('shown.bs.modal', function () {
 		  $('#myInput').trigger('focus')
@@ -611,14 +667,24 @@
 				});
 			}
 		});
+
+		
 		
 		$('#search-bar').on('keyup', function() {
-			const value = $(this).val().toLowerCase();
-			$('#data-table tbody tr').filter(function() {
-			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-			});
-		  });
-		
+			const searchTerm = $(this).val().toLowerCase();
+			if (searchTerm) {
+				// Filter users based on the search term
+				filteredUsers = allUsers.filter(user => 
+					user.first_name.toLowerCase().includes(searchTerm) ||
+					user.email.toLowerCase().includes(searchTerm) 
+				);
+			} else {
+				filteredUsers = allUsers; // Reset to all users if search term is cleared
+			}
+			currentPage = 1; // Reset to first page
+			displayTableData();
+			setupPagination();
+		});
 	});
 
 </script>

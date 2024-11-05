@@ -48,11 +48,7 @@
 					  Departments
 					</a>
 				  </div>
-				  <div class="mdc-list-item mdc-drawer-item">
-					<a class="mdc-drawer-link" href="facultyonboard.php">
-					  Faculty Onboarding
-					</a>
-				  </div>
+				 
 				</nav>
 			  </div>
 			</div>
@@ -82,10 +78,21 @@
 			</div>
             
 			<div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="#">
+              <a class="mdc-drawer-link" href="#" data-toggle="expansionPanel" data-target="faculty-sub-menu">
 				<i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">person</i>
                 Faculty Members
+				<i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
+			  
+			  <div class="mdc-expansion-panel" id="faculty-sub-menu">
+				<nav class="mdc-list mdc-drawer-submenu">
+				  <div class="mdc-list-item mdc-drawer-item">
+					<a class="mdc-drawer-link" href="facultyoperations.php">
+					  Faculty Operations
+					</a>
+				  </div>
+				</nav>
+			  </div>
             </div>
 			<div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-drawer-link" href="#" data-toggle="expansionPanel" data-target="academic-sub-menu">
