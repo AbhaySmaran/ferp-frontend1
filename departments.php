@@ -201,7 +201,7 @@
                     
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Update Subject</button>
+					<button type="submit" class="btn btn-primary">Update Department</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal" id="closeEditDept">Close</button>
 				</div>
 				

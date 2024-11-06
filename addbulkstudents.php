@@ -158,7 +158,8 @@
   <script>
 	function downloadSampleCsv() {
 		// Create a sample CSV content
-		const sampleData = `First_Name,Last_Name,UserName,Email,Password,Course,Photo,Roll_Number,Lateral,Batch,College,Hostel,Hostel_Name,Room_No,DOB,Transport,Gender,Blood_Group,Caste,Religion,Mother_Tongue,Nationality,Last_Exam_Passed,Board,Institute_Name,Year_Passing,Total_Marks,Markes_Secured,CGPA_OR_Percentage,Status,Section`;
+		const sampleData = `First_Name,Last_Name,UserName,Email,Password,Course,Photo,Roll_Number,Lateral,Batch,College,Hostel,Hostel_Name,Room_No,DOB,Transport,Gender,Blood_Group,Caste,Religion,Mother_Tongue,Nationality,Last_Exam_Passed,Board,Institute_Name,Year_Passing,Total_Marks,Markes_Secured,CGPA_OR_Percentage,Status,Section
+							first name,last name,username,user@mail.com,12345,1,,,No,2020-2022,College,No,,,,No,Female,o+,,,Hindi,Indian,2020,BSE,High School,,600,,,Active,`;
 		
 		// Create a Blob with the sample CSV content
 		const blob = new Blob([sampleData], { type: 'text/csv' });

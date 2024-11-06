@@ -107,7 +107,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-			<form id="addSubjectForm">
+			<form id="enrollSectionForm">
 				<div class="modal-body">
                 
                     <div class="form-group">
@@ -163,7 +163,111 @@
   <script src="./assets/js/dashboard.js"></script>
   <!-- End custom js for this page-->
   
-<script>
+  <script>
+ $(document).ready(function() {
+    const baseUrl = localStorage.getItem('url');
+    var currentYear = new Date().getFullYear();
+
+    // Fetch batches and set default
+    $.ajax({
+        url: `${baseUrl}/student/batches/`,
+        method: 'GET',
+        success: function(response) {
+            var batchSelect = $('#batch-select');
+            var defaultBatch = null;
+
+            response.forEach(batch => {
+                batchSelect.append(`<option value="${batch}">${batch}</option>`);
+                var startYear = parseInt(batch.split('-')[0]);
+                if (startYear === currentYear) defaultBatch = batch;
+            });
+
+            if (defaultBatch) {
+                batchSelect.val(defaultBatch);
+                fetchStudentsByBatch(defaultBatch);
+            } else if (response.length > 0) {
+                batchSelect.val(response[0]);
+                fetchStudentsByBatch(response[0]);
+            }
+        },
+        error: function() {
+            alert("Error fetching batch data!");
+        }
+    });
+
+    // Fetch students for selected batch
+    $('#batch-select').change(function() {
+        fetchStudentsByBatch($(this).val());
+    });
+
+    function fetchStudentsByBatch(batch) {
+        $.ajax({
+            url: `${baseUrl}/student/batch/${batch}/`,
+            method: 'GET',
+            success: function(response) {
+                var tableBody = $('#data-table tbody');
+                tableBody.empty();
+                response.forEach(student => {
+                    var row = `
+                        <tr>
+                            <td class="text-left"><input type="checkbox" class="student-checkbox" name="student-select" value="${student.student_id}"></td>
+                            <td class="text-left">${student.first_name} ${student.last_name || ''}</td>
+                            <td class="text-left">${student.email}</td>
+                        </tr>`;
+                    tableBody.append(row);
+                });
+            },
+            error: function() {
+                alert("Error fetching student data!");
+            }
+        });
+    }
+
+    // Check/Uncheck All functionality
+    $('#check-all').click(function () {
+        $('.student-checkbox').prop('checked', this.checked);
+    });
+
+    // Form submission for section assignment
+    $('#enrollSectionForm').submit(function(e) {
+        e.preventDefault();
+
+        // Collect selected student IDs
+        let selectedStudents = [];
+        $('input[name="student-select"]:checked').each(function() {
+            selectedStudents.push($(this).val());
+        });
+
+        // Get selected section
+        let selectedSection = $('#enrollSectionForm select').val();
+
+        if (selectedStudents.length > 0 && selectedSection) {
+            $.ajax({
+                url: `${baseUrl}/student/assign-section/`,
+                type: 'POST',
+                data: JSON.stringify({
+                    students: selectedStudents,
+                    section: selectedSection
+                }),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('Section assigned successfully!');
+					$('#sectionEnrollModal').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        } else {
+            alert("Please select students and a section.");
+        }
+    });
+});
+
+  </script>
+  
+<!--<script>
 	$(document).ready(function() {
 		
 		
@@ -227,81 +331,25 @@
 		}
 	
 
-		// Uncheck All functionality
-	  /*$('#uncheck-all').click(function () {
-		if ($(this).is(':checked')) {
-		  $('.attendance-checkbox').prop('checked', false);
-		  $('#check-all').prop('checked', false); // Uncheck the "Check All" checkbox
-		}
-	  });
-
-	  // Log attendance button click handler
-	  $('#log-attendance').click(function () {
-		const attendanceData = [];
-		$('.attendance-checkbox').each(function () {
-		  const studentId = $(this).data('student-id');
-		  const status = $(this).is(':checked') ? 'P' : 'A'; // P for present, A for absent
-		  attendanceData.push({ student_id: studentId, status: status, uploaded_by: user });
-		});*/
-		
-		/*var currentYear = new Date().getFullYear(); 
-		$.ajax({
-			url: `${baseUrl}/student/batches/`,  
-			method: 'GET',
-			success: function(response) {
-				var batchSelect = $('#batch-select');
-				$.each(response, function(index, batch) {
-					
-					batchSelect.append('<option value="' + batch + '">' + batch + '</option>');
-				});
-
-				
-				if (response.length > 0) {
-					batchSelect.val(response[0]);
-					fetchStudentsByBatch(response[0]);
-				}
-			},
-			error: function() {
-				alert("Error fetching batch data!");
-			}
-		});
-
-		
-		$('#batch-select').change(function() {
-			var batchValue = $(this).val();
-			fetchStudentsByBatch(batchValue);
-		})
-
-		
-		function fetchStudentsByBatch(batch) {
-			$.ajax({
-				url: `${baseUrl}/student/batch/${batch}/`,  
-				method: 'GET',
-				success: function(response) {
-					var tableBody = $('#data-table tbody');
-					tableBody.empty(); 
-					$.each(response, function(index, student) {
-						
-						var row = '<tr>' +
-							'<td class="text-left"><input type="checkbox" class="student-checkbox" data-student-id="' + student.student_id + '"></td>' +
-							'<td class="text-left">' + student.first_name + ' ' + (student.last_name || '') + '</td>' +
-							'<td class="text-left">' + student.email + '</td>' +
-							'</tr>';
-						tableBody.append(row);
-					});
-				},
-				error: function() {
-					alert("Error fetching student data!");
-				}
-			});
-		}*/
-
 		
 	
 		
-		$('#check-all').click(function () {
+		/*$('#check-all').click(function () {
 			if ($(this).is(':checked')) {
 			  $('.student-checkbox').prop('checked', true);
+			  $('input[name="student-select"]').prop('checked', this.checked);
+			  $('#uncheck-all').prop('checked', false); // Uncheck the "Uncheck All" checkbox
+			}else{
+				$('.student-checkbox').prop('checked', false);
+				$('#check-all').prop('checked', false);
+			}
+		  });*/
+		  
+		  
+		  $('#check-all').click(function () {
+			if ($(this).is(':checked')) {
+			  $('.student-checkbox').prop('checked', true);
+			  $('input[name="student-select"]').prop('checked', this.checked);
 			  $('#uncheck-all').prop('checked', false); // Uncheck the "Uncheck All" checkbox
 			}else{
 				$('.student-checkbox').prop('checked', false);
@@ -309,19 +357,109 @@
 			}
 		  });
 
-		  /*
-		  $('#uncheck-all').click(function () {
-			if ($(this).is(':checked')) {
-			  $('.student-checkbox').prop('checked', false);
-			  $('#check-all').prop('checked', false); // Uncheck the "Check All" checkbox
+		// Handle form submission for section assignment
+		$('#enrollSectionForm').submit(function(e) {
+			e.preventDefault();
+			
+			// Collect selected student IDs
+			let selectedStudents = [];
+			$('input[name="student-select"]:checked').each(function() {
+				selectedStudents.push($(this).val());
+			});
+
+			// Get selected section
+			let selectedSection = $('#addSubjectForm select').val();
+
+			if (selectedStudents.length > 0 && selectedSection) {
+				// AJAX request to send data to backend
+				$.ajax({
+					url: `${baseUrl}/student/assign-section/`,  // Django DRF endpoint
+					type: 'POST',
+					data: JSON.stringify({
+						students: selectedStudents,
+						section: selectedSection
+					}),
+					contentType: 'application/json',
+					success: function(response) {
+						alert('Section assigned successfully!');
+						
+					},
+					error: function(xhr, status, error) {
+						console.error('Error:', error);
+						alert('An error occurred. Please try again.');
+					}
+				});
+			} else {
+				alert("Please select students and a section.");
 			}
-		  });
-			*/
+		});
+
 		
 
 		
 	});
 
-</script>
+</script>-->
+
+
+<!--<section>
+$(document).ready(function() {
+    // Check/uncheck all students
+	
+	consr baseUrl = localStorage.getItem('url');
+    /*$('#check-all').on('click', function() {
+        $('input[name="student-select"]').prop('checked', this.checked);
+    });*/
+	
+		$('#check-all').click(function () {
+			if ($(this).is(':checked')) {
+			  $('.student-checkbox').prop('checked', true);
+			  $('input[name="student-select"]').prop('checked', this.checked);
+			  $('#uncheck-all').prop('checked', false); // Uncheck the "Uncheck All" checkbox
+			}else{
+				$('.student-checkbox').prop('checked', false);
+				$('#check-all').prop('checked', false);
+			}
+		  });
+
+    // Handle form submission for section assignment
+    $('#enrollSectionForm').submit(function(e) {
+        e.preventDefault();
+        
+        // Collect selected student IDs
+        let selectedStudents = [];
+        $('input[name="student-select"]:checked').each(function() {
+            selectedStudents.push($(this).val());
+        });
+
+        // Get selected section
+        let selectedSection = $('#addSubjectForm select').val();
+
+        if (selectedStudents.length > 0 && selectedSection) {
+            // AJAX request to send data to backend
+            $.ajax({
+                url: `${baseUrl}/student/assign-section/`,  // Django DRF endpoint
+                type: 'POST',
+                data: JSON.stringify({
+                    students: selectedStudents,
+                    section: selectedSection
+                }),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('Section assigned successfully!');
+                    
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        } else {
+            alert("Please select students and a section.");
+        }
+    });
+});
+
+</section>-->
 </body>
 </html> 
